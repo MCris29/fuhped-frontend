@@ -94,17 +94,11 @@ const Login = () => {
       console.log("userData", userData);
     } catch (error) {
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         alert(error.response.message);
         console.log(error.response);
       } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
         console.log(error.request);
       } else {
-        // Something happened in setting up the request that triggered an Error
         console.log("Error", error.message);
       }
       console.log(error.config);
@@ -127,7 +121,6 @@ const Login = () => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        {/* <Avatar class Name={classes.avatar}></Avatar> */}
         <Typography component="h1" variant="h5">
           Bienvenido
         </Typography>
