@@ -16,10 +16,11 @@ const theme = createMuiTheme({
       main: red.A400,
     },
     background: {
-      default: '#FCFAFC"',
+      default: "#FCFAFC",
     },
     text: {
       main: "#222329",
+      second: "#FCFAFC",
     },
   },
 });
