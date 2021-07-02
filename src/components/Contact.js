@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "9px 0",
     padding: "0 40px",
   },
-  card: {
-    width: "100%",
-  },
   title: {
     padding: "0 0 70px 0",
     display: "flex",
@@ -44,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "29em",
+  },
+  button: {
+    background: theme.palette.primary.second,
+    color: theme.palette.text.second,
   },
 }));
 
@@ -87,6 +88,9 @@ const Contact = () => {
                   rows={4}
                   variant="outlined"
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <Button className={classes.button}>Enviar</Button>
               </Grid>
             </Grid>
           </form>
