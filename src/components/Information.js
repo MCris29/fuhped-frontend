@@ -47,7 +47,7 @@ const Information = () => {
     <>
       <div className={classes.container}>
         <div style={{ padding: "0 0 70px 0" }}>
-          <h1>¿Quiénes Somos?</h1>
+          <Typography variant="h4">¿Quiénes Somos?</Typography>
         </div>
         <Typography>
           HALCONES POR EL DEPORTE es una fundación, que nace a partir de la
@@ -63,8 +63,8 @@ const Information = () => {
       </div>
       <div className={classes.itemContainer}>
         <Grid container justify="center">
-          {info.map((value) => (
-            <Grid key={value} item xs={12} md={4} className={classes.card}>
+          {info.map((value, index) => (
+            <Grid key={index} item xs={12} md={4} className={classes.card}>
               <Grid container>
                 <Grid item xs={12}>
                   <Typography variant="h6" component="h2">
