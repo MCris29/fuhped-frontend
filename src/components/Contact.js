@@ -23,7 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     padding: "0 0 70px 0",
-    textAlign: "center",
+    display: "flex",
+    justifyContent: "center",
+  },
+  underline: {
+    width: "fit-content",
+    padding: "10px 0",
+    borderBottom: "solid",
+    borderWidth: "medium",
+    borderBottomColor: theme.palette.primary.second,
   },
   form: {
     "& > *": {
@@ -48,7 +56,9 @@ const Contact = () => {
       <div className={classes.root}>
         <div className={classes.container}>
           <div className={classes.title}>
-            <Typography variant="h4">Contáctanos</Typography>
+            <div className={classes.underline}>
+              <Typography variant="h4">Contáctanos</Typography>
+            </div>
           </div>
           <form className={classes.form} noValidate autoComplete="off">
             <Grid container justify="center" style={{ width: "100%" }}>

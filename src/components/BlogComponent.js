@@ -45,7 +45,15 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     padding: "0 0 70px 0",
-    textAlign: "center",
+    display: "flex",
+    justifyContent: "center",
+  },
+  underline: {
+    width: "fit-content",
+    padding: "10px 0",
+    borderBottom: "solid",
+    borderWidth: "medium",
+    borderBottomColor: theme.palette.primary.second,
   },
 }));
 
@@ -58,7 +66,9 @@ const BlogComponent = () => {
       <div className={classes.root}>
         <div className={classes.container}>
           <div className={classes.title}>
-            <Typography variant="h4">Nuestro Blog</Typography>
+            <div className={classes.underline}>
+              <Typography variant="h4">Nuestro Blog</Typography>
+            </div>
           </div>
           <Grid container justify="center">
             {post.map((value, index) => (

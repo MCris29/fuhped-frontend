@@ -19,6 +19,18 @@ const useStyles = makeStyles((theme) => ({
   itemContainer: {
     background: "#F5F2F6",
   },
+  title: {
+    padding: "0 0 70px 0",
+    display: "flex",
+    justifyContent: "center",
+  },
+  underline: {
+    width: "fit-content",
+    padding: "10px 0",
+    borderBottom: "solid",
+    borderWidth: "medium",
+    borderBottomColor: theme.palette.primary.second,
+  },
 }));
 
 const info = [
@@ -46,8 +58,10 @@ const Information = () => {
   return (
     <>
       <div className={classes.container}>
-        <div style={{ padding: "0 0 70px 0" }}>
-          <Typography variant="h4">¿Quiénes Somos?</Typography>
+        <div className={classes.title}>
+          <div className={classes.underline}>
+            <Typography variant="h4">¿Quiénes Somos?</Typography>
+          </div>
         </div>
         <Typography>
           HALCONES POR EL DEPORTE es una fundación, que nace a partir de la

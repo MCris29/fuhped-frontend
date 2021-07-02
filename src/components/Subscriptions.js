@@ -27,6 +27,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.second,
     color: theme.palette.text.second,
   },
+  title: {
+    padding: "0 0 70px 0",
+    display: "flex",
+    justifyContent: "center",
+  },
+  underline: {
+    width: "fit-content",
+    padding: "10px 0",
+    borderBottom: "solid",
+    borderWidth: "medium",
+    borderBottomColor: theme.palette.secondary.main,
+  },
 }));
 
 const Subscription = () => {
@@ -35,9 +47,11 @@ const Subscription = () => {
 
   return (
     <>
-      <div>
-        <div className={classes.container}>
-          <Typography variant="h4">¿Quiéres ser Parte?</Typography>
+      <div className={classes.container}>
+        <div className={classes.title}>
+          <div className={classes.underline}>
+            <Typography variant="h4">¿Quiéres ser Parte?</Typography>
+          </div>
         </div>
         <div>
           <Grid container>
@@ -68,12 +82,7 @@ const Subscription = () => {
           </Grid>
           <Grid container className={classes.space}>
             <Grid item xs={12} md={6} className={classes.imageContainer}>
-              <Image
-                src="/partner.svg"
-                alt="Socio"
-                width={750}
-                height={250}
-              />
+              <Image src="/partner.svg" alt="Socio" width={750} height={250} />
             </Grid>
             <Grid item xs={12} md={6} className={classes.card}>
               <div className={classes.space}>
