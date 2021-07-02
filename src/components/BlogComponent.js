@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Typography } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -44,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
   card: {
     width: "100%",
   },
+  title: {
+    padding: "0 0 70px 0",
+    textAlign: "center",
+  },
 }));
 
 const BlogComponent = () => {
@@ -53,8 +56,8 @@ const BlogComponent = () => {
   return (
     <>
       <div className={classes.root}>
-        <div>
-          <div className={classes.container}>
+        <div className={classes.container}>
+          <div className={classes.title}>
             <Typography variant="h4">Nuestro Blog</Typography>
           </div>
           <Grid container justify="center">
