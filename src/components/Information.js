@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
+import Icon from "@material-ui/core/Icon";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -35,16 +36,19 @@ const useStyles = makeStyles((theme) => ({
 
 const info = [
   {
+    icon: "",
     title: "Misión",
     description:
       "Preservar el deporte con apoyo médico, preparación de nuevos talentos desde tempranas edades hasta juveniles, así como la ayuda en la rehabilitación física y psicológica para personas de escasos recursos económicos y en beneficio de la sociedad en general.",
   },
   {
+    icon: "",
     title: "Objetivo General",
     description:
       "Colaborar con la sociedad para mejorar la calidad de vida de los deportistas y la población en general.",
   },
   {
+    icon: "",
     title: "Objetivo Específico",
     description:
       "Brindar apoyo y ayuda a los deportistas en parte médica ( rehabilitación física) y preparación de nuevos talentos, dentro de las diferentes disciplinas deportivas.",
@@ -81,6 +85,7 @@ const Information = () => {
             <Grid key={index} item xs={12} md={4} className={classes.card}>
               <Grid container>
                 <Grid item xs={12}>
+                  <Icon>{value.icon}</Icon>
                   <Typography variant="h6" component="h2">
                     {value.title}
                   </Typography>
