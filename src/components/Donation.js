@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Image from "next/image";
+import { Block } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -13,14 +14,19 @@ const useStyles = makeStyles((theme) => ({
   itemContainer: {
     background: theme.palette.primary.main,
     color: theme.palette.text.second,
+    width: "100%",
   },
   space: {
     padding: "3em 0",
+    display: "flex",
+    justifyContent: "center",
   },
   button: {
+    margin: "10px 0",
     padding: "7px 25px",
     borderRadius: "10px",
     backgroundColor: theme.palette.background.default,
+    width: "19em",
   },
   media: {
     height: 0,
@@ -46,20 +52,21 @@ const Donation = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <div className={classes.space}>
-              <Typography variant="h4">Donaciones</Typography>
+              <Typography variant="h4">Realiza tu Donación</Typography>
             </div>
-            <Typography variant="body1">
-              Lorem Ipsum ssd klpo Lorem Ipsum sd wejj Lorem Iwepsum sdsas
-              Lorems Ipsum sd ewrew Lorem Ipsssum sdisio Lorem Ipsum sd klpo
-              Loudirem Ipsumri sad wejj Lorepsum sdsas Lorpsum sd ewrew Lorem
-              Ipsum sd Lorem Ipsum sd klpo Ipsumsa sd wejj Lorem Ips sdsas
-              Lorexm Ipsum sd ewrew Lorem Ipsum sd{" "}
-            </Typography>
-            <div className={classes.space}>
-              <Button variant="contained" className={classes.button}>
-                Donar
-              </Button>
-            </div>
+            <Typography variant="body1"> </Typography>
+            <Grid container className={classes.space}>
+              <Grid item xs={12}>
+                <Button variant="contained" className={classes.button}>
+                  Paypal
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Button variant="contained" className={classes.button}>
+                  Transferencia
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </div>

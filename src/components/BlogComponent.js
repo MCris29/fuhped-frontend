@@ -55,6 +55,12 @@ const useStyles = makeStyles((theme) => ({
     borderWidth: "medium",
     borderBottomColor: theme.palette.primary.second,
   },
+  button: {
+    padding: "7px 25px",
+    borderRadius: "10px",
+    backgroundColor: theme.palette.primary.second,
+    color: theme.palette.text.second,
+  },
 }));
 
 const BlogComponent = () => {
@@ -95,14 +101,14 @@ const BlogComponent = () => {
                       </Typography>
                     </CardContent>
                   </CardActionArea>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      Ver más...
-                    </Button>
-                  </CardActions>
                 </Card>
               </Grid>
             ))}
+            <Grid item xs={12}>
+              <Button variant="contained" className={classes.button}>
+                Ver más..
+              </Button>
+            </Grid>
           </Grid>
         </div>
       </div>

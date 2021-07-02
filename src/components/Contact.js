@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     textAlign: "center",
-    padding: "9em 40px",
+    padding: "0 40px 9em ",
   },
   inputContainer: {
     textAlign: "center",
@@ -90,7 +90,9 @@ const Contact = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button className={classes.button}>Enviar</Button>
+                <Button variant="contained" className={classes.button}>
+                  Enviar
+                </Button>
               </Grid>
             </Grid>
           </form>

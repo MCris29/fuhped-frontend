@@ -60,10 +60,7 @@ const Subscription = () => {
                 <Typography variant="h4">Afiliado</Typography>
               </div>
               <Typography variant="body1">
-                Lorem Ipsum ssd klpo Lorem Ipsum sd wejj Lorem Iwepsum sdsas
-                Lorems Ipsum sd ewrew Lorem Ipsssum sdisio Lorem Ipsum sd klpo
-                Loudirem Ipsumri sad wejj Lorepsum sdsas Lorpsum Lorexm Ipsum sd
-                ewrew Lorem Ipsum sd{" "}
+                Conviertete en afiliado, obten muchos beneficios{" "}
               </Typography>
               <div className={classes.space}>
                 <Button variant="contained" className={classes.button}>
@@ -89,10 +86,8 @@ const Subscription = () => {
                 <Typography variant="h4">Socio</Typography>
               </div>
               <Typography variant="body1">
-                Lorem Ipsum ssd klpo Lorem Ipsum sd wejj Lorem Iwepsum sdsas
-                Lorems Ipsum sd ewrew Lorem Ipsssum sdisio Lorem Ipsum sd klpo
-                Loudirem Ipsumri sad wejj Lorepsum sdsas Lorpsum Lorexm Ipsum sd
-                ewrew Lorem Ipsum sd{" "}
+                Convierte en socio, trabajemos juntos a favor de niños y
+                adolocentes deportistas{" "}
               </Typography>
               <div className={classes.space}>
                 <Button variant="contained" className={classes.button}>
