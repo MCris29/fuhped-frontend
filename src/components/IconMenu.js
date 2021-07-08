@@ -92,6 +92,23 @@ const IconsMenu = () => {
   );
 
   const mobileMenuId = "mobile-account-menu";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <Link href={Routes.LOGIN}>
+        <MenuItem className={classes.text}>
+          <p>Iniciar sesión</p>
+        </MenuItem>
+      </Link>
+    </Menu>
+  );
 
   return (
     <>
@@ -102,11 +119,11 @@ const IconsMenu = () => {
             {user.name}
           </MenuItem>
         ) : (
-          <div style={{ display: "flex" }} className={classes.buttonLogin}>
-            <Link href={Routes.LOGIN}>
+          <Link href={Routes.LOGIN}>
+            <div style={{ display: "flex" }} className={classes.buttonLogin}>
               <MenuItem className={classes.text}>Iniciar Sesión</MenuItem>
-            </Link>
-          </div>
+            </div>
+          </Link>
         )}
       </div>
 
@@ -114,7 +131,7 @@ const IconsMenu = () => {
         {user ? (
           <div>
             <MenuItem onClick={handleMenuAccountOpen} id="account-menu-button">
-              <AccountCircle />
+              <AccountCircle /> {user.name}
             </MenuItem>
           </div>
         ) : (
@@ -129,25 +146,11 @@ const IconsMenu = () => {
             >
               <MoreIcon />
             </IconButton>
-            <Menu
-              anchorEl={mobileMoreAnchorEl}
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              id={mobileMenuId}
-              keepMounted
-              transformOrigin={{ vertical: "top", horizontal: "right" }}
-              open={isMobileMenuOpen}
-              onClose={handleMobileMenuClose}
-            >
-              <div>
-                <Link href={Routes.LOGIN}>
-                  <MenuItem className={classes.text}>Iniciar sesión</MenuItem>
-                </Link>
-              </div>
-            </Menu>
           </div>
         )}
-        {renderMenuAccount}
       </div>
+      {renderMenuAccount}
+      {renderMobileMenu}
     </>
   );
 };
