@@ -3,9 +3,13 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import CardActions from "@material-ui/core/CardActions";
 import CardActionArea from "@material-ui/core/CardActionArea";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Modal from "@/components/Modal";
+import NewBlog from "@/components/NewBlog";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 
@@ -40,22 +44,20 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  title: {
-    padding: "0 0 70px 0",
+  buttonContainer: {
     display: "flex",
     justifyContent: "center",
     width: "100%",
   },
-  underline: {
-    width: "fit-content",
-    padding: "10px 0",
-    borderBottom: "solid",
-    borderWidth: "medium",
-    borderBottomColor: theme.palette.primary.second,
+  button: {
+    backgroundColor: theme.palette.primary.second,
+    borderRadius: "10px",
+    color: theme.palette.text.second,
+    padding: "6px 18px",
   },
 }));
 
-const Blog = () => {
+const BlogList = () => {
   const { data, error } = useSWR(`/publications`, fetcher);
   const classes = useStyles();
   const theme = useTheme();
@@ -65,17 +67,15 @@ const Blog = () => {
 
   return (
     <>
-      <Grid container className={classes.container}>
-        <div className={classes.title}>
-          <div className={classes.underline}>
-            <Typography variant="h4">Conoce nuestras historias</Typography>
-          </div>
+      <Grid container>
+        <div className={classes.buttonContainer}>
+          <NewBlog />
         </div>
         {data.data.map((publication, index) => (
           <Grid item xs={12} key={index} className={classes.cardContainer}>
             <Card className={classes.card}>
-              <CardActionArea>
-                <div className={classes.details}>
+              <div className={classes.details}>
+                <CardActionArea>
                   <CardContent className={classes.content}>
                     <Typography component="h5" variant="h5">
                       {publication.title}
@@ -84,8 +84,16 @@ const Blog = () => {
                   <div className={classes.description}>
                     <p>{publication.description}</p>
                   </div>
-                </div>
-              </CardActionArea>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Editar
+                  </Button>
+                  <Button size="small" color="primary">
+                    Eliminar
+                  </Button>
+                </CardActions>
+              </div>
               <CardMedia
                 className={classes.cover}
                 image={publication.image}
@@ -99,4 +107,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default BlogList;
