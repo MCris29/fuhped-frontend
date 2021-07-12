@@ -1,7 +1,8 @@
-import React from "react";
+import { React, useState } from "react";
 import Modal from "@/components/Modal";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Snackbar } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -54,8 +55,14 @@ const schema = yup.object().shape({
   description: yup.string().required("Ingrese una descripción"),
 });
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const NewBlog = (prop) => {
-  const [image, setImage] = React.useState(null);
+  const [image, setImage] = useState(null);
+  const [open, setOpen] = useState(false);
+
   const classes = useStyles();
   const {
     control,
@@ -85,6 +92,7 @@ const NewBlog = (prop) => {
       prop.handleMutate();
       document.getElementById("blog-form").reset();
       console.log("blogData", blogData);
+      handleClick();
     } catch (e) {
       console.log("error", e);
     }
@@ -94,6 +102,27 @@ const NewBlog = (prop) => {
     setImage(imageFile);
     console.log("image", imageFile);
   };
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const alert = (
+    <div>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Publicado exitosamente!
+        </Alert>
+      </Snackbar>
+    </div>
+  );
 
   const form = (
     <div className={classes.formContainer}>
@@ -187,9 +216,10 @@ const NewBlog = (prop) => {
 
   return (
     <>
+      {alert}
       <Modal
         message={false}
-        nameButton={"Nuevo"}
+        nameButton={"Nueva Publicación"}
         styleButton={true}
         title={"Añadir Publicación"}
         description={form}

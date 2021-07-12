@@ -1,14 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Modal,
-  Backdrop,
-  Fade,
-  Button,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { Modal, Backdrop, Fade, Button, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -27,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   actionContainer: {
-    margin: "10px 0",
+    marginTop: "10px",
     display: "flex",
     justifyContent: "flex-end",
     width: "100%",
