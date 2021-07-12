@@ -1,7 +1,9 @@
 import { React, useState } from "react";
+import clsx from "clsx";
 import Modal from "@/components/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button, Snackbar } from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
 import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -48,6 +50,20 @@ const useStyles = makeStyles((theme) => ({
   input: {
     display: "none",
   },
+  wrapper: {
+    margin: theme.spacing(1),
+    position: "relative",
+  },
+  buttonSuccess: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.text.second,
+    textTransform: "none",
+    
+    "&:hover": {
+      opacity: theme.opacity.buttonHover,
+      color: theme.palette.text.main,
+    },
+  },
 }));
 
 const schema = yup.object().shape({
@@ -62,6 +78,7 @@ function Alert(props) {
 const NewBlog = (prop) => {
   const [image, setImage] = useState(null);
   const [open, setOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const classes = useStyles();
   const {
@@ -71,35 +88,41 @@ const NewBlog = (prop) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (dataBlog) => {
-    console.log("blog", dataBlog);
+    // console.log("blog", dataBlog);
 
     const newBlog = {
       title: dataBlog.title,
       description: dataBlog.description,
       image: image,
     };
-    console.log("Nuevo blog", newBlog);
+    // console.log("Nuevo blog", newBlog);
 
     const formData = new FormData();
     formData.append("title", newBlog.title);
     formData.append("description", newBlog.description);
     formData.append("image", newBlog.image);
 
-    console.log("formData", formData);
+    // console.log("formData", formData);
 
     try {
       const blogData = await Blogs.create(formData);
+      // console.log("blogData", blogData);
       prop.handleMutate();
-      document.getElementById("blog-form").reset();
-      console.log("blogData", blogData);
       handleClick();
+
+      document.getElementById("blog-form").reset();
     } catch (e) {
       console.log("error", e);
     }
   };
 
+  const buttonClassname = clsx({
+    [classes.buttonSuccess]: success,
+  });
+
   const handleImage = (imageFile) => {
     setImage(imageFile);
+    setSuccess(true);
     console.log("image", imageFile);
   };
 
@@ -118,7 +141,7 @@ const NewBlog = (prop) => {
     <div>
       <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
-          Publicado exitosamente!
+          Publicado exitosamente
         </Alert>
       </Snackbar>
     </div>
@@ -187,14 +210,20 @@ const NewBlog = (prop) => {
                 onChange={(e) => handleImage(e.target.files[0])}
               />
               <label htmlFor="contained-button-file">
-                <Button
-                  variant="contained"
-                  fullWidth
-                  className={classes.buttonCancel}
-                  component="span"
-                >
-                  Subir Imagen
-                </Button>
+                <div>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    component="span"
+                    className={buttonClassname}
+                  >
+                    {success ? (
+                      <span>Imagen cargada</span>
+                    ) : (
+                      <span>Subir imagen</span>
+                    )}
+                  </Button>
+                </div>
               </label>
             </div>
           )}
