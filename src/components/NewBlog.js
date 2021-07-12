@@ -1,9 +1,7 @@
 import React from "react";
 import Modal from "@/components/Modal";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import { TextField, Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -12,13 +10,19 @@ import { Blogs } from "@/lib/blogs";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
-      width: "25ch",
+      [theme.breakpoints.up("xs")]: {
+        width: "30ch",
+      },
+      [theme.breakpoints.up("md")]: {
+        width: "50ch",
+      },
     },
   },
   button: {
     backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
     color: theme.palette.text.second,
+    margin: "16px 0 8px 0",
     textTransform: "none",
     "&:hover": {
       backgroundColor: theme.palette.primary.main,
@@ -28,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     borderRadius: theme.border.default,
     color: theme.palette.text.main,
+    margin: "16px 0 8px 0",
     textTransform: "none",
     "&:hover": {
       opacity: 0.5,
@@ -36,11 +41,11 @@ const useStyles = makeStyles((theme) => ({
   formContainer: {
     display: "table-caption",
   },
-  actionContainer: {
-    paddingTop: "20px",
-  },
   error: {
     color: theme.palette.error.main,
+  },
+  input: {
+    display: "none",
   },
 }));
 
@@ -49,7 +54,8 @@ const schema = yup.object().shape({
   description: yup.string().required("Ingrese una descripción"),
 });
 
-const NewBlog = () => {
+const NewBlog = (prop) => {
+  const [image, setImage] = React.useState(null);
   const classes = useStyles();
   const {
     control,
@@ -60,19 +66,39 @@ const NewBlog = () => {
   const onSubmit = async (dataBlog) => {
     console.log("blog", dataBlog);
 
+    const newBlog = {
+      title: dataBlog.title,
+      description: dataBlog.description,
+      image: image,
+    };
+    console.log("Nuevo blog", newBlog);
+
+    const formData = new FormData();
+    formData.append("title", newBlog.title);
+    formData.append("description", newBlog.description);
+    formData.append("image", newBlog.image);
+
+    console.log("formData", formData);
+
     try {
-      const blogData = await Blogs.create(dataBlog);
-      mutate();
-      document.getElementById("title-form").reset();
+      const blogData = await Blogs.create(formData);
+      prop.handleMutate();
+      document.getElementById("blog-form").reset();
       console.log("blogData", blogData);
     } catch (e) {
       console.log("error", e);
     }
   };
 
+  const handleImage = (imageFile) => {
+    setImage(imageFile);
+    console.log("image", imageFile);
+  };
+
   const form = (
     <div className={classes.formContainer}>
       <form
+        id="blog-form"
         className={classes.root}
         noValidate
         autoComplete="off"
@@ -111,31 +137,50 @@ const NewBlog = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              multiline={true}
               error={Boolean(errors.description)}
             />
           )}
         />
         <span className={classes.error}>{errors.description?.message}</span>
-        <Grid container className={classes.actionContainer}>
-          <Grid item xs={5}>
-            <Button
-              type="submit"
-              variant="contained"
-              fullWidth
-              className={classes.button}
-            >
-              Añadir
-            </Button>
-          </Grid>
-          <Grid item xs={2}>
-            <div></div>
-          </Grid>
-          <Grid item xs={5}>
-            <Button fullWidth className={classes.buttonCancel}>
-              Cancelar
-            </Button>
-          </Grid>
-        </Grid>
+        <Controller
+          name="image"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <div>
+              <input
+                type="file"
+                name="image"
+                {...field}
+                className={classes.input}
+                id="contained-button-file"
+                onChange={(e) => handleImage(e.target.files[0])}
+              />
+              <label htmlFor="contained-button-file">
+                <Button
+                  variant="contained"
+                  fullWidth
+                  className={classes.buttonCancel}
+                  component="span"
+                >
+                  Subir Imagen
+                </Button>
+              </label>
+            </div>
+          )}
+        />
+        <span className={classes.error}>{errors.image?.message}</span>
+        <div>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            className={classes.button}
+          >
+            Guardar Publicación
+          </Button>
+        </div>
       </form>
     </div>
   );
@@ -143,9 +188,12 @@ const NewBlog = () => {
   return (
     <>
       <Modal
+        message={false}
         nameButton={"Nuevo"}
+        styleButton={true}
         title={"Añadir Publicación"}
         description={form}
+        buttonCancel={false}
       />
     </>
   );

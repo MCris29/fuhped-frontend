@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Button from "@material-ui/core/Button";
+import {
+  Modal,
+  Backdrop,
+  Fade,
+  Button,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -22,6 +26,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
+  actionContainer: {
+    margin: "10px 0",
+    display: "flex",
+    justifyContent: "flex-end",
+    width: "100%",
+  },
   button: {
     backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
@@ -31,9 +41,18 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.main,
     },
   },
+  buttonCancel: {
+    backgroundColor: theme.palette.background.default,
+    borderRadius: theme.border.default,
+    color: theme.palette.text.main,
+    textTransform: "none",
+    "&:hover": {
+      opacity: 0.5,
+    },
+  },
 }));
 
-export default function SimpleModal({ nameButton, title, description }) {
+const SimpleModal = (prop) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -45,11 +64,21 @@ export default function SimpleModal({ nameButton, title, description }) {
     setOpen(false);
   };
 
+  const handleAction = () => {
+    prop.handleAction();
+  };
+
   return (
     <>
-      <Button className={classes.button} onClick={handleOpen}>
-        {nameButton}
-      </Button>
+      {prop.styleButton ? (
+        <Button className={classes.button} onClick={handleOpen}>
+          {prop.nameButton}
+        </Button>
+      ) : (
+        <Button className={classes.buttonCancel} onClick={handleOpen}>
+          {prop.nameButton}
+        </Button>
+      )}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -64,11 +93,45 @@ export default function SimpleModal({ nameButton, title, description }) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">{title}</h2>
-            <div id="transition-modal-description">{description}</div>
+            {prop.message ? (
+              <Typography id="transition-modal-title" variant="h6">
+                {prop.title}
+              </Typography>
+            ) : (
+              <Typography id="transition-modal-title" variant="h5">
+                {prop.title}
+              </Typography>
+            )}
+
+            <div id="transition-modal-description">{prop.description}</div>
+
+            {prop.nameButtonAction ? (
+              <div className={classes.actionContainer}>
+                {prop.styleActionButton ? (
+                  <Button onClick={handleAction} className={classes.button}>
+                    {prop.nameButtonAction}
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleAction}
+                    className={classes.buttonCancel}
+                  >
+                    {prop.nameButtonAction}
+                  </Button>
+                )}
+
+                <Button onClick={handleClose} className={classes.buttonCancel}>
+                  Cancelar
+                </Button>
+              </div>
+            ) : (
+              <div></div>
+            )}
           </div>
         </Fade>
       </Modal>
     </>
   );
-}
+};
+
+export default SimpleModal;
