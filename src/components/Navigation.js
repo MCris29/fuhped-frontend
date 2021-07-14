@@ -31,7 +31,7 @@ const mainMenuItems = [
   },
   {
     text: "Blog",
-    to: Routes.HOME,
+    to: Routes.BLOG,
   },
   {
     text: "Servicios",
@@ -122,7 +122,7 @@ function HideOnScroll(props) {
   );
 }
 
-export default function MainMenu(props) {
+const MainMenu = (props) => {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
   const theme = useTheme();
@@ -154,7 +154,7 @@ export default function MainMenu(props) {
       <Divider />
       <List>
         {mainMenuItems.map((item, index) => (
-          <Link href={item.to} key={item.text}>
+          <Link href={item.to} key={index}>
             <ListItem button onClick={() => setOpenDrawer(false)}>
               <Icon className={classes.icon}>{item.icon}</Icon>
               <ListItemText>{item.text}</ListItemText>
@@ -170,48 +170,52 @@ export default function MainMenu(props) {
   return (
     <div className={classes.grow}>
       <HideOnScroll {...props}>
-        <div position="sticky" className={classes.appBar}>
-          <Toolbar>
-            <Grid container className={classes.appBarSize}>
-              <Grid item xs={2} style={{ display: "flex" }}>
-                <div className={classes.sectionMobile}>
-                  <IconButton
-                    edge="start"
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={handleDrawerOpen}
-                    className={clsx(
-                      classes.menuButton,
-                      openDrawer && classes.hide
-                    )}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                </div>
-                <div className={classes.sectionDesktop}>{logo}</div>
-              </Grid>
-              <Grid item xs={8} className={classes.drawerHeader}>
-                <div className={classes.grow} />
+        <AppBar position="sticky" className={classes.appBar}>
+          <div position="sticky" className={classes.appBar}>
+            <Toolbar>
+              <Grid container className={classes.appBarSize}>
+                <Grid item xs={2} style={{ display: "flex" }}>
+                  <div className={classes.sectionMobile}>
+                    <IconButton
+                      edge="start"
+                      color="inherit"
+                      aria-label="open drawer"
+                      onClick={handleDrawerOpen}
+                      className={clsx(
+                        classes.menuButton,
+                        openDrawer && classes.hide
+                      )}
+                    >
+                      <MenuIcon />
+                    </IconButton>
+                  </div>
+                  <div className={classes.sectionDesktop}>{logo}</div>
+                </Grid>
+                <Grid item xs={8} className={classes.drawerHeader}>
+                  <div className={classes.grow} />
 
-                <div className={classes.sectionDesktop}>
-                  {mainMenuItems.map((item) => (
-                    <Link href={item.to} key={item.text}>
-                      <MenuItem>{item.text}</MenuItem>
-                    </Link>
-                  ))}
-                </div>
-                <div className={classes.sectionMobile}>{logo}</div>
-                <div className={classes.grow} />
+                  <div className={classes.sectionDesktop}>
+                    {mainMenuItems.map((item, index) => (
+                      <Link href={item.to} key={index}>
+                        <MenuItem>{item.text}</MenuItem>
+                      </Link>
+                    ))}
+                  </div>
+                  <div className={classes.sectionMobile}>{logo}</div>
+                  <div className={classes.grow} />
+                </Grid>
+                <Grid item xs={2} className={classes.drawerHeader}>
+                  <IconMenu />
+                </Grid>
               </Grid>
-              <Grid item xs={2} className={classes.drawerHeader}>
-                <IconMenu />
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </div>
+            </Toolbar>
+          </div>
+        </AppBar>
       </HideOnScroll>
       {renderDrawerMenu}
       <Toolbar />
     </div>
   );
-}
+};
+
+export default MainMenu;

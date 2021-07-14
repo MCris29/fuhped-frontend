@@ -1,12 +1,12 @@
 import React from "react";
-import IconButton from "@material-ui/core/IconButton";
+import Link from "next/link";
+import { makeStyles } from "@material-ui/core/styles";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import { makeStyles } from "@material-ui/core/styles";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import IconButton from "@material-ui/core/IconButton";
+import { Menu, MenuItem, Button } from "@material-ui/core";
+
 import { useAuth } from "@/lib/auth";
-import Link from "next/link";
 import Routes from "../constants/routes";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,11 +30,15 @@ const useStyles = makeStyles((theme) => ({
     padding: "0px 5px",
     margin: "2px",
   },
-  buttonLogin: {
+  button: {
     backgroundColor: theme.palette.primary.second,
-    borderRadius: "10px",
+    borderRadius: theme.border.default,
     color: theme.palette.text.second,
+    textTransform: "none",
     padding: "6px",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
   },
 }));
 
@@ -56,15 +60,15 @@ const IconsMenu = () => {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const handleProfile = async () => {
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleProfile = () => {
     handleMenuAccountClose();
   };
 
@@ -87,11 +91,31 @@ const IconsMenu = () => {
       <Link href={Routes.HOME}>
         <MenuItem onClick={handleProfile}>Perfil</MenuItem>
       </Link>
+      <Link href={Routes.MENU}>
+        <MenuItem onClick={handleProfile}>Menu</MenuItem>
+      </Link>
       <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
     </Menu>
   );
 
   const mobileMenuId = "mobile-account-menu";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <Link href={Routes.LOGIN}>
+        <MenuItem className={classes.text}>
+          <p>Iniciar sesión</p>
+        </MenuItem>
+      </Link>
+    </Menu>
+  );
 
   return (
     <>
@@ -102,11 +126,11 @@ const IconsMenu = () => {
             {user.name}
           </MenuItem>
         ) : (
-          <div style={{ display: "flex" }} className={classes.buttonLogin}>
-            <Link href={Routes.LOGIN}>
+          <Link href={Routes.LOGIN}>
+            <Button className={classes.button}>
               <MenuItem className={classes.text}>Iniciar Sesión</MenuItem>
-            </Link>
-          </div>
+            </Button>
+          </Link>
         )}
       </div>
 
@@ -114,7 +138,7 @@ const IconsMenu = () => {
         {user ? (
           <div>
             <MenuItem onClick={handleMenuAccountOpen} id="account-menu-button">
-              <AccountCircle />
+              <AccountCircle /> {user.name}
             </MenuItem>
           </div>
         ) : (
@@ -129,25 +153,11 @@ const IconsMenu = () => {
             >
               <MoreIcon />
             </IconButton>
-            <Menu
-              anchorEl={mobileMoreAnchorEl}
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              id={mobileMenuId}
-              keepMounted
-              transformOrigin={{ vertical: "top", horizontal: "right" }}
-              open={isMobileMenuOpen}
-              onClose={handleMobileMenuClose}
-            >
-              <div>
-                <Link href={Routes.LOGIN}>
-                  <MenuItem className={classes.text}>Iniciar sesión</MenuItem>
-                </Link>
-              </div>
-            </Menu>
           </div>
         )}
-        {renderMenuAccount}
       </div>
+      {renderMenuAccount}
+      {renderMobileMenu}
     </>
   );
 };

@@ -23,6 +23,13 @@ const theme = createMuiTheme({
       second: "#FCFAFC",
     },
   },
+  border: {
+    default: "10px",
+    image: "5px",
+  },
+  opacity: {
+    buttonHover: "0.8",
+  },
 });
 
 export default theme;
