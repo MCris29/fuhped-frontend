@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Grid, Tabs, Tab } from "@material-ui/core";
 import BlogList from "@/components/BlogList";
+import PartnertsList from "@/components/PartnertsList";
 import withAuth from "../hocs/withAuth";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,7 +87,7 @@ const Menu = () => {
               <BlogList />
             </TabPanel>
             <TabPanel value={value} index={3}>
-              Socios
+              <PartnertsList />
             </TabPanel>
             <TabPanel value={value} index={4}>
               Afiliados

@@ -93,7 +93,7 @@ const BlogList = () => {
   const classes = useStyles();
   const theme = useTheme();
 
-  if (error) return <div>No se pudo cargar la información del usuario</div>;
+  if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <div>Cargando...</div>;
 
   const handleMutate = () => {
