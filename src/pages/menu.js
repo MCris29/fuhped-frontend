@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
+import { Grid, Tabs, Tab } from "@material-ui/core";
 import BlogList from "@/components/BlogList";
-import Grid from "@material-ui/core/Grid";
+import withAuth from "../hocs/withAuth";
 
 const useStyles = makeStyles((theme) => ({
   menuContainer: {
@@ -103,4 +101,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default withAuth(Menu);

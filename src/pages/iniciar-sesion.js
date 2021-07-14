@@ -1,26 +1,27 @@
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  Link,
+  Grid,
+  Typography,
+  Container,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  InputLabel,
+} from "@material-ui/core";
+
 import { useAuth } from "@/lib/auth";
 import withoutAuth from "@/hocs/withoutAuth";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import clsx from "clsx";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import FormControl from "@material-ui/core/FormControl";
 
 function Copyright() {
   return (
@@ -50,8 +51,15 @@ const useStyles = makeStyles((theme) => ({
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
-  submit: {
+  button: {
+    backgroundColor: theme.palette.primary.second,
+    borderRadius: theme.border.default,
+    color: theme.palette.text.second,
+    textTransform: "none",
     margin: theme.spacing(3, 0, 2),
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
   },
   withoutLabel: {
     marginTop: theme.spacing(3),
@@ -74,6 +82,11 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const [values, setValues] = useState({
+    password: "",
+    showPassword: false,
+  });
   const { login } = useAuth();
   const classes = useStyles();
   const {
@@ -82,13 +95,9 @@ const Login = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const [values, setValues] = React.useState({
-    password: "",
-    showPassword: false,
-  });
-
   const onSubmit = async (data) => {
     console.log("data", data);
+    setLoading(true);
     try {
       const userData = await login(data);
       console.log("userData", userData);
@@ -103,6 +112,7 @@ const Login = () => {
       }
       console.log(error.config);
     }
+    setLoading(false);
   };
 
   const handleChange = (prop) => (event) => {
@@ -201,7 +211,8 @@ const Login = () => {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
+            className={classes.button}
+            disabled={loading}
           >
             Iniciar Sesión
           </Button>

@@ -1,12 +1,11 @@
 const publicRoutes = {
   LOGIN: "/iniciar-sesion",
   BLOG: "/blog",
-  MENU: "/menu",
 };
 
 const privateRoutes = {
   HOME: "/",
-  PROFILE: "/profile",
+  MENU: "/menu",
 };
 
 const Routes = {
