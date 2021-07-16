@@ -14,6 +14,7 @@ import ActionBar from "@/components/ActionBar";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import theme from "src/pages/theme";
+import NewPartner from "@/components/NewPartner";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const columns = [
-  { id: "name_partner", label: "Propietario" },
+  // { id: "name_partner", label: "Propietario" },
   { id: "business", label: "Negocio" },
   {
     id: "description",
@@ -44,11 +45,11 @@ const columns = [
     label: "Estado",
     align: "right",
   },
-  {
-    id: "actions",
-    label: "Acciones",
-    align: "right",
-  },
+  // {
+  //   id: "actions",
+  //   label: "Acciones",
+  //   align: "right",
+  // },
 ];
 
 const PartnersList = () => {
@@ -58,7 +59,7 @@ const PartnersList = () => {
 
   const { data, error, mutate } = useSWR(`/partners`, fetcher);
 
-  if (error) return <div>No se pudo cargar la información del usuario</div>;
+  if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <div>Cargando...</div>;
 
   const handleChangePage = (event, newPage) => {
@@ -70,9 +71,13 @@ const PartnersList = () => {
     setPage(0);
   };
 
+  const meta = <div>{data.meta.total} Socios</div>;
+
+  const newPartner = <NewPartner mutate={mutate} />;
+
   return (
     <>
-      <ActionBar />
+      <ActionBar actionFirst={meta} actionSecond={newPartner} />
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
@@ -119,14 +124,14 @@ const PartnersList = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
+        {/* <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={10}
+          count={20}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
-        />
+        /> */}
       </Paper>
     </>
   );

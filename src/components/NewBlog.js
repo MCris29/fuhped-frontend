@@ -1,14 +1,13 @@
 import { React, useState } from "react";
-import clsx from "clsx";
-import Modal from "@/components/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button, Snackbar } from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
 import MuiAlert from "@material-ui/lab/Alert";
+import Modal from "@/components/Modal";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Blogs } from "@/lib/blogs";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.text.second,
     textTransform: "none",
-    
+
     "&:hover": {
       opacity: theme.opacity.buttonHover,
       color: theme.palette.text.main,

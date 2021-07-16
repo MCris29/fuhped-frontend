@@ -60,7 +60,7 @@ const Menu = () => {
     <>
       <div className={classes.menuContainer}>
         <Grid container>
-          <Grid item xs={5} md={2}>
+          <Grid item xs={5} md={3}>
             <Tabs
               orientation="vertical"
               value={value}
@@ -76,7 +76,7 @@ const Menu = () => {
               <Tab label="Citas" {...a11yProps(5)} />
             </Tabs>
           </Grid>
-          <Grid item xs={7} md={10}>
+          <Grid item xs={7} md={9}>
             <TabPanel value={value} index={0}>
               Perfil
             </TabPanel>
