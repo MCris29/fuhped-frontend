@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { React, useState, cloneElement } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "next/link";
-import AppBar from "@material-ui/core/AppBar";
-import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
+import Icon from "@material-ui/core/Icon";
+import List from "@material-ui/core/List";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import {
@@ -14,15 +14,18 @@ import {
   ListItem,
   ListItemText,
   useScrollTrigger,
+  Grid,
+  AppBar,
+  Toolbar,
+  Slide,
 } from "@material-ui/core";
-import Slide from "@material-ui/core/Slide";
-import List from "@material-ui/core/List";
-import clsx from "clsx";
 import Routes from "@/constants/routes";
 import IconMenu from "@/components/IconMenu";
-import Icon from "@material-ui/core/Icon";
+import PropTypes from "prop-types";
+import clsx from "clsx";
 
 const drawerWidth = 200;
+const logo = <h1>FUHPED</h1>;
 
 const mainMenuItems = [
   {
@@ -56,21 +59,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     color: theme.palette.text.main,
     maxHeight: 180,
-    paddingTop: "20px",
-  },
-  appBarSize: {
-    [theme.breakpoints.up("xs")]: {
-      // height: "87px",
-    },
-    [theme.breakpoints.up("md")]: {
-      height: "auto",
-    },
   },
   grow: {
     flexGrow: 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  link: {
+    textTransform: "none",
+    "&:hover": {
+      color: theme.palette.primary.second,
+      backgroundColor: theme.palette.background.default,
+      borderRadius: theme.border.default,
+      transform: "scale(1.1)",
+    },
   },
   sectionDesktop: {
     display: "none",
@@ -83,14 +86,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       display: "none",
     },
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
   },
   hide: {
     display: "none",
@@ -122,10 +117,31 @@ function HideOnScroll(props) {
   );
 }
 
+function ElevationScroll(props) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+}
+
+ElevationScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
 const MainMenu = (props) => {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
-  const theme = useTheme();
 
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
@@ -154,7 +170,7 @@ const MainMenu = (props) => {
       <Divider />
       <List>
         {mainMenuItems.map((item, index) => (
-          <Link href={item.to} key={index}>
+          <Link href={item.to} key={"movil" + index}>
             <ListItem button onClick={() => setOpenDrawer(false)}>
               <Icon className={classes.icon}>{item.icon}</Icon>
               <ListItemText>{item.text}</ListItemText>
@@ -165,53 +181,50 @@ const MainMenu = (props) => {
     </Drawer>
   );
 
-  const logo = <h1>FUHPED</h1>;
-
   return (
     <div className={classes.grow}>
-      <HideOnScroll {...props}>
-        <AppBar position="sticky" className={classes.appBar}>
-          <div position="sticky" className={classes.appBar}>
-            <Toolbar>
-              <Grid container className={classes.appBarSize}>
-                <Grid item xs={2} style={{ display: "flex" }}>
-                  <div className={classes.sectionMobile}>
-                    <IconButton
-                      edge="start"
-                      color="inherit"
-                      aria-label="open drawer"
-                      onClick={handleDrawerOpen}
-                      className={clsx(
-                        classes.menuButton,
-                        openDrawer && classes.hide
-                      )}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                  </div>
-                  <div className={classes.sectionDesktop}>{logo}</div>
-                </Grid>
-                <Grid item xs={8} className={classes.drawerHeader}>
-                  <div className={classes.grow} />
-
-                  <div className={classes.sectionDesktop}>
-                    {mainMenuItems.map((item, index) => (
-                      <Link href={item.to} key={index}>
-                        <MenuItem>{item.text}</MenuItem>
-                      </Link>
-                    ))}
-                  </div>
-                  <div className={classes.sectionMobile}>{logo}</div>
-                  <div className={classes.grow} />
-                </Grid>
-                <Grid item xs={2} className={classes.drawerHeader}>
-                  <IconMenu />
-                </Grid>
+      <CssBaseline />
+      <ElevationScroll {...props}>
+        <AppBar className={classes.appBar}>
+          <Toolbar id="back-to-top-anchor">
+            <Grid container>
+              <Grid item xs={2} style={{ display: "flex" }}>
+                <div className={classes.sectionMobile}>
+                  <IconButton
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    className={clsx(
+                      classes.menuButton,
+                      openDrawer && classes.hide
+                    )}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                </div>
+                <div className={classes.sectionDesktop}>{logo}</div>
               </Grid>
-            </Toolbar>
-          </div>
+              <Grid item xs={8} className={classes.drawerHeader}>
+                <div className={classes.grow} />
+
+                <div className={classes.sectionDesktop}>
+                  {mainMenuItems.map((item, index) => (
+                    <Link href={item.to} key={"desktop" + index}>
+                      <MenuItem className={classes.link}>{item.text}</MenuItem>
+                    </Link>
+                  ))}
+                </div>
+                <div className={classes.sectionMobile}>{logo}</div>
+                <div className={classes.grow} />
+              </Grid>
+              <Grid item xs={2} className={classes.drawerHeader}>
+                <IconMenu />
+              </Grid>
+            </Grid>
+          </Toolbar>
         </AppBar>
-      </HideOnScroll>
+      </ElevationScroll>
       {renderDrawerMenu}
       <Toolbar />
     </div>

@@ -126,11 +126,11 @@ const IconsMenu = () => {
             {user.name}
           </MenuItem>
         ) : (
-          <Link href={Routes.LOGIN}>
-            <Button className={classes.button}>
+          <Button className={classes.button}>
+            <Link href={Routes.LOGIN}>
               <MenuItem className={classes.text}>Iniciar Sesión</MenuItem>
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         )}
       </div>
 
