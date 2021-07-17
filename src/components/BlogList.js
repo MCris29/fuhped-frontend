@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
   Card,
@@ -9,6 +9,7 @@ import {
   Typography,
   Grid,
 } from "@material-ui/core";
+import ActionBar from "@/components/ActionBar";
 import NewBlog from "@/components/NewBlog";
 import DeleteBlog from "@/components/DeleteBlog";
 import { fetcher } from "@/lib/utils";
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "1em 40px",
   },
   cardContainer: {
-    padding: "12px",
+    margin: "10px 40px",
   },
   card: {
     display: "flex",
@@ -63,29 +64,6 @@ const useStyles = makeStyles((theme) => ({
       width: "530px",
     },
   },
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "center",
-    width: "100%",
-  },
-  button: {
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: theme.border.default,
-    color: theme.palette.text.second,
-    textTransform: "none",
-    "&:hover": {
-      backgroundColor: theme.palette.primary.second,
-    },
-  },
-  buttonCancel: {
-    backgroundColor: theme.palette.background.default,
-    borderRadius: theme.border.default,
-    color: theme.palette.text.main,
-    textTransform: "none",
-    "&:hover": {
-      opacity: 0.5,
-    },
-  },
 }));
 
 const BlogList = () => {
@@ -100,12 +78,14 @@ const BlogList = () => {
     mutate();
   };
 
+  const meta = <div>{data.meta.total} Publicaciones</div>;
+
+  const newBlog = <NewBlog mutate={mutate} />;
+
   return (
     <>
+      <ActionBar actionFirst={meta} actionSecond={newBlog} />
       <Grid container>
-        <div className={classes.buttonContainer}>
-          <NewBlog handleMutate={handleMutate} />
-        </div>
         {data.data.map((publication, index) => (
           <Grid item xs={12} key={index} className={classes.cardContainer}>
             <Card className={classes.card}>

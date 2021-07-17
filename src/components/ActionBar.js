@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   actionFirst: {
     display: "flex",
     alignItems: "center",
+    paddingLeft: "16px",
   },
 }));
 

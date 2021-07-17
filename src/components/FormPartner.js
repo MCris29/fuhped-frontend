@@ -177,6 +177,7 @@ const FormPartner = (prop) => {
 
   return (
     <>
+      {alert}
       <div className={classes.formContainer}>
         <form
           id="partner-form"
