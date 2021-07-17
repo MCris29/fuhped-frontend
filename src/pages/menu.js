@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Grid, Tabs, Tab } from "@material-ui/core";
 import BlogList from "@/components/BlogList";
+import PartnertsList from "@/components/PartnertsList";
 import withAuth from "../hocs/withAuth";
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +60,7 @@ const Menu = () => {
     <>
       <div className={classes.menuContainer}>
         <Grid container>
-          <Grid item xs={5} md={2}>
+          <Grid item xs={5} md={3}>
             <Tabs
               orientation="vertical"
               value={value}
@@ -75,7 +76,7 @@ const Menu = () => {
               <Tab label="Citas" {...a11yProps(5)} />
             </Tabs>
           </Grid>
-          <Grid item xs={7} md={10}>
+          <Grid item xs={7} md={9}>
             <TabPanel value={value} index={0}>
               Perfil
             </TabPanel>
@@ -86,7 +87,7 @@ const Menu = () => {
               <BlogList />
             </TabPanel>
             <TabPanel value={value} index={3}>
-              Socios
+              <PartnertsList />
             </TabPanel>
             <TabPanel value={value} index={4}>
               Afiliados

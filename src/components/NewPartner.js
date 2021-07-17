@@ -1,15 +1,7 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Button,
-  Snackbar,
-  Modal,
-  Backdrop,
-  Fade,
-  Typography,
-} from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
-import FormBlog from "@/components/FormBlog";
+import { Button, Modal, Backdrop, Fade, Typography } from "@material-ui/core";
+import FormPartner from "@/components/FormPartner";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -39,20 +31,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
-const NewBlog = (prop) => {
-  const [image, setImage] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [success, setSuccess] = useState(false);
-
+const NewPartner = (prop) => {
   const classes = useStyles();
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -66,36 +48,10 @@ const NewBlog = (prop) => {
     prop.mutate();
   };
 
-  const handleOpenSucces = () => {
-    setSuccess(true);
-  };
-
-  const handleCloseSuccess = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setSuccess(false);
-  };
-
-  const alert = (
-    <div>
-      <Snackbar
-        open={success}
-        autoHideDuration={5000}
-        onClose={handleCloseSuccess}
-      >
-        <Alert onClose={handleCloseSuccess} severity="success">
-          Publicado exitosamente
-        </Alert>
-      </Snackbar>
-    </div>
-  );
-
   return (
     <>
-      {alert}
       <Button className={classes.button} onClick={handleOpen}>
-        Nueva Publicación
+        Registrar Socio
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -112,13 +68,12 @@ const NewBlog = (prop) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography id="transition-modal-title" variant="h6">
-              Nueva Publicación
+              Registrar nuevo socio
             </Typography>
             <div id="transition-modal-description">
-              <FormBlog
+              <FormPartner
                 handleClose={handleClose}
-                handleMutate={handlemutate}
-                handleOpenSucces={handleOpenSucces}
+                handlemutate={handlemutate}
               />
             </div>
           </div>
@@ -128,4 +83,4 @@ const NewBlog = (prop) => {
   );
 };
 
-export default NewBlog;
+export default NewPartner;
