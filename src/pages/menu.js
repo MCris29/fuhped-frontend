@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Grid, Tabs, Tab } from "@material-ui/core";
+import { Grid, Tabs, Tab, Typography, Button } from "@material-ui/core";
 import BlogList from "@/components/BlogList";
 import PartnertsList from "@/components/PartnertsList";
+import AffiliatesList from "@/components/AffiliatesList";
 import withAuth from "../hocs/withAuth";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +59,7 @@ const Menu = () => {
 
   return (
     <>
-      <div className={classes.menuContainer}>
+      {/* <div className={classes.menuContainer}>
         <Grid container>
           <Grid item xs={5} md={3}>
             <Tabs
@@ -90,14 +91,32 @@ const Menu = () => {
               <PartnertsList />
             </TabPanel>
             <TabPanel value={value} index={4}>
-              Afiliados
+              <AffiliatesList />
             </TabPanel>
             <TabPanel value={value} index={5}>
               Citas
             </TabPanel>
           </Grid>
         </Grid>
-      </div>
+      </div> */}
+
+      <Grid container className={classes.menuContainer}>
+        <Grid item xs={12}>
+          <Button>
+            <Typography>Perfil</Typography>
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Button>
+            <Typography>Perfil</Typography>
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Button>
+            <Typography>Perfil</Typography>
+          </Button>
+        </Grid>
+      </Grid>
     </>
   );
 };
