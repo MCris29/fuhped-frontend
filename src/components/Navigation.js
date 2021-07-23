@@ -104,6 +104,9 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
   },
+  gridContainer: {
+    padding: "0 40px",
+  },
 }));
 
 function HideOnScroll(props) {
@@ -187,7 +190,7 @@ const MainMenu = (props) => {
       <ElevationScroll {...props}>
         <AppBar className={classes.appBar}>
           <Toolbar id="back-to-top-anchor">
-            <Grid container>
+            <Grid container className={classes.gridContainer}>
               <Grid item xs={2} style={{ display: "flex" }}>
                 <div className={classes.sectionMobile}>
                   <IconButton

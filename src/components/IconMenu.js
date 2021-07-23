@@ -88,9 +88,6 @@ const IconsMenu = () => {
       open={isMenuOpen}
       onClose={handleMenuAccountClose}
     >
-      <Link href={Routes.HOME}>
-        <MenuItem onClick={handleProfile}>Perfil</MenuItem>
-      </Link>
       <Link href={Routes.MENU}>
         <MenuItem onClick={handleProfile}>Menu</MenuItem>
       </Link>
