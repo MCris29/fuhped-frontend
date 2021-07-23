@@ -14,7 +14,7 @@ import ActionBar from "@/components/ActionBar";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import theme from "src/pages/theme";
-import NewPartner from "@/components/NewPartner";
+import NewAffiliate from "@/components/NewAffiliate";
 import { object } from "yup/lib/locale";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,17 +33,7 @@ const columns = [
   { id: "last_name", label: "Apellido" },
   { id: "email", label: "Correo" },
   { id: "phone", label: "Teléfono" },
-  { id: "business", label: "Negocio" },
-  {
-    id: "description",
-    label: "Descripción",
-    align: "left",
-  },
-  {
-    id: "address",
-    label: "Dirección",
-    align: "left",
-  },
+  { id: "address", label: "Dirección" },
   // {
   //   id: "state",
   //   label: "Estado",
@@ -56,12 +46,12 @@ const columns = [
   // },
 ];
 
-const PartnersList = () => {
+const AffiliatesList = () => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const { data, error, mutate } = useSWR(`/partners`, fetcher);
+  const { data, error, mutate } = useSWR(`/afiliates`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <div>Cargando...</div>;
@@ -75,13 +65,13 @@ const PartnersList = () => {
     setPage(0);
   };
 
-  const meta = <div>{data.meta.total} Socios</div>;
+  const meta = <div>{data.meta.total} Afiliados</div>;
 
-  const newPartner = <NewPartner mutate={mutate} />;
+  const newAffiliate = <NewAffiliate mutate={mutate} />;
 
   return (
     <>
-      <ActionBar actionFirst={meta} actionSecond={newPartner} />
+      <ActionBar actionFirst={meta} actionSecond={newAffiliate} />
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
@@ -101,7 +91,7 @@ const PartnersList = () => {
             <TableBody>
               {data.data.map((row, index) => {
                 const userData = data.data[index].user;
-                const partner = Object.assign(userData, row);
+                const affiliate = Object.assign(userData, row);
 
                 return (
                   <TableRow
@@ -112,7 +102,7 @@ const PartnersList = () => {
                     key={"row" + index}
                   >
                     {columns.map((column, index) => {
-                      const value = partner[column.id];
+                      const value = affiliate[column.id];
 
                       return (
                         <TableCell
@@ -145,4 +135,4 @@ const PartnersList = () => {
   );
 };
 
-export default PartnersList;
+export default AffiliatesList;

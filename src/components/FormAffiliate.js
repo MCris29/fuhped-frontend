@@ -17,7 +17,6 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Partners } from "@/lib/partners";
 import { useAuth } from "@/lib/auth";
 import clsx from "clsx";
 
@@ -69,14 +68,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({
-  business: yup.string().required("Ingrese el nombre de su negocio"),
-  description: yup.string().required("Ingrese una descripción"),
-
+  name: yup.string().required("Ingrese su nombre"),
+  last_name: yup.string().required("Ingrese su apellido"),
   password: yup.string().required("Ingrese su contraseña"),
   password_confirmation: yup.string().required("Confirme su contraseña"),
 });
 
-const FormPartner = (prop) => {
+const FormAffiliate = (prop) => {
   const classes = useStyles();
   const { register } = useAuth();
   const [open, setOpen] = useState(false);
@@ -99,12 +97,10 @@ const FormPartner = (prop) => {
       phone: data.phone,
       email: data.email,
       state: "Habilitado",
-      role: "ROLE_PARTNER",
+      role: "ROLE_AFFILIATE",
       password: data.password,
       password_confirmation: data.password_confirmation,
 
-      business: data.business,
-      description: data.description,
       address: data.address,
     };
     console.log("socio", newUser);
@@ -119,17 +115,15 @@ const FormPartner = (prop) => {
     formUserData.append("password", newUser.password);
     formUserData.append("password_confirmation", newUser.password_confirmation);
 
-    formUserData.append("business", newUser.business);
-    formUserData.append("description", newUser.description);
     formUserData.append("address", newUser.address);
 
     try {
       const userData = await register(formUserData);
-      console.log("PartnerData", userData);
+      console.log("AffiliateData", userData);
 
       prop.handlemutate();
       handleOpenSucces();
-      document.getElementById("partner-form").reset();
+      document.getElementById("affiliate-form").reset();
       prop.handleClose();
     } catch (e) {
       console.log("error", e);
@@ -163,7 +157,7 @@ const FormPartner = (prop) => {
     <div>
       <Snackbar open={open} autoHideDuration={5000} onClose={handleCloseSucces}>
         <Alert onClose={handleCloseSucces} severity="success">
-          Socio Guardado exitosamente
+          Registro Guardado exitosamente
         </Alert>
       </Snackbar>
     </div>
@@ -178,15 +172,14 @@ const FormPartner = (prop) => {
       {alert}
       <div className={classes.formContainer}>
         <form
-          id="partner-form"
+          id="affiliate-form"
           className={classes.root}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Grid container>
-            <Grid item xs={12} md={5}>
-              <Typography variant="body2">Datos de usuario</Typography>
+            <Grid item>
               <Controller
                 name="name"
                 control={control}
@@ -246,6 +239,27 @@ const FormPartner = (prop) => {
                 )}
               />
               <span className={classes.error}>{errors.phone?.message}</span>
+
+              <Controller
+                name="address"
+                control={control}
+                defaultValue=""
+                rules={""}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    id="address-form"
+                    required
+                    label="Dirección"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    multiline={true}
+                    error={Boolean(errors.address)}
+                  />
+                )}
+              />
+              <span className={classes.error}>{errors.address?.message}</span>
 
               <Controller
                 name="email"
@@ -357,73 +371,6 @@ const FormPartner = (prop) => {
                 {errors.password_confirmation?.message}
               </span>
             </Grid>
-            <Grid item xs={12} md={2}></Grid>
-            <Grid item xs={12} md={5}>
-              <Typography variant="body2">Datos de negocio</Typography>
-              <Controller
-                name="business"
-                control={control}
-                defaultValue=""
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id="business-form"
-                    required
-                    label="Negocio"
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    error={Boolean(errors.business)}
-                  />
-                )}
-              />
-              <span className={classes.error}>{errors.business?.message}</span>
-
-              <Controller
-                name="description"
-                control={control}
-                defaultValue=""
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id="description-form"
-                    required
-                    label="Descripción"
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    multiline={true}
-                    error={Boolean(errors.description)}
-                  />
-                )}
-              />
-              <span className={classes.error}>
-                {errors.description?.message}
-              </span>
-
-              <Controller
-                name="address"
-                control={control}
-                defaultValue=""
-                rules={""}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id="address-form"
-                    required
-                    label="Dirección"
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    multiline={true}
-                    error={Boolean(errors.address)}
-                  />
-                )}
-              />
-              <span className={classes.error}>{errors.address?.message}</span>
-            </Grid>
           </Grid>
 
           <Grid container>
@@ -434,7 +381,7 @@ const FormPartner = (prop) => {
                 variant="contained"
                 className={classes.button}
               >
-                Guardar Socio
+                Guardar Registro
               </Button>
               <Button
                 className={classes.buttonCancel}
@@ -450,4 +397,4 @@ const FormPartner = (prop) => {
   );
 };
 
-export default FormPartner;
+export default FormAffiliate;
