@@ -71,6 +71,9 @@ const useStyles = makeStyles((theme) => ({
 const schema = yup.object().shape({
   business: yup.string().required("Ingrese el nombre de su negocio"),
   description: yup.string().required("Ingrese una descripción"),
+
+  password: yup.string().required("Ingrese su contraseña"),
+  password_confirmation: yup.string().required("Confirme su contraseña"),
 });
 
 const FormPartner = (prop) => {
@@ -79,6 +82,7 @@ const FormPartner = (prop) => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState({
     password: "",
+    password_confirmation: "",
     showPassword: false,
   });
 
@@ -89,53 +93,47 @@ const FormPartner = (prop) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    console.log("socio", data);
-
-    const newPartner = {
-      business: data.business,
-      description: data.description,
-      address: data.address,
-      state: "Habilitado",
-    };
-
     const newUser = {
       name: data.name,
       last_name: data.last_name,
       phone: data.phone,
       email: data.email,
+      state: "Habilitado",
+      role: "ROLE_PARTNER",
       password: data.password,
+      password_confirmation: data.password_confirmation,
+
+      business: data.business,
+      description: data.description,
+      address: data.address,
     };
-
-    const formPartnerData = new FormData();
-    formPartnerData.append("business", newPartner.business);
-    formPartnerData.append("description", newPartner.description);
-    formPartnerData.append("address", newPartner.address);
-    formPartnerData.append("state", newPartner.state);
-
-    console.log("formData negocio", formPartnerData);
+    console.log("socio", newUser);
 
     const formUserData = new FormData();
     formUserData.append("name", newUser.name);
     formUserData.append("last_name", newUser.last_name);
     formUserData.append("phone", newUser.phone);
     formUserData.append("email", newUser.email);
+    formUserData.append("state", newUser.state);
+    formUserData.append("role", newUser.role);
     formUserData.append("password", newUser.password);
+    formUserData.append("password_confirmation", newUser.password_confirmation);
 
-    console.log("formData usuario", formUserData);
+    formUserData.append("business", newUser.business);
+    formUserData.append("description", newUser.description);
+    formUserData.append("address", newUser.address);
 
     try {
-      const PartnerData = await Partners.create(formPartnerData);
-      // const userData = await register(formUserData);
-      console.log("PartnerData", PartnerData);
-      // console.log("PartnerData", userData);
+      const userData = await register(formUserData);
+      console.log("PartnerData", userData);
 
       prop.handlemutate();
       handleOpenSucces();
       document.getElementById("partner-form").reset();
+      prop.handleClose();
     } catch (e) {
       console.log("error", e);
     }
-    prop.handleClose();
   };
 
   const handleChange = (prop) => (event) => {
@@ -203,11 +201,11 @@ const FormPartner = (prop) => {
                     variant="outlined"
                     margin="normal"
                     fullWidth
-                    error={Boolean(errors.nombre)}
+                    error={Boolean(errors.name)}
                   />
                 )}
               />
-              <span className={classes.error}>{errors.business?.message}</span>
+              <span className={classes.error}>{errors.name?.message}</span>
 
               <Controller
                 name="last_name"
@@ -273,14 +271,14 @@ const FormPartner = (prop) => {
                 name="password"
                 control={control}
                 defaultValue=""
-                rules={{ required: true, email: true }}
+                rules={{ required: true }}
                 render={({ field }) => (
                   <FormControl
                     className={clsx(classes.textField)}
                     variant="outlined"
                     margin="normal"
                     {...field}
-                    error={Boolean(errors.email)}
+                    error={Boolean(errors.password)}
                   >
                     <InputLabel htmlFor="password">Contraseña *</InputLabel>
                     <OutlinedInput
@@ -311,6 +309,53 @@ const FormPartner = (prop) => {
                 )}
               />
               <span className={classes.error}>{errors.password?.message}</span>
+
+              <Controller
+                name="password_confirmation"
+                control={control}
+                defaultValue=""
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <FormControl
+                    className={clsx(classes.textField)}
+                    variant="outlined"
+                    margin="normal"
+                    {...field}
+                    error={Boolean(errors.password_confirmation)}
+                  >
+                    <InputLabel htmlFor="password_confirmation">
+                      Confirmar Contraseña *
+                    </InputLabel>
+                    <OutlinedInput
+                      id="password_confirmation"
+                      name="password_confirmation"
+                      type={values.showPassword ? "text" : "password"}
+                      value={values.password_confirmation}
+                      onChange={handleChange("password_confirmation")}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password_confirmation visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {values.showPassword ? (
+                              <Visibility />
+                            ) : (
+                              <VisibilityOff />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      labelWidth={93}
+                    />
+                  </FormControl>
+                )}
+              />
+              <span className={classes.error}>
+                {errors.password_confirmation?.message}
+              </span>
             </Grid>
             <Grid item xs={12} md={2}></Grid>
             <Grid item xs={12} md={5}>
@@ -329,7 +374,7 @@ const FormPartner = (prop) => {
                     variant="outlined"
                     margin="normal"
                     fullWidth
-                    error={Boolean(errors.title)}
+                    error={Boolean(errors.business)}
                   />
                 )}
               />

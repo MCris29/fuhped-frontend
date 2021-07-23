@@ -15,6 +15,7 @@ import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import theme from "src/pages/theme";
 import NewPartner from "@/components/NewPartner";
+import { object } from "yup/lib/locale";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const columns = [
-  // { id: "name_partner", label: "Propietario" },
+  { id: "name", label: "Nombre" },
+  { id: "last_name", label: "Apellido" },
+  { id: "email", label: "Correo" },
+  { id: "phone", label: "Teléfono" },
   { id: "business", label: "Negocio" },
   {
     id: "description",
@@ -40,11 +44,11 @@ const columns = [
     label: "Dirección",
     align: "left",
   },
-  {
-    id: "state",
-    label: "Estado",
-    align: "right",
-  },
+  // {
+  //   id: "state",
+  //   label: "Estado",
+  //   align: "right",
+  // },
   // {
   //   id: "actions",
   //   label: "Acciones",
@@ -96,6 +100,9 @@ const PartnersList = () => {
             </TableHead>
             <TableBody>
               {data.data.map((row, index) => {
+                const userData = data.data[index].user;
+                const partner = Object.assign(userData, row);
+
                 return (
                   <TableRow
                     hover
@@ -105,7 +112,8 @@ const PartnersList = () => {
                     key={"row" + index}
                   >
                     {columns.map((column, index) => {
-                      const value = row[column.id];
+                      const value = partner[column.id];
+
                       return (
                         <TableCell
                           key={column.id}
