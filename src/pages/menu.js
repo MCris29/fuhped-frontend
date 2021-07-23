@@ -6,6 +6,8 @@ import BlogList from "@/components/BlogList";
 import PartnertsList from "@/components/PartnertsList";
 import AffiliatesList from "@/components/AffiliatesList";
 import withAuth from "../hocs/withAuth";
+import Link from "next/link";
+import Routes from "@/constants/routes";
 
 const useStyles = makeStyles((theme) => ({
   menuContainer: {
@@ -13,9 +15,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     display: "flex",
     height: 224,
+    margin: "0 40px",
   },
   tabs: {
-    borderRight: `1px solid ${theme.palette.primary.main}`,
+    marginTop: "40px",
+    borderRadius: theme.border.default,
+    backgroundColor: "#fff",
+    boxShadow:
+      "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
   },
 }));
 
@@ -59,9 +66,9 @@ const Menu = () => {
 
   return (
     <>
-      {/* <div className={classes.menuContainer}>
+      <div className={classes.menuContainer}>
         <Grid container>
-          <Grid item xs={5} md={3}>
+          <Grid item xs={5} md={2}>
             <Tabs
               orientation="vertical"
               value={value}
@@ -77,7 +84,7 @@ const Menu = () => {
               <Tab label="Citas" {...a11yProps(5)} />
             </Tabs>
           </Grid>
-          <Grid item xs={7} md={9}>
+          <Grid item xs={7} md={10}>
             <TabPanel value={value} index={0}>
               Perfil
             </TabPanel>
@@ -98,25 +105,7 @@ const Menu = () => {
             </TabPanel>
           </Grid>
         </Grid>
-      </div> */}
-
-      <Grid container className={classes.menuContainer}>
-        <Grid item xs={12}>
-          <Button>
-            <Typography>Perfil</Typography>
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button>
-            <Typography>Perfil</Typography>
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button>
-            <Typography>Perfil</Typography>
-          </Button>
-        </Grid>
-      </Grid>
+      </div>
     </>
   );
 };
