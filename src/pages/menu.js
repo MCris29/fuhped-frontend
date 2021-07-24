@@ -5,6 +5,7 @@ import { Grid, Tabs, Tab, Typography, Button } from "@material-ui/core";
 import BlogList from "@/components/BlogList";
 import PartnertsList from "@/components/PartnertsList";
 import AffiliatesList from "@/components/AffiliatesList";
+import Profile from "@/components/Profile";
 import withAuth from "../hocs/withAuth";
 import Link from "next/link";
 import Routes from "@/constants/routes";
@@ -86,7 +87,7 @@ const Menu = () => {
           </Grid>
           <Grid item xs={7} md={10}>
             <TabPanel value={value} index={0}>
-              Perfil
+              <Profile />
             </TabPanel>
             <TabPanel value={value} index={1}>
               Notificaciones
