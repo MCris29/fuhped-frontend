@@ -12,7 +12,7 @@ https://github.com/MCris29/fuhped-backend
 ![image](https://github.com/MCris29/fuhped-frontend/blob/dev/BurndownChart.jpg)
 
 ## Sprint 1 (Completo)
-### •	Controlador de usuario
+##### •	Controlador de usuario
 •	Autenticación del usuario a la aplicación web
 •	Página principal
 
