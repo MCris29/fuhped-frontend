@@ -13,47 +13,47 @@ https://github.com/MCris29/fuhped-backend
 
 ## Sprint 1 (Completo)
 ##### •	Controlador de usuario
-•	Autenticación del usuario a la aplicación web
-•	Página principal
+##### •	Autenticación del usuario a la aplicación web
+##### •	Página principal
 
 ## Sprint 2 (Completo)
-•	Controlador de noticias
-•	Visualizar noticias
-•	Publicar Noticias
-•	Eliminar noticias
+##### •	Controlador de noticias
+##### •	Visualizar noticias
+##### •	Publicar Noticias
+##### •	Eliminar noticias
 
 
 ## Sprint 3 (Completo)
-•	Controlador de socio
-•	Registrar usuario socio
-•	Visualizar lista de socios registrados
-•	Eliminar socio
+##### •	Controlador de socio
+##### •	Registrar usuario socio
+##### •	Visualizar lista de socios registrados
+##### •	Eliminar socio
 
 
 ## Sprint 4 (Completo)
-•	Controlador de afiliado
-•	Registrar usuario afiliado
-•	Visualizar lista de afiliados
-•	Eliminar afiliados
+##### •	Controlador de afiliado
+##### •	Registrar usuario afiliado
+##### •	Visualizar lista de afiliados
+##### •	Eliminar afiliados
 
 ## Sprint 5 (En proceso)
-•	Actualizar información personal
-•	Controlador de servicios
-•	Registrar servicios prestados
-•	Visualizar servicios prestados
-•	Actualizar servicios prestados
+##### •	Actualizar información personal
+##### •	Controlador de servicios
+##### •	Registrar servicios prestados
+##### •	Visualizar servicios prestados
+##### •	Actualizar servicios prestados
 
 ## Sprint 6 (Pendiente)
-•	Controlador de citas
-•	Registrar de citas
-•	Visualizar citas
-•	Actualizar citas
-•	Eliminar citas
+##### •	Controlador de citas
+##### •	Registrar de citas
+##### •	Visualizar citas
+##### •	Actualizar citas
+##### •	Eliminar citas
 
 ## Sprint 7 (Pendiente)
-•	Implementar funcionalidad de donaciones
-•	Controlador de notificaciones
-•	Enviar notificación
-•	Generar reporte de socios
-•	Generar reporte de afiliados
-•	Generar un reporte de citas
+##### •	Implementar funcionalidad de donaciones
+##### •	Controlador de notificaciones
+##### •	Enviar notificación
+##### •	Generar reporte de socios
+##### •	Generar reporte de afiliados
+##### •	Generar un reporte de citas
