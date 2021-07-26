@@ -5,6 +5,7 @@ import { Grid, Tabs, Tab, Typography, Button } from "@material-ui/core";
 import BlogList from "@/components/BlogList";
 import PartnertsList from "@/components/PartnertsList";
 import AffiliatesList from "@/components/AffiliatesList";
+import ServicesList from "@/components/ServicesList";
 import Profile from "@/components/Profile";
 import withAuth from "../hocs/withAuth";
 import Link from "next/link";
@@ -81,8 +82,9 @@ const Menu = () => {
               <Tab label="Notificaciones" {...a11yProps(1)} />
               <Tab label="Blog" {...a11yProps(2)} />
               <Tab label="Socios" {...a11yProps(3)} />
-              <Tab label="Afiliados" {...a11yProps(4)} />
-              <Tab label="Citas" {...a11yProps(5)} />
+              <Tab label="Servicios" {...a11yProps(4)} />
+              <Tab label="Afiliados" {...a11yProps(5)} />
+              <Tab label="Citas" {...a11yProps(6)} />
             </Tabs>
           </Grid>
           <Grid item xs={7} md={10}>
@@ -99,9 +101,12 @@ const Menu = () => {
               <PartnertsList />
             </TabPanel>
             <TabPanel value={value} index={4}>
-              <AffiliatesList />
+              <ServicesList />
             </TabPanel>
             <TabPanel value={value} index={5}>
+              <AffiliatesList />
+            </TabPanel>
+            <TabPanel value={value} index={6}>
               Citas
             </TabPanel>
           </Grid>
