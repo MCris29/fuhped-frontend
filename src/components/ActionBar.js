@@ -9,6 +9,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.border.default,
     backgroundColor: theme.palette.background.main,
     color: theme.palette.text.second,
+    boxShadow:
+      "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
   },
   actionSecond: {
     display: "flex",

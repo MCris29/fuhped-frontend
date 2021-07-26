@@ -15,6 +15,8 @@ import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import theme from "src/pages/theme";
 import NewAffiliate from "@/components/NewAffiliate";
+import Loading from "@/components/Loading";
+import DeleteAffiliate from "@/components/DeleteAffiliate";
 import { object } from "yup/lib/locale";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,16 +36,6 @@ const columns = [
   { id: "email", label: "Correo" },
   { id: "phone", label: "Teléfono" },
   { id: "address", label: "Dirección" },
-  // {
-  //   id: "state",
-  //   label: "Estado",
-  //   align: "right",
-  // },
-  // {
-  //   id: "actions",
-  //   label: "Acciones",
-  //   align: "right",
-  // },
 ];
 
 const AffiliatesList = () => {
@@ -54,7 +46,7 @@ const AffiliatesList = () => {
   const { data, error, mutate } = useSWR(`/afiliates`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <div>Cargando...</div>;
+  if (!data) return <Loading />;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -86,6 +78,9 @@ const AffiliatesList = () => {
                     {column.label}
                   </TableCell>
                 ))}
+                <TableCell key="actions" align="left">
+                  Acciones
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -116,6 +111,9 @@ const AffiliatesList = () => {
                         </TableCell>
                       );
                     })}
+                    <TableCell>
+                      <DeleteAffiliate id={row.id} />
+                    </TableCell>
                   </TableRow>
                 );
               })}

@@ -12,6 +12,7 @@ import {
 import ActionBar from "@/components/ActionBar";
 import NewBlog from "@/components/NewBlog";
 import DeleteBlog from "@/components/DeleteBlog";
+import Loading from "@/components/Loading";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 
@@ -72,7 +73,7 @@ const BlogList = () => {
   const theme = useTheme();
 
   if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <div>Cargando...</div>;
+  if (!data) return <Loading />;
 
   const handleMutate = () => {
     mutate();

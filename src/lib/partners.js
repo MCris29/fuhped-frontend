@@ -15,12 +15,12 @@ async function create(data) {
 async function update(id, data) {
   return await api.put(`partners/${id}`, data);
 }
-async function deleteBlog(id) {
+async function deletePartner(id) {
   return await api.delete(`partners/${id}`);
 }
 export const Partners = {
   getById,
   create,
   update,
-  deleteBlog,
+  deletePartner,
 };
