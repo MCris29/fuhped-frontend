@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
   Table,
@@ -11,11 +11,12 @@ import {
   TableRow,
 } from "@material-ui/core";
 import ActionBar from "@/components/ActionBar";
+import NewPartner from "@/components/NewPartner";
+import DeletePartner from "@/components/DeletePartner";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import theme from "src/pages/theme";
-import NewPartner from "@/components/NewPartner";
-import { object } from "yup/lib/locale";
+// import theme from "src/pages/theme";
+// import { object } from "yup/lib/locale";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,16 +45,6 @@ const columns = [
     label: "Dirección",
     align: "left",
   },
-  // {
-  //   id: "state",
-  //   label: "Estado",
-  //   align: "right",
-  // },
-  // {
-  //   id: "actions",
-  //   label: "Acciones",
-  //   align: "right",
-  // },
 ];
 
 const PartnersList = () => {
@@ -96,6 +87,9 @@ const PartnersList = () => {
                     {column.label}
                   </TableCell>
                 ))}
+                <TableCell key="actions" align="left">
+                  Acciones
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -126,6 +120,9 @@ const PartnersList = () => {
                         </TableCell>
                       );
                     })}
+                    <TableCell>
+                      <DeletePartner id={row.id} />
+                    </TableCell>
                   </TableRow>
                 );
               })}

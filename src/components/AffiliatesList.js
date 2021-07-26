@@ -15,6 +15,7 @@ import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import theme from "src/pages/theme";
 import NewAffiliate from "@/components/NewAffiliate";
+import DeleteAffiliate from "./DeleteAffiliate";
 import { object } from "yup/lib/locale";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,6 +87,9 @@ const AffiliatesList = () => {
                     {column.label}
                   </TableCell>
                 ))}
+                <TableCell key="actions" align="left">
+                  Acciones
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -116,6 +120,9 @@ const AffiliatesList = () => {
                         </TableCell>
                       );
                     })}
+                    <TableCell>
+                      <DeleteAffiliate id={row.id} />
+                    </TableCell>
                   </TableRow>
                 );
               })}
