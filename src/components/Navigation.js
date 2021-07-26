@@ -38,7 +38,7 @@ const mainMenuItems = [
   },
   {
     text: "Servicios",
-    to: Routes.HOME,
+    to: Routes.SERVICES,
   },
   {
     text: "Donaciones",
