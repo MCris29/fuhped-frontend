@@ -6,7 +6,7 @@ La aplicación web permite gestionar socios y afiliados de la fundación FUHPED,
 https://github.com/MCris29/fuhped-backend
 
 ## Link del video de avances hasta 26/07/2021
-
+https://youtu.be/7K2rsXmZ1IY
 
 ## Gráfico BurnDown Chart
 ![image](https://github.com/MCris29/fuhped-frontend/blob/dev/BurndownChart.jpg)
