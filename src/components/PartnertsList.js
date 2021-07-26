@@ -13,6 +13,7 @@ import {
 import ActionBar from "@/components/ActionBar";
 import NewPartner from "@/components/NewPartner";
 import DeletePartner from "@/components/DeletePartner";
+import Loading from "@/components/Loading";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 // import theme from "src/pages/theme";
@@ -55,7 +56,7 @@ const PartnersList = () => {
   const { data, error, mutate } = useSWR(`/partners`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <div>Cargando...</div>;
+  if (!data) return <Loading />;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

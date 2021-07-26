@@ -8,6 +8,7 @@ import {
   Snackbar,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
+import Loading from "@/components/Loading";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -200,7 +201,7 @@ const FormProfile = () => {
           </Grid>
         </form>
       ) : (
-        <div>Cargando...</div>
+        <Loading />
       )}
     </>
   );
