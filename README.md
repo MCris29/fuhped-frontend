@@ -9,7 +9,7 @@ https://github.com/MCris29/fuhped-backend
 
 
 ## Gráfico BurnDown Chart
-
+![image](https://github.com/MCris29/fuhped-frontend/blob/dev/Burndown Chart.jpg)
 
 ## Sprint 1 (Completo)
 •	Controlador de usuario
