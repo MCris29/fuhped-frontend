@@ -1,22 +1,16 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import theme from "src/pages/theme";
+import { Card, CardActions, CardContent, Typography } from "@material-ui/core";
+import DeleteService from "@/components/DeleteService";
+import EditService from "@/components/EditService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
     borderRadius: theme.border.default,
-    margin: "0 20px 20px",
+    margin: "0 40px 20px",
     maxWidth: "30em",
     minHeight: "20em",
-  },
-  title: {
-    fontSize: 14,
   },
 }));
 
@@ -40,7 +34,8 @@ const CardService = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Agendar cita</Button>
+        <EditService mutate={props.mutate} service={props.service} />
+        <DeleteService mutate={props.mutate} service={props.service} />
       </CardActions>
     </Card>
   );
