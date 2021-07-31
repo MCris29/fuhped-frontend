@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 });
 
 const ServicesList = () => {
-  const { data, error, mutate } = useSWR(`/services`, fetcher);
+  const { data, error, mutate } = useSWR(`/user/services`, fetcher);
   const classes = useStyles();
 
   if (error) return <div>No se pudo cargar la información</div>;

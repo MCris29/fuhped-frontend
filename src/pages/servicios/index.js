@@ -2,14 +2,13 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Loading from "@/components/Loading";
-import CardService from "@/components/CardService";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
+import CardPartners from "@/components/CardPartners";
 
 const useStyles = makeStyles({
   container: {
-    display: "flex",
-    justifyContent: "center",
+    marginTop: "40px",
   },
 });
 
@@ -24,9 +23,8 @@ const servicios = () => {
     <>
       <Grid container className={classes.container}>
         {data.data.map((partner, index) => (
-          <Grid item xs={12} md={4}>
-            <div>{partner.business}</div>
-            <div>{partner.description}</div>
+          <Grid item xs={4} key={index}>
+            <CardPartners partner={partner} />
           </Grid>
         ))}
       </Grid>
