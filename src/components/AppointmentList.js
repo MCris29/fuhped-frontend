@@ -13,10 +13,7 @@ import {
 import ActionBar from "@/components/ActionBar";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import NewAffiliate from "@/components/NewAffiliate";
 import Loading from "@/components/Loading";
-import DeleteAffiliate from "@/components/DeleteAffiliate";
-import { object } from "yup/lib/locale";
 
 const useStyles = makeStyles((theme) => ({
   root: {
