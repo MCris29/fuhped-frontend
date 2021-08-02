@@ -6,10 +6,9 @@ import BlogList from "@/components/BlogList";
 import PartnertsList from "@/components/PartnertsList";
 import AffiliatesList from "@/components/AffiliatesList";
 import ServicesList from "@/components/ServicesList";
+import AppointmentList from "@/components/AppointmentList";
 import Profile from "@/components/Profile";
 import withAuth from "../hocs/withAuth";
-import Link from "next/link";
-import Routes from "@/constants/routes";
 
 const useStyles = makeStyles((theme) => ({
   menuContainer: {
@@ -107,7 +106,7 @@ const Menu = () => {
               <AffiliatesList />
             </TabPanel>
             <TabPanel value={value} index={6}>
-              Citas
+              <AppointmentList />
             </TabPanel>
           </Grid>
         </Grid>
