@@ -11,6 +11,8 @@ import {
   TableRow,
 } from "@material-ui/core";
 import ActionBar from "@/components/ActionBar";
+import NewAppointment from "@/components/NewAppointment";
+import DeleteAppointment from "@/components/DeleteAppointment";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import Loading from "@/components/Loading";
@@ -30,17 +32,16 @@ const columns = [
   { id: "title", label: "Título" },
   { id: "description", label: "Descripción" },
   { id: "date", label: "Fecha" },
-  { id: "state", label: "Estado" },
-  { id: "partner", label: "Socio" },
   { id: "afiliate", label: "Afiliado" },
+  { id: "state", label: "Estado" },
 ];
 
-const AppointmentList = () => {
+const AppointmentListPartner = () => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const { data, error, mutate } = useSWR(`/appointments`, fetcher);
+  const { data, error, mutate } = useSWR(`/appointments_partner`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <Loading />;
@@ -54,9 +55,9 @@ const AppointmentList = () => {
     setPage(0);
   };
 
-  const meta = <div>{data.meta.total} Citas</div>;
+  const meta = <div>Registro de citas</div>;
 
-  const newAffiliate = <div>Botón</div>;
+  const newAffiliate = <NewAppointment mutate={mutate} />;
 
   return (
     <>
@@ -75,6 +76,9 @@ const AppointmentList = () => {
                     {column.label}
                   </TableCell>
                 ))}
+                <TableCell key="actions" align="left">
+                  Acciones
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -102,6 +106,9 @@ const AppointmentList = () => {
                         </TableCell>
                       );
                     })}
+                    <TableCell>
+                      <DeleteAppointment id={row.id} mutate={mutate} />
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -121,4 +128,4 @@ const AppointmentList = () => {
   );
 };
 
-export default AppointmentList;
+export default AppointmentListPartner;

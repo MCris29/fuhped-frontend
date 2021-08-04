@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Tabs, Tab} from "@material-ui/core";
+import { Grid, Tabs, Tab } from "@material-ui/core";
 import Profile from "@/components/Profile";
 
 import { useAuth } from "@/lib/auth";
 import ServicesList from "./ServicesList";
+import AppointmentListPartner from "./AppointmentListPartner";
 
 const useStyles = makeStyles((theme) => ({
   menuContainer: {
@@ -124,7 +125,7 @@ const PartnerMenu = () => {
                 <ServicesList />
               </TabPanel>
               <TabPanel value={value} index={2}>
-                citas
+                <AppointmentListPartner />
               </TabPanel>
             </Grid>
           </Grid>

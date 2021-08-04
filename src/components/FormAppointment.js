@@ -1,10 +1,14 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, Button, Grid, Typography } from "@material-ui/core";
+import { TextField, Button, Grid, MenuItem } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Services } from "@/lib/services";
+import { Appointments } from "@/lib/appointments";
+
+import { fetcher } from "@/lib/utils";
+import useSWR from "swr";
+import Loading from "@/components/Loading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,18 +55,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({
-  name: yup.string().required("Ingrese el nombre del servicio"),
+  title: yup.string().required("Ingrese un título de la cita"),
   description: yup.string().required("Ingrese una descripción"),
-  price: yup
-    .number("El precio debe contener solo números")
-    .required("Ingrese el precio del servicio"),
-  price_fuhped: yup
-    .number("El precio solo debe contener números")
-    .required("Ingrese el precio Fuhped del servicio"),
+  date: yup.string().required("Escoge la fecha y hora"),
 });
 
-const FormService = (prop) => {
+const FormAppointment = (prop) => {
   const [loading, setLoading] = useState(false);
+  const [afiliate, setAfiliate] = useState("");
+
+  const { data, error } = useSWR(`/afiliates`, fetcher);
+
+  if (error) {
+    console.log("error", error);
+  }
+  if (!data) {
+    console.log("cargando...");
+  }
 
   const classes = useStyles();
   const {
@@ -71,52 +80,67 @@ const FormService = (prop) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = async (dataService) => {
+  const onSubmit = async (data) => {
     setLoading(true);
 
+    const NewAppointment = {
+      title: data.title,
+      description: data.description,
+      date: data.date,
+      afiliate_id: afiliate,
+      state: "En espera",
+    };
+    console.log(NewAppointment);
+
     try {
-      const serviceData = await Services.create(dataService);
-      console.log("serviceData", serviceData);
+      const appointmentData = await Appointments.create(NewAppointment);
+      console.log("appointmentData", appointmentData);
+
       prop.handleMutate();
       prop.handleOpenSucces();
       prop.handleClose();
 
-      document.getElementById("blog-form").reset();
+      document.getElementById("appointment-form").reset();
     } catch (e) {
       console.log("error", e);
     }
     setLoading(false);
   };
 
+  const handleChange = (event) => {
+    setAfiliate(event.target.value);
+  };
+
   return (
     <>
       <div className={classes.formContainer}>
         <form
-          id="service-form"
+          id="appointment-form"
           className={classes.root}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Controller
-            name="name"
+            name="title"
             control={control}
             defaultValue=""
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
                 {...field}
-                id="name-form"
+                id="title-form"
                 required
-                label="Nombre"
+                label="Título"
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                error={Boolean(errors.name)}
+                error={Boolean(errors.title)}
               />
             )}
           />
-          <span className={classes.error}>{errors.name?.message}</span>
+          <span className={classes.error}>{errors.title?.message}</span>
+
           <Controller
             name="description"
             control={control}
@@ -139,44 +163,61 @@ const FormService = (prop) => {
           <span className={classes.error}>{errors.description?.message}</span>
 
           <Controller
-            name="price"
+            name="afiliate"
             control={control}
             defaultValue=""
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
                 {...field}
-                id="price-form"
+                id="afiliate-form"
                 required
-                label="Precio Normal"
+                select
+                value={afiliate}
+                onChange={handleChange}
+                helperText="Por favor selecciona un afiliado"
+                label="Afiliado"
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                error={Boolean(errors.price)}
-              />
+                error={Boolean(errors.description)}
+              >
+                {data ? (
+                  data.data.map((afiliate, index) => (
+                    <MenuItem key={index} value={afiliate.user.id}>
+                      {afiliate.user.name + " " + afiliate.user.last_name}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <span>Cargando...</span>
+                )}
+              </TextField>
             )}
           />
-          <span className={classes.error}>{errors.price?.message}</span>
+          <span className={classes.error}>{errors.description?.message}</span>
 
           <Controller
-            name="price_fuhped"
+            name="date"
             control={control}
             defaultValue=""
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
                 {...field}
-                id="price_fuhped-form"
-                required
-                label="Precio Fuhped"
+                id="date-form"
+                label="Fecha"
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                error={Boolean(errors.price_fuhped)}
+                type="datetime-local"
+                error={Boolean(errors.date)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
             )}
           />
-          <span className={classes.error}>{errors.price_fuhped?.message}</span>
+          <span className={classes.error}>{errors.date?.message}</span>
 
           <Grid container className={classes.actionContainer}>
             <Grid item xs={6}>
@@ -187,7 +228,7 @@ const FormService = (prop) => {
                 className={classes.button}
                 disabled={loading}
               >
-                Guardar Servicio
+                Registrar
               </Button>
             </Grid>
             <Grid item xs={6}>
@@ -206,4 +247,4 @@ const FormService = (prop) => {
   );
 };
 
-export default FormService;
+export default FormAppointment;
