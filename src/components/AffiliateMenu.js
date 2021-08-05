@@ -5,6 +5,7 @@ import { Grid, Tabs, Tab } from "@material-ui/core";
 import Profile from "@/components/Profile";
 
 import { useAuth } from "@/lib/auth";
+import AppointmentListAffiliate from "./AppointmentListAffiliate";
 
 const useStyles = makeStyles((theme) => ({
   menuContainer: {
@@ -123,7 +124,7 @@ const AffiliateMenu = () => {
                 Servicios
               </TabPanel>
               <TabPanel value={value} index={2}>
-                citas
+                <AppointmentListAffiliate />
               </TabPanel>
             </Grid>
           </Grid>
