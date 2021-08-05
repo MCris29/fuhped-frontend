@@ -53,12 +53,8 @@ const useStyles = makeStyles((theme) => ({
 const schema = yup.object().shape({
   name: yup.string().required("Ingrese el nombre del servicio"),
   description: yup.string().required("Ingrese una descripción"),
-  price: yup
-    .number("El precio debe contener solo números")
-    .required("Ingrese el precio del servicio"),
-  price_fuhped: yup
-    .number("El precio solo debe contener números")
-    .required("Ingrese el precio Fuhped del servicio"),
+  price: yup.string().required("Ingrese el precio del servicio"),
+  price_fuhped: yup.string().required("Ingrese el precio Fuhped del servicio"),
 });
 
 const FormService = (prop) => {
@@ -151,6 +147,7 @@ const FormService = (prop) => {
                 label="Precio Normal"
                 variant="outlined"
                 margin="normal"
+                type="number"
                 fullWidth
                 error={Boolean(errors.price)}
               />
@@ -171,6 +168,7 @@ const FormService = (prop) => {
                 label="Precio Fuhped"
                 variant="outlined"
                 margin="normal"
+                type="number"
                 fullWidth
                 error={Boolean(errors.price_fuhped)}
               />
