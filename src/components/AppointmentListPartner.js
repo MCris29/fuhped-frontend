@@ -13,6 +13,7 @@ import {
 import ActionBar from "@/components/ActionBar";
 import NewAppointment from "@/components/NewAppointment";
 import DeleteAppointment from "@/components/DeleteAppointment";
+import EditAppointment from "@/components/EditAppointment";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import Loading from "@/components/Loading";
@@ -108,6 +109,7 @@ const AppointmentListPartner = () => {
                     })}
                     <TableCell>
                       <DeleteAppointment appointment={row} mutate={mutate} />
+                      <EditAppointment appointment={row} mutate={mutate} />
                     </TableCell>
                   </TableRow>
                 );

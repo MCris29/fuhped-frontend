@@ -1,10 +1,10 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, Button, Grid, Typography } from "@material-ui/core";
+import { TextField, Button, Grid, MenuItem } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Services } from "@/lib/services";
+import { Appointments } from "@/lib/appointments";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,14 +51,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({
-  name: yup.string().required("Ingrese el nombre del servicio"),
+  title: yup.string().required("Ingrese el nombre del servicio"),
   description: yup.string().required("Ingrese una descripción"),
-  price: yup.string().required("Ingrese el precio del servicio"),
-  price_fuhped: yup.string().required("Ingrese el precio Fuhped del servicio"),
 });
 
-const FormService = (prop) => {
+const EditFormAppointment = (prop) => {
   const [loading, setLoading] = useState(false);
+  const [state, setState] = useState(prop.appointment.state);
 
   const classes = useStyles();
   const {
@@ -67,25 +66,24 @@ const FormService = (prop) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = async (dataService) => {
+  const onSubmit = async (data) => {
     setLoading(true);
 
-    const newService = {
-      name: dataService.name,
-      description: dataService.description,
-      price: dataService.price,
+    const NewAppointment = {
+      title: data.title,
+      description: data.description,
+      state: state,
+      date: data.date,
     };
-
-    const formData = new FormData();
-    formData.append("name", newService.title);
-    formData.append("description", newService.description);
-    formData.append("price", newService.price);
-    formData.append("price_fuhped", newService.price_fuhped);
+    console.log(NewAppointment);
 
     try {
-      const serviceData = await Services.update(prop.service.id, dataService);
+      const serviceData = await Appointments.update(
+        prop.appointment.id,
+        NewAppointment
+      );
       console.log("serviceData", serviceData);
-      prop.handleMutate();
+      prop.mutate();
       prop.handleOpenSucces();
       prop.handleClose();
     } catch (e) {
@@ -94,39 +92,44 @@ const FormService = (prop) => {
     setLoading(false);
   };
 
+  const handleChange = (event) => {
+    setState(event.target.value);
+  };
+
   return (
     <>
       <div className={classes.formContainer}>
         <form
-          id="service-form"
+          id="appointment-form"
           className={classes.root}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Controller
-            name="name"
+            name="title"
             control={control}
-            defaultValue={prop.service.name}
+            defaultValue={prop.appointment.title}
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
                 {...field}
-                id="name-form"
+                id="title-form"
                 required
-                label="Nombre"
+                label="Título"
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                error={Boolean(errors.name)}
+                error={Boolean(errors.title)}
               />
             )}
           />
-          <span className={classes.error}>{errors.name?.message}</span>
+          <span className={classes.error}>{errors.title?.message}</span>
+
           <Controller
             name="description"
             control={control}
-            defaultValue={prop.service.description}
+            defaultValue={prop.appointment.description}
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
@@ -145,46 +148,58 @@ const FormService = (prop) => {
           <span className={classes.error}>{errors.description?.message}</span>
 
           <Controller
-            name="price"
+            name="state"
             control={control}
-            defaultValue={prop.service.price}
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
                 {...field}
-                id="price-form"
+                id="state-form"
                 required
-                label="Precio Normal"
+                select
+                value={state}
+                onChange={handleChange}
+                helperText="Por favor selecciona un afiliado"
+                label="Estado"
                 variant="outlined"
                 margin="normal"
-                type="number"
                 fullWidth
-                error={Boolean(errors.price)}
-              />
+                error={Boolean(errors.description)}
+                defaultValue={prop.appointment.state}
+              >
+                <MenuItem key="1" value="En espera">
+                  En espera
+                </MenuItem>
+                <MenuItem key="2" value="Realizada">
+                  Realizada
+                </MenuItem>
+              </TextField>
             )}
           />
-          <span className={classes.error}>{errors.price?.message}</span>
+          <span className={classes.error}>{errors.state?.message}</span>
 
           <Controller
-            name="price_fuhped"
+            name="date"
             control={control}
-            defaultValue={prop.service.price_fuhped}
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
                 {...field}
-                id="price_fuhped-form"
-                required
-                label="Precio Fuhped"
+                id="date-form"
+                label="Fecha"
                 variant="outlined"
                 margin="normal"
-                type="number"
                 fullWidth
-                error={Boolean(errors.price_fuhped)}
+                type="datetime-local"
+                defaultValue={prop.appointment.date}
+                error={Boolean(errors.date)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
             )}
           />
-          <span className={classes.error}>{errors.price_fuhped?.message}</span>
+          <span className={classes.error}>{errors.date?.message}</span>
 
           <Grid container className={classes.actionContainer}>
             <Grid item xs={6}>
@@ -214,4 +229,4 @@ const FormService = (prop) => {
   );
 };
 
-export default FormService;
+export default EditFormAppointment;

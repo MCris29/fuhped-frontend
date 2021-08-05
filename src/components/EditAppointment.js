@@ -1,15 +1,15 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
+  Button,
   Snackbar,
   Modal,
-  Button,
   Backdrop,
   Fade,
   Typography,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-import { Appointments } from "@/lib/appointments";
+import EditFormAppointment from "./EditFormAppointment";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -26,21 +26,16 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    maxWidth: "50%",
   },
-  buttonCancel: {
-    backgroundColor: theme.palette.background.default,
+  button: {
+    backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
-    color: theme.palette.text.main,
+    color: theme.palette.text.second,
     textTransform: "none",
+    padding: "5px 30px",
     "&:hover": {
-      opacity: 0.5,
+      backgroundColor: theme.palette.primary.main,
     },
-  },
-  actionContainer: {
-    display: "flex",
-    justifyContent: "flex-end",
-    width: "100%",
   },
 }));
 
@@ -48,24 +43,11 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const DeleteAffiliate = (prop) => {
+const EditAppointment = (prop) => {
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const classes = useStyles();
-
-  const handleDelete = async () => {
-    setLoading(true);
-    try {
-      await Appointments.deleteAppointments(prop.appointment.id);
-      prop.mutate();
-      handleSuccessOpen();
-    } catch (e) {
-      console.log("error", e);
-    }
-    setLoading(false);
-  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -75,11 +57,15 @@ const DeleteAffiliate = (prop) => {
     setOpen(false);
   };
 
-  const handleSuccessOpen = () => {
+  // const handlemutate = () => {
+  //   prop.mutate();
+  // };
+
+  const handleOpenSucces = () => {
     setSuccess(true);
   };
 
-  const handleSuccessClose = (event, reason) => {
+  const handleCloseSuccess = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -91,10 +77,10 @@ const DeleteAffiliate = (prop) => {
       <Snackbar
         open={success}
         autoHideDuration={5000}
-        onClose={handleSuccessClose}
+        onClose={handleCloseSuccess}
       >
-        <Alert onClose={handleSuccessClose} severity="success">
-          Eliminado exitosamente!
+        <Alert onClose={handleCloseSuccess} severity="success">
+          Actualizado exitosamente
         </Alert>
       </Snackbar>
     </div>
@@ -103,8 +89,8 @@ const DeleteAffiliate = (prop) => {
   return (
     <>
       {alert}
-      <Button className={classes.buttonCancel} onClick={handleOpen}>
-        Eliminar
+      <Button className={classes.button} onClick={handleOpen}>
+        Actualizar
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -121,23 +107,15 @@ const DeleteAffiliate = (prop) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar la cita {prop.appointment.title}{" "}
-              con {prop.appointment.afiliate} con fecha {prop.appointment.date}?
+              Actualizar cita
             </Typography>
-            <div
-              id="transition-modal-description"
-              className={classes.actionContainer}
-            >
-              <Button
-                onClick={handleDelete}
-                className={classes.buttonCancel}
-                disabled={loading}
-              >
-                Eliminar
-              </Button>
-              <Button onClick={handleClose} className={classes.buttonCancel}>
-                Cancelar
-              </Button>
+            <div id="transition-modal-description">
+              <EditFormAppointment
+                mutate={prop.mutate}
+                handleClose={handleClose}
+                handleOpenSucces={handleOpenSucces}
+                appointment={prop.appointment}
+              />
             </div>
           </div>
         </Fade>
@@ -146,4 +124,4 @@ const DeleteAffiliate = (prop) => {
   );
 };
 
-export default DeleteAffiliate;
+export default EditAppointment;
