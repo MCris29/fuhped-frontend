@@ -120,7 +120,7 @@ const PartnersList = () => {
                       );
                     })}
                     <TableCell>
-                      <DeletePartner id={row.id} />
+                      <DeletePartner partner={row} />
                     </TableCell>
                   </TableRow>
                 );

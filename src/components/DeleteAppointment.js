@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-import { Appointments, Appoitnments } from "@/lib/appointments";
+import { Appointments } from "@/lib/appointments";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -50,17 +50,20 @@ function Alert(props) {
 const DeleteAffiliate = (prop) => {
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const classes = useStyles();
 
   const handleDelete = async () => {
+    setLoading(true);
     try {
-      await Appointments.deleteAppointments(prop.id);
+      await Appointments.deleteAppointments(prop.appointment.id);
       prop.mutate();
       handleSuccessOpen();
     } catch (e) {
       console.log("error", e);
     }
+    setLoading(false);
   };
 
   const handleOpen = () => {
@@ -117,13 +120,18 @@ const DeleteAffiliate = (prop) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar esta cita?
+              ¿Esta seguro que quiere eliminar la cita {prop.appointment.title}{" "}
+              con {prop.appointment.afiliate} con fecha {prop.appointment.date}?
             </Typography>
             <div
               id="transition-modal-description"
               className={classes.actionContainer}
             >
-              <Button onClick={handleDelete} className={classes.buttonCancel}>
+              <Button
+                onClick={handleDelete}
+                className={classes.buttonCancel}
+                disabled={loading}
+              >
                 Eliminar
               </Button>
               <Button onClick={handleClose} className={classes.buttonCancel}>

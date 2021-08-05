@@ -107,7 +107,7 @@ const AppointmentListPartner = () => {
                       );
                     })}
                     <TableCell>
-                      <DeleteAppointment id={row.id} mutate={mutate} />
+                      <DeleteAppointment appointment={row} mutate={mutate} />
                     </TableCell>
                   </TableRow>
                 );
