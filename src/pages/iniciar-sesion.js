@@ -16,6 +16,7 @@ import {
   InputLabel,
 } from "@material-ui/core";
 
+import translateMessage from "@/constants/messages";
 import { useAuth } from "@/lib/auth";
 import withoutAuth from "@/hocs/withoutAuth";
 import { useForm, Controller } from "react-hook-form";
@@ -78,11 +79,15 @@ const schema = yup.object().shape({
     .string()
     .required("Ingrese su email")
     .email("Ingrese un email válido"),
-  password: yup.string().required("Ingrese una contraseña válida"),
+  password: yup
+    .string()
+    .required("Ingrese una contraseña válida")
+    .min(6, "La clave debe tener al menos 6 caracteres"),
 });
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [values, setValues] = useState({
     password: "",
     showPassword: false,
@@ -98,19 +103,16 @@ const Login = () => {
   const onSubmit = async (data) => {
     console.log("data", data);
     setLoading(true);
+
     try {
       const userData = await login(data);
-      console.log("userData", userData);
+
+      if (userData.data.error) {
+        console.log("error", userData.data.error);
+        setError(translateMessage(userData.data.error));
+      } else console.log("userData", userData);
     } catch (error) {
-      if (error.response) {
-        alert(error.response.message);
-        console.log(error.response);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
+      console.log("error", error);
     }
     setLoading(false);
   };
@@ -134,6 +136,7 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Bienvenido
         </Typography>
+        {error ? <span className={classes.error}>{error}</span> : <span></span>}
         <form
           className={classes.form}
           noValidate
@@ -167,14 +170,14 @@ const Login = () => {
             name="password"
             control={control}
             defaultValue=""
-            rules={{ required: true, email: true }}
+            rules={{ required: true }}
             render={({ field }) => (
               <FormControl
                 className={clsx(classes.textField)}
                 variant="outlined"
                 margin="normal"
                 {...field}
-                error={Boolean(errors.email)}
+                error={Boolean(errors.password)}
               >
                 <InputLabel htmlFor="password">Contraseña *</InputLabel>
                 <OutlinedInput
