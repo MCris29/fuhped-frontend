@@ -210,7 +210,7 @@ const EditFormAppointment = (prop) => {
                 className={classes.button}
                 disabled={loading}
               >
-                Guardar Servicio
+                Guardar Cita
               </Button>
             </Grid>
             <Grid item xs={6}>
