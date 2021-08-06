@@ -133,7 +133,7 @@ const DeleteAffiliate = (prop) => {
                 className={classes.buttonCancel}
                 disabled={loading}
               >
-                Eliminar
+                Si, eliminar
               </Button>
               <Button onClick={handleClose} className={classes.buttonCancel}>
                 Cancelar
