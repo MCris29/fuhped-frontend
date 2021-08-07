@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Tabs, Tab } from "@material-ui/core";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import BlogList from "@/components/BlogList";
 import PartnertsList from "@/components/PartnertsList";
 import AffiliatesList from "@/components/AffiliatesList";
@@ -25,12 +26,21 @@ const useStyles = makeStyles((theme) => ({
     boxShadow:
       "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
   },
-  profile: {
+  tab: {
     textTransform: "capitalize",
     padding: "15px 0",
   },
   display: {
     display: "none",
+  },
+  icon: {
+    margin: "0 3px !important",
+  },
+  iconLabelWrapper: {
+    flexDirection: "row",
+  },
+  iconLabel: {
+    minHeight: 0,
   },
 }));
 
@@ -71,6 +81,7 @@ const AdminMenu = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const userIcon = <AccountCircle style={{ marginRight: 5 }} />;
 
   return (
     <>
@@ -86,7 +97,12 @@ const AdminMenu = () => {
                 className={classes.tabs}
               >
                 <Tab
-                  className={classes.profile}
+                  classes={{
+                    wrapper: classes.iconLabelWrapper,
+                    labelIcon: classes.iconLabel,
+                  }}
+                  className={classes.tab}
+                  icon={<AccountCircle className={classes.icon} />}
                   label={user.name + " " + user.last_name}
                   {...a11yProps(0)}
                 />
@@ -124,10 +140,14 @@ const AdminMenu = () => {
                   label="Perfil"
                   {...a11yProps(0)}
                 />
-                <Tab label="Blog" {...a11yProps(1)} />
-                <Tab label="Socios" {...a11yProps(2)} />
-                <Tab label="Afiliados" {...a11yProps(3)} />
-                <Tab label="Citas" {...a11yProps(4)} />
+                <Tab className={classes.tab} label="Blog" {...a11yProps(1)} />
+                <Tab className={classes.tab} label="Socios" {...a11yProps(2)} />
+                <Tab
+                  className={classes.tab}
+                  label="Afiliados"
+                  {...a11yProps(3)}
+                />
+                <Tab className={classes.tab} label="Citas" {...a11yProps(4)} />
               </Tabs>
             </Grid>
 

@@ -1,10 +1,14 @@
-import React from "react";
+import { React, useState } from "react";
 import Link from "next/link";
 import { makeStyles } from "@material-ui/core/styles";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import MenuIcon from "@material-ui/icons/Menu";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import IconButton from "@material-ui/core/IconButton";
-import { Menu, MenuItem, Button } from "@material-ui/core";
+import { Menu, MenuItem, Button, Divider } from "@material-ui/core";
 
 import { useAuth } from "@/lib/auth";
 import Routes from "../constants/routes";
@@ -40,13 +44,19 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.main,
     },
   },
+  containerIcons: {
+    display: "flex",
+  },
+  icon: {
+    marginRight: "4px",
+  },
 }));
 
 const IconsMenu = () => {
   const { logout, user } = useAuth();
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -88,10 +98,26 @@ const IconsMenu = () => {
       open={isMenuOpen}
       onClose={handleMenuAccountClose}
     >
+      {user ? (
+        <MenuItem disabled>
+          <AccountCircle className={classes.icon} />
+          {user.name + " " + user.last_name}
+        </MenuItem>
+      ) : (
+        <div></div>
+      )}
+      <Divider variant="middle" />
+
       <Link href={Routes.MENU}>
-        <MenuItem onClick={handleProfile}>Menu</MenuItem>
+        <MenuItem onClick={handleProfile}>
+          <MenuIcon className={classes.icon} />
+          Menú
+        </MenuItem>
       </Link>
-      <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
+      <MenuItem onClick={handleLogout}>
+        <ExitToAppIcon className={classes.icon} />
+        Cerrar sesión
+      </MenuItem>
     </Menu>
   );
 
@@ -118,10 +144,14 @@ const IconsMenu = () => {
     <>
       <div className={classes.sectionDesktop}>
         {user ? (
-          <MenuItem onClick={handleMenuAccountOpen} id="account-menu-button">
-            <AccountCircle style={{ marginRight: 5 }} />
-            {user.name}
-          </MenuItem>
+          <div className={classes.containerIcons}>
+            <MenuItem onClick={handleMenuAccountOpen} id="account-menu-button">
+              <NotificationsIcon />
+            </MenuItem>
+            <MenuItem onClick={handleMenuAccountOpen} id="account-menu-button">
+              <ArrowDropDownIcon />
+            </MenuItem>
+          </div>
         ) : (
           <Button className={classes.button}>
             <Link href={Routes.LOGIN}>
@@ -135,7 +165,7 @@ const IconsMenu = () => {
         {user ? (
           <div>
             <MenuItem onClick={handleMenuAccountOpen} id="account-menu-button">
-              <AccountCircle /> {user.name}
+              <ArrowDropDownIcon />
             </MenuItem>
           </div>
         ) : (

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Tabs, Tab } from "@material-ui/core";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import Profile from "@/components/Profile";
 
 import { useAuth } from "@/lib/auth";
@@ -23,12 +24,21 @@ const useStyles = makeStyles((theme) => ({
     boxShadow:
       "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
   },
-  profile: {
+  tab: {
     textTransform: "capitalize",
     padding: "15px 0",
   },
   display: {
     display: "none",
+  },
+  icon: {
+    margin: "0 3px !important",
+  },
+  iconLabelWrapper: {
+    flexDirection: "row",
+  },
+  iconLabel: {
+    minHeight: 0,
   },
 }));
 
@@ -84,7 +94,12 @@ const PartnerMenu = () => {
                 className={classes.tabs}
               >
                 <Tab
-                  className={classes.profile}
+                  classes={{
+                    wrapper: classes.iconLabelWrapper,
+                    labelIcon: classes.iconLabel,
+                  }}
+                  className={classes.tab}
+                  icon={<AccountCircle className={classes.icon} />}
                   label={user.name + " " + user.last_name}
                   {...a11yProps(0)}
                 />
@@ -112,8 +127,12 @@ const PartnerMenu = () => {
                   label="Perfil"
                   {...a11yProps(0)}
                 />
-                <Tab label="Servicios" {...a11yProps(1)} />
-                <Tab label="Citas" {...a11yProps(2)} />
+                <Tab
+                  className={classes.tab}
+                  label="Servicios"
+                  {...a11yProps(1)}
+                />
+                <Tab className={classes.tab} label="Citas" {...a11yProps(2)} />
               </Tabs>
             </Grid>
 
