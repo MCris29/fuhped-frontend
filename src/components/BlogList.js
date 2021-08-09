@@ -113,7 +113,7 @@ const BlogList = () => {
                 <Grid item xs={12}>
                   <CardActions>
                     <DeleteBlog
-                      id={publication.id}
+                      publication={publication}
                       handleMutate={handleMutate}
                     />
                   </CardActions>

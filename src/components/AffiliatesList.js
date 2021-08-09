@@ -112,7 +112,7 @@ const AffiliatesList = () => {
                       );
                     })}
                     <TableCell>
-                      <DeleteAffiliate id={row.id} />
+                      <DeleteAffiliate affiliate={row} />
                     </TableCell>
                   </TableRow>
                 );

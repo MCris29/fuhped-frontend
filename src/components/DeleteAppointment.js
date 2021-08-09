@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-import { Blogs } from "@/lib/blogs";
+import { Appointments } from "@/lib/appointments";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    maxWidth: "50%",
   },
   buttonCancel: {
     backgroundColor: theme.palette.background.default,
@@ -47,7 +48,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const DeleteBlog = (prop) => {
+const DeleteAffiliate = (prop) => {
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -57,8 +58,8 @@ const DeleteBlog = (prop) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await Blogs.deleteBlog(prop.publication.id);
-      prop.handleMutate();
+      await Appointments.deleteAppointments(prop.appointment.id);
+      prop.mutate();
       handleSuccessOpen();
     } catch (e) {
       console.log("error", e);
@@ -120,8 +121,8 @@ const DeleteBlog = (prop) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar la publicación{" "}
-              {prop.publication.title}?
+              ¿Esta seguro que quiere eliminar la cita {prop.appointment.title}{" "}
+              con {prop.appointment.afiliate} con fecha {prop.appointment.date}?
             </Typography>
             <div
               id="transition-modal-description"
@@ -135,7 +136,7 @@ const DeleteBlog = (prop) => {
                 Si, eliminar
               </Button>
               <Button onClick={handleClose} className={classes.buttonCancel}>
-                Cancel
+                Cancelar
               </Button>
             </div>
           </div>
@@ -145,4 +146,4 @@ const DeleteBlog = (prop) => {
   );
 };
 
-export default DeleteBlog;
+export default DeleteAffiliate;

@@ -50,10 +50,12 @@ function Alert(props) {
 const DeleteService = (prop) => {
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const classes = useStyles();
 
   const handleDelete = async () => {
+    setLoading(true);
     try {
       await Services.deleteService(prop.service.id);
       handleSuccessOpen();
@@ -62,6 +64,7 @@ const DeleteService = (prop) => {
     } catch (e) {
       console.log("error", e);
     }
+    setLoading(false);
   };
 
   const handleOpen = () => {
@@ -124,8 +127,12 @@ const DeleteService = (prop) => {
               id="transition-modal-description"
               className={classes.actionContainer}
             >
-              <Button onClick={handleDelete} className={classes.buttonCancel}>
-                Eliminar
+              <Button
+                onClick={handleDelete}
+                className={classes.buttonCancel}
+                disabled={loading}
+              >
+                Si, eliminar
               </Button>
               <Button onClick={handleClose} className={classes.buttonCancel}>
                 Cancelar

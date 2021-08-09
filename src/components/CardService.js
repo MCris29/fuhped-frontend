@@ -6,11 +6,12 @@ import EditService from "@/components/EditService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 275,
     borderRadius: theme.border.default,
     margin: "0 40px 20px",
+    minWidth: 275,
     maxWidth: "30em",
-    minHeight: "20em",
+    minHeight: "10em",
+    maxHeight: "fit-content",
   },
 }));
 

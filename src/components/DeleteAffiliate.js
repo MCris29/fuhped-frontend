@@ -50,17 +50,20 @@ function Alert(props) {
 const DeleteAffiliate = (prop) => {
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const classes = useStyles();
 
   const handleDelete = async () => {
+    setLoading(true);
     try {
-      await Affiliates.deleteAffiliate(prop.id);
+      await Affiliates.deleteAffiliate(prop.affiliate.id);
       prop.handleMutate();
       handleSuccessOpen();
     } catch (e) {
       console.log("error", e);
     }
+    setLoading(false);
   };
 
   const handleOpen = () => {
@@ -117,14 +120,19 @@ const DeleteAffiliate = (prop) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar este afiliado?
+              ¿Esta seguro que quiere eliminar a {prop.affiliate.user.name}{" "}
+              {prop.affiliate.user.last_name}?
             </Typography>
             <div
               id="transition-modal-description"
               className={classes.actionContainer}
             >
-              <Button onClick={handleDelete} className={classes.buttonCancel}>
-                Eliminar
+              <Button
+                onClick={handleDelete}
+                className={classes.buttonCancel}
+                disabled={loading}
+              >
+                Si, eliminar
               </Button>
               <Button onClick={handleClose} className={classes.buttonCancel}>
                 Cancelar

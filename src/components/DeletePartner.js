@@ -50,17 +50,20 @@ function Alert(props) {
 const DeletePartner = (prop) => {
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const classes = useStyles();
 
   const handleDelete = async () => {
+    setLoading(true);
     try {
-      await Partners.deletePartner(prop.id);
+      await Partners.deletePartner(prop.partner.user.id);
       prop.handleMutate();
       handleSuccessOpen();
     } catch (e) {
       console.log("error", e);
     }
+    setLoading(false);
   };
 
   const handleOpen = () => {
@@ -117,14 +120,20 @@ const DeletePartner = (prop) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar este socio?
+              ¿Esta seguro que quiere eliminar a {prop.partner.user.name}
+              {" "}
+              {prop.partner.user.last_name}?
             </Typography>
             <div
               id="transition-modal-description"
               className={classes.actionContainer}
             >
-              <Button onClick={handleDelete} className={classes.buttonCancel}>
-                Eliminar
+              <Button
+                onClick={handleDelete}
+                className={classes.buttonCancel}
+                disabled={loading}
+              >
+                Si, eliminar
               </Button>
               <Button onClick={handleClose} className={classes.buttonCancel}>
                 Cancelar

@@ -109,17 +109,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function HideOnScroll(props) {
-  const { children } = props;
-  const trigger = useScrollTrigger();
-
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
-  );
-}
-
 function ElevationScroll(props) {
   const { children, window } = props;
   const trigger = useScrollTrigger({
@@ -135,10 +124,6 @@ function ElevationScroll(props) {
 
 ElevationScroll.propTypes = {
   children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 

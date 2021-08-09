@@ -44,15 +44,10 @@ function Alert(props) {
 }
 
 const NewBlog = (prop) => {
-  const [image, setImage] = useState(null);
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const classes = useStyles();
-
-  const handleClick = () => {
-    setOpen(true);
-  };
 
   const handleOpen = () => {
     setOpen(true);

@@ -67,11 +67,13 @@ const useStyles = makeStyles((theme) => ({
 const schema = yup.object().shape({
   title: yup.string().required("Ingrese un título"),
   description: yup.string().required("Ingrese una descripción"),
+  image: yup.string().required("Ingrese una imagen"),
 });
 
 const FormBlog = (prop) => {
   const [image, setImage] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const classes = useStyles();
   const {
@@ -81,25 +83,21 @@ const FormBlog = (prop) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (dataBlog) => {
-    // console.log("blog", dataBlog);
+    setLoading(true);
 
     const newBlog = {
       title: dataBlog.title,
       description: dataBlog.description,
       image: image,
     };
-    // console.log("Nuevo blog", newBlog);
 
     const formData = new FormData();
     formData.append("title", newBlog.title);
     formData.append("description", newBlog.description);
     formData.append("image", newBlog.image);
 
-    // console.log("formData", formData);
-
     try {
       const blogData = await Blogs.create(formData);
-      // console.log("blogData", blogData);
       prop.handleMutate();
       prop.handleOpenSucces();
       prop.handleClose();
@@ -108,6 +106,7 @@ const FormBlog = (prop) => {
     } catch (e) {
       console.log("error", e);
     }
+    setLoading(false);
   };
 
   const buttonClassname = clsx({
@@ -210,6 +209,7 @@ const FormBlog = (prop) => {
                 variant="contained"
                 fullWidth
                 className={classes.button}
+                disabled={loading}
               >
                 Guardar Publicación
               </Button>

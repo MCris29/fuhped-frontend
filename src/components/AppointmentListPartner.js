@@ -11,11 +11,12 @@ import {
   TableRow,
 } from "@material-ui/core";
 import ActionBar from "@/components/ActionBar";
-import NewPartner from "@/components/NewPartner";
-import DeletePartner from "@/components/DeletePartner";
-import Loading from "@/components/Loading";
+import NewAppointment from "@/components/NewAppointment";
+import DeleteAppointment from "@/components/DeleteAppointment";
+import EditAppointment from "@/components/EditAppointment";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
+import Loading from "@/components/Loading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,35 +24,25 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.border.default,
   },
   container: {
-    maxHeight: 440,
+    maxHeight: 740,
     borderRadius: theme.border.default,
   },
 }));
 
 const columns = [
-  { id: "name", label: "Nombre" },
-  { id: "last_name", label: "Apellido" },
-  { id: "email", label: "Correo" },
-  { id: "phone", label: "Teléfono" },
-  { id: "business", label: "Negocio" },
-  {
-    id: "description",
-    label: "Descripción",
-    align: "left",
-  },
-  {
-    id: "address",
-    label: "Dirección",
-    align: "left",
-  },
+  { id: "title", label: "Título" },
+  { id: "description", label: "Descripción" },
+  { id: "date", label: "Fecha" },
+  { id: "afiliate", label: "Afiliado" },
+  { id: "state", label: "Estado" },
 ];
 
-const PartnersList = () => {
+const AppointmentListPartner = () => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const { data, error, mutate } = useSWR(`/partners`, fetcher);
+  const { data, error, mutate } = useSWR(`/appointments_partner`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <Loading />;
@@ -65,13 +56,13 @@ const PartnersList = () => {
     setPage(0);
   };
 
-  const meta = <div>{data.meta.total} Socios</div>;
+  const meta = <div>Registro de citas</div>;
 
-  const newPartner = <NewPartner mutate={mutate} />;
+  const newAffiliate = <NewAppointment mutate={mutate} />;
 
   return (
     <>
-      <ActionBar actionFirst={meta} actionSecond={newPartner} />
+      <ActionBar actionFirst={meta} actionSecond={newAffiliate} />
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
@@ -93,9 +84,6 @@ const PartnersList = () => {
             </TableHead>
             <TableBody>
               {data.data.map((row, index) => {
-                const userData = data.data[index].user;
-                const partner = Object.assign(userData, row);
-
                 return (
                   <TableRow
                     hover
@@ -105,7 +93,7 @@ const PartnersList = () => {
                     key={"row" + index}
                   >
                     {columns.map((column, index) => {
-                      const value = partner[column.id];
+                      const value = row[column.id];
 
                       return (
                         <TableCell
@@ -120,7 +108,8 @@ const PartnersList = () => {
                       );
                     })}
                     <TableCell>
-                      <DeletePartner partner={row} />
+                      <DeleteAppointment appointment={row} mutate={mutate} />
+                      <EditAppointment appointment={row} mutate={mutate} />
                     </TableCell>
                   </TableRow>
                 );
@@ -141,4 +130,4 @@ const PartnersList = () => {
   );
 };
 
-export default PartnersList;
+export default AppointmentListPartner;
