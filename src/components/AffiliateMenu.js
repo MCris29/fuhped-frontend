@@ -105,13 +105,8 @@ const AffiliateMenu = () => {
 
                 <Tab
                   className={classes.display}
-                  label="Servicios"
-                  {...a11yProps(1)}
-                />
-                <Tab
-                  className={classes.display}
                   label="Citas"
-                  {...a11yProps(2)}
+                  {...a11yProps(1)}
                 />
               </Tabs>
               <Tabs
@@ -126,12 +121,7 @@ const AffiliateMenu = () => {
                   label="Perfil"
                   {...a11yProps(0)}
                 />
-                <Tab
-                  className={classes.tab}
-                  label="Servicios"
-                  {...a11yProps(1)}
-                />
-                <Tab className={classes.tab} label="Citas" {...a11yProps(2)} />
+                <Tab className={classes.tab} label="Citas" {...a11yProps(1)} />
               </Tabs>
             </Grid>
 
@@ -140,9 +130,6 @@ const AffiliateMenu = () => {
                 <Profile />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                Servicios
-              </TabPanel>
-              <TabPanel value={value} index={2}>
                 <AppointmentListAffiliate />
               </TabPanel>
             </Grid>

@@ -1,17 +1,23 @@
 import { React, useState } from "react";
 import Link from "next/link";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuIcon from "@material-ui/icons/Menu";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import IconButton from "@material-ui/core/IconButton";
-import { Menu, MenuItem, Button, Divider } from "@material-ui/core";
+import {
+  Menu,
+  MenuItem,
+  Button,
+  Divider,
+  IconButton,
+  ListItemIcon,
+} from "@material-ui/core";
+import IconNotification from "@/components/IconNotification";
 
 import { useAuth } from "@/lib/auth";
-import Routes from "../constants/routes";
+import Routes from "@/constants/routes";
 
 const useStyles = makeStyles((theme) => ({
   sectionDesktop: {
@@ -47,10 +53,33 @@ const useStyles = makeStyles((theme) => ({
   containerIcons: {
     display: "flex",
   },
-  icon: {
-    marginRight: "4px",
+  divider: {
+    marginTop: "5px",
+    marginBottom: "5px",
   },
 }));
+
+const StyledMenu = withStyles({
+  paper: {
+    border: "1px solid #d3d4d5",
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "center",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center",
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({}))(MenuItem);
 
 const IconsMenu = () => {
   const { logout, user } = useAuth();
@@ -58,7 +87,6 @@ const IconsMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMenuAccountOpen = (event) => {
@@ -78,47 +106,47 @@ const IconsMenu = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleProfile = () => {
-    handleMenuAccountClose();
-  };
-
   const handleLogout = async () => {
     logout();
     handleMenuAccountClose();
   };
 
-  const menuId = "account-menu";
   const renderMenuAccount = (
-    <Menu
+    <StyledMenu
+      id="customized-menu"
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
       keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
+      open={Boolean(anchorEl)}
       onClose={handleMenuAccountClose}
     >
       {user ? (
-        <MenuItem disabled>
-          <AccountCircle className={classes.icon} />
+        <StyledMenuItem disabled>
+          <ListItemIcon>
+            <AccountCircle />
+          </ListItemIcon>
           {user.name + " " + user.last_name}
-        </MenuItem>
+        </StyledMenuItem>
       ) : (
         <div></div>
       )}
-      <Divider variant="middle" />
+      <Divider variant="middle" className={classes.divider} />
 
       <Link href={Routes.MENU}>
-        <MenuItem onClick={handleProfile}>
-          <MenuIcon className={classes.icon} />
-          Menú
-        </MenuItem>
+        <StyledMenuItem onClick={handleMenuAccountClose}>
+          <ListItemIcon>
+            <MenuIcon />
+          </ListItemIcon>
+          Ir al menú
+        </StyledMenuItem>
       </Link>
-      <MenuItem onClick={handleLogout}>
-        <ExitToAppIcon className={classes.icon} />
+
+      <StyledMenuItem onClick={handleLogout}>
+        <ListItemIcon>
+          <ExitToAppIcon />
+        </ListItemIcon>
         Cerrar sesión
-      </MenuItem>
-    </Menu>
+      </StyledMenuItem>
+    </StyledMenu>
   );
 
   const mobileMenuId = "mobile-account-menu";
@@ -145,8 +173,8 @@ const IconsMenu = () => {
       <div className={classes.sectionDesktop}>
         {user ? (
           <div className={classes.containerIcons}>
-            <MenuItem onClick={handleMenuAccountOpen} id="account-menu-button">
-              <NotificationsIcon />
+            <MenuItem id="notification-button">
+              <IconNotification />
             </MenuItem>
             <MenuItem onClick={handleMenuAccountOpen} id="account-menu-button">
               <ArrowDropDownIcon />

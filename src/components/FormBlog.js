@@ -1,10 +1,11 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import { TextField, Button, Grid, Typography } from "@material-ui/core";
+import { TextField, Button, Grid } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
 import { Blogs } from "@/lib/blogs";
 import clsx from "clsx";
 
@@ -67,13 +68,13 @@ const useStyles = makeStyles((theme) => ({
 const schema = yup.object().shape({
   title: yup.string().required("Ingrese un título"),
   description: yup.string().required("Ingrese una descripción"),
-  image: yup.string().required("Ingrese una imagen"),
 });
 
 const FormBlog = (prop) => {
   const [image, setImage] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingImage, setLoadingImage] = useState(false);
 
   const classes = useStyles();
   const {
@@ -83,6 +84,7 @@ const FormBlog = (prop) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (dataBlog) => {
+    console.log("dataBlog", dataBlog);
     setLoading(true);
 
     const newBlog = {
@@ -117,6 +119,11 @@ const FormBlog = (prop) => {
     setImage(imageFile);
     setSuccess(true);
     console.log("image", imageFile);
+    setLoadingImage(false);
+  };
+
+  const handleLoading = () => {
+    setLoadingImage(true);
   };
 
   return (
@@ -181,6 +188,7 @@ const FormBlog = (prop) => {
                   className={classes.input}
                   id="contained-button-file"
                   onChange={(e) => handleImage(e.target.files[0])}
+                  onClick={handleLoading}
                 />
                 <label htmlFor="contained-button-file">
                   <div>
@@ -189,6 +197,7 @@ const FormBlog = (prop) => {
                       fullWidth
                       component="span"
                       className={buttonClassname}
+                      disabled={loadingImage}
                     >
                       {success ? (
                         <CheckCircleOutlineIcon style={{ display: "flex" }} />

@@ -58,7 +58,8 @@ const DeleteBlog = (prop) => {
     setLoading(true);
     try {
       await Blogs.deleteBlog(prop.publication.id);
-      prop.handleMutate();
+      prop.mutate();
+      handleClose();
       handleSuccessOpen();
     } catch (e) {
       console.log("error", e);
@@ -135,7 +136,7 @@ const DeleteBlog = (prop) => {
                 Si, eliminar
               </Button>
               <Button onClick={handleClose} className={classes.buttonCancel}>
-                Cancel
+                Cancelar
               </Button>
             </div>
           </div>

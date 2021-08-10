@@ -61,6 +61,7 @@ const DeleteAffiliate = (prop) => {
       await Appointments.deleteAppointments(prop.appointment.id);
       prop.mutate();
       handleSuccessOpen();
+      handleClose();
     } catch (e) {
       console.log("error", e);
     }
