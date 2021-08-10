@@ -75,9 +75,9 @@ const BlogList = () => {
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <Loading />;
 
-  const handleMutate = () => {
-    mutate();
-  };
+  // const handleMutate = () => {
+  //   mutate();
+  // };
 
   const meta = <div>{data.meta.total} Publicaciones</div>;
 
@@ -112,10 +112,7 @@ const BlogList = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <CardActions>
-                    <DeleteBlog
-                      publication={publication}
-                      handleMutate={handleMutate}
-                    />
+                    <DeleteBlog publication={publication} mutate={mutate} />
                   </CardActions>
                 </Grid>
               </Grid>
