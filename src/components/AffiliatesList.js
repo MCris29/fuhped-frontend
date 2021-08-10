@@ -1,5 +1,5 @@
-import { React, useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { React, useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
   Table,
@@ -11,13 +11,13 @@ import {
   TableRow,
 } from "@material-ui/core";
 import ActionBar from "@/components/ActionBar";
+import NewAffiliate from "@/components/NewAffiliate";
+import DeleteAffiliate from "@/components/DeleteAffiliate";
+import ButtonReport from "@/components/ButtonReport";
+import Loading from "@/components/Loading";
+
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import theme from "src/pages/theme";
-import NewAffiliate from "@/components/NewAffiliate";
-import Loading from "@/components/Loading";
-import DeleteAffiliate from "@/components/DeleteAffiliate";
-import { object } from "yup/lib/locale";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,9 +57,52 @@ const AffiliatesList = () => {
     setPage(0);
   };
 
+  //Columns for PDF report
+  const columnsReport = [
+    "Código",
+    "Nombre",
+    "Apellido",
+    "Correo",
+    "Teléfono",
+    "Dirección",
+  ];
+
+  //Rows for PDF report
+  const handleRows = (dataRow) => {
+    const tableRows = [];
+    dataRow.map((item) => {
+      const RowsData = [
+        item.user.id,
+        item.user.name,
+        item.user.last_name,
+        item.user.email,
+        item.user.phone,
+        item.address,
+      ];
+
+      tableRows.push(RowsData);
+    });
+
+    return tableRows;
+  };
+
+  //Data for PDF report
+  const title = "Reporte de Afiliados";
+  const fileName = "reporte_afiliados";
+
   const meta = <div>{data.meta.total} Afiliados</div>;
 
-  const newAffiliate = <NewAffiliate mutate={mutate} />;
+  const newAffiliate = (
+    <div>
+      <NewAffiliate mutate={mutate} />
+      <ButtonReport
+        tableColumn={columnsReport}
+        tableRows={handleRows(data.data)}
+        title={title}
+        fileName={fileName}
+      />
+    </div>
+  );
 
   return (
     <>

@@ -17,6 +17,8 @@
     "babel-preset-next": "^1.4.0",
     "clsx": "^1.1.1",
     "js-cookie": "^2.2.1",
+    "jspdf": "^2.3.1",
+    "jspdf-autotable": "^3.5.15",
     "next": "11.0.0",
     "nprogress": "^0.2.0",
     "react": "17.0.2",
