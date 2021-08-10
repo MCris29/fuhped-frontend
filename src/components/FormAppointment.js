@@ -5,10 +5,10 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Appointments } from "@/lib/appointments";
+import { Notifications } from "@/lib/notifications";
 
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import Loading from "@/components/Loading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,12 +90,17 @@ const FormAppointment = (prop) => {
       afiliate_id: afiliate,
       state: "En espera",
     };
-    console.log(NewAppointment);
 
     try {
-      const appointmentData = await Appointments.create(NewAppointment);
-      console.log("appointmentData", appointmentData);
+      const dataAppointment = await Appointments.create(NewAppointment);
+      // console.log("dataAppointment", dataAppointment);
 
+      const NewNotification = {
+        title: dataAppointment.data.partner + " te asignó una cita con fecha " + data.date,
+        receiver_id: afiliate,
+      };
+
+      sendNotification(NewNotification);
       prop.handleMutate();
       prop.handleOpenSucces();
       prop.handleClose();
@@ -105,6 +110,14 @@ const FormAppointment = (prop) => {
       console.log("error", e);
     }
     setLoading(false);
+  };
+
+  const sendNotification = async (data) => {
+    try {
+      await Notifications.create(data);
+    } catch (e) {
+      console.log("error", e);
+    }
   };
 
   const handleChange = (event) => {

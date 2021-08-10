@@ -1,14 +1,22 @@
 import { React, useState } from "react";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import { withStyles } from "@material-ui/core/styles";
-import { Menu, MenuItem, ListItemText } from "@material-ui/core";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { Menu, MenuItem, ListItemText, Typography } from "@material-ui/core";
 
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
+import theme from "src/pages/theme";
+
+const useStyles = makeStyles((theme) => ({
+  notificationContainer: {
+    display: "block",
+  },
+}));
 
 const StyledMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5",
+    borderRadius: theme.border.default,
   },
 })((props) => (
   <Menu
@@ -29,6 +37,7 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles((theme) => ({}))(MenuItem);
 
 const IconNotification = () => {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const { data, error, mutate } = useSWR(`/notifications_receiver`, fetcher);
 
@@ -41,6 +50,19 @@ const IconNotification = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDate = (date) => {
+    const notificationDate = [];
+    for (let i = 0; i <= 15; i++) {
+      if (date[i] !== "T") {
+        notificationDate[i] = date[i];
+      } else {
+        notificationDate[i] = " ";
+      }
+    }
+
+    return notificationDate;
   };
 
   return (
@@ -57,8 +79,15 @@ const IconNotification = () => {
         >
           {data.meta.total !== 0 ? (
             data.data.map((notification, index) => (
-              <StyledMenuItem key={index}>
+              <StyledMenuItem
+                className={classes.notificationContainer}
+                key={index}
+              >
                 <ListItemText primary={notification.title} />
+                <Typography variant="caption">
+                  {"Asignado con fecha "}
+                  {handleDate(notification.created_at)}
+                </Typography>
               </StyledMenuItem>
             ))
           ) : (

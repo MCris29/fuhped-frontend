@@ -53,6 +53,10 @@ const useStyles = makeStyles((theme) => ({
   containerIcons: {
     display: "flex",
   },
+  divider: {
+    marginTop: "5px",
+    marginBottom: "5px",
+  },
 }));
 
 const StyledMenu = withStyles({
@@ -125,7 +129,7 @@ const IconsMenu = () => {
       ) : (
         <div></div>
       )}
-      <Divider variant="middle" />
+      <Divider variant="middle" className={classes.divider} />
 
       <Link href={Routes.MENU}>
         <StyledMenuItem onClick={handleMenuAccountClose}>
