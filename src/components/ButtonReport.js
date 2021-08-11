@@ -33,7 +33,7 @@ const ButtonReport = (props) => {
           )
         }
       >
-        Generar PDF
+        Descargar PDF
       </Button>
     </>
   );

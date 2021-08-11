@@ -14,6 +14,7 @@ import ActionBar from "@/components/ActionBar";
 import NewAppointment from "@/components/NewAppointment";
 import DeleteAppointment from "@/components/DeleteAppointment";
 import EditAppointment from "@/components/EditAppointment";
+import ButtonReport from "@/components/ButtonReport";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import Loading from "@/components/Loading";
@@ -56,9 +57,52 @@ const AppointmentListPartner = () => {
     setPage(0);
   };
 
+  //Columns for PDF report
+  const columnsReport = [
+    "Código",
+    "Título",
+    "Descripción",
+    "Fecha",
+    "Afiliado",
+    "Estado",
+  ];
+
+  //Rows for PDF report
+  const handleRows = (dataRow) => {
+    const tableRows = [];
+    dataRow.map((item) => {
+      const RowsData = [
+        item.id,
+        item.title,
+        item.description,
+        item.date,
+        item.afiliate,
+        item.state,
+      ];
+
+      tableRows.push(RowsData);
+    });
+
+    return tableRows;
+  };
+
+  //Data for PDF report
+  const title = "Reporte de Citas";
+  const fileName = "reporte_citas";
+
   const meta = <div>Registro de citas</div>;
 
-  const newAffiliate = <NewAppointment mutate={mutate} />;
+  const newAffiliate = (
+    <div>
+      <NewAppointment mutate={mutate} />
+      <ButtonReport
+        tableColumn={columnsReport}
+        tableRows={handleRows(data.data)}
+        title={title}
+        fileName={fileName}
+      />
+    </div>
+  );
 
   return (
     <>
