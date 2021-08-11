@@ -109,7 +109,7 @@ const AffiliatesList = () => {
       <ActionBar actionFirst={meta} actionSecond={newAffiliate} />
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
+          <Table stickyHeader aria-label="sticky table" id="table-affiliates">
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
