@@ -57,6 +57,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "5px",
     marginBottom: "5px",
   },
+  menuButton: {
+    "&:hover": {
+      color: theme.palette.primary.second,
+      backgroundColor: theme.palette.background.default,
+      borderRadius: theme.border.default,
+      transform: "scale(1.1)",
+    },
+  },
 }));
 
 const StyledMenu = withStyles({
@@ -173,10 +181,17 @@ const IconsMenu = () => {
       <div className={classes.sectionDesktop}>
         {user ? (
           <div className={classes.containerIcons}>
-            <MenuItem id="notification-button">
+            <MenuItem
+              id="notification-button"
+              className={classes.menuButton}
+            >
               <IconNotification />
             </MenuItem>
-            <MenuItem onClick={handleMenuAccountOpen} id="account-menu-button">
+            <MenuItem
+              onClick={handleMenuAccountOpen}
+              id="account-menu-button"
+              className={classes.menuButton}
+            >
               <ArrowDropDownIcon />
             </MenuItem>
           </div>

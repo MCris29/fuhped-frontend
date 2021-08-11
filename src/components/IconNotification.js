@@ -1,7 +1,13 @@
 import { React, useState } from "react";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Menu, MenuItem, ListItemText, Typography } from "@material-ui/core";
+import {
+  Menu,
+  MenuItem,
+  ListItemText,
+  Typography,
+  IconButton,
+} from "@material-ui/core";
 
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
@@ -10,6 +16,15 @@ import theme from "src/pages/theme";
 const useStyles = makeStyles((theme) => ({
   notificationContainer: {
     display: "block",
+  },
+  IconButton: {
+    color: theme.palette.text.main,
+    "&:hover": {
+      color: theme.palette.primary.second,
+      backgroundColor: theme.palette.background.default,
+      borderRadius: theme.border.default,
+      transform: "scale(1.1)",
+    },
   },
 }));
 
@@ -68,7 +83,9 @@ const IconNotification = () => {
   return (
     <>
       <div>
-        <NotificationsIcon onClick={handleClick} />
+        <div className={classes.IconButton} onClick={handleClick}>
+          <NotificationsIcon />
+        </div>
 
         <StyledMenu
           id="customized-menu"
@@ -91,7 +108,9 @@ const IconNotification = () => {
               </StyledMenuItem>
             ))
           ) : (
-            <StyledMenuItem>Sin notificaciones</StyledMenuItem>
+            <StyledMenuItem key={"icon-notification"}>
+              Sin notificaciones
+            </StyledMenuItem>
           )}
         </StyledMenu>
       </div>
