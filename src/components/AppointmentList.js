@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import ActionBar from "@/components/ActionBar";
+import ButtonReport from "@/components/ButtonReport";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import Loading from "@/components/Loading";
@@ -54,9 +55,53 @@ const AppointmentList = () => {
     setPage(0);
   };
 
+  //Columns for PDF report
+  const columnsReport = [
+    "Código",
+    "Título",
+    "Descripción",
+    "Fecha",
+    "Estado",
+    "Socio",
+    "Afiliado",
+  ];
+
+  //Rows for PDF report
+  const handleRows = (dataRow) => {
+    const tableRows = [];
+    dataRow.map((item) => {
+      const RowsData = [
+        item.id,
+        item.title,
+        item.description,
+        item.date,
+        item.state,
+        item.partner,
+        item.afiliate,
+      ];
+
+      tableRows.push(RowsData);
+    });
+
+    return tableRows;
+  };
+
+  //Data for PDF report
+  const title = "Reporte de Citas";
+  const fileName = "reporte_citas";
+
   const meta = <div>{data.meta.total} Citas</div>;
 
-  const newAffiliate = <div>Botón</div>;
+  const newAffiliate = (
+    <div>
+      <ButtonReport
+        tableColumn={columnsReport}
+        tableRows={handleRows(data.data)}
+        title={title}
+        fileName={fileName}
+      />
+    </div>
+  );
 
   return (
     <>

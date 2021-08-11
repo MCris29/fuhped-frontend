@@ -13,6 +13,7 @@ import {
 import ActionBar from "@/components/ActionBar";
 import NewPartner from "@/components/NewPartner";
 import DeletePartner from "@/components/DeletePartner";
+import ButtonReport from "@/components/ButtonReport";
 import Loading from "@/components/Loading";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
@@ -65,9 +66,56 @@ const PartnersList = () => {
     setPage(0);
   };
 
+  //Columns for PDF report
+  const columnsReport = [
+    "Código",
+    "Nombre",
+    "Apellido",
+    "Correo",
+    "Teléfono",
+    "Negocio",
+    "Descripción",
+    "Dirección",
+  ];
+
+  //Rows for PDF report
+  const handleRows = (dataRow) => {
+    const tableRows = [];
+    dataRow.map((item) => {
+      const RowsData = [
+        item.user.id,
+        item.user.name,
+        item.user.last_name,
+        item.user.email,
+        item.user.phone,
+        item.business,
+        item.description,
+        item.address,
+      ];
+
+      tableRows.push(RowsData);
+    });
+
+    return tableRows;
+  };
+
+  //Data for PDF report
+  const title = "Reporte de Socios";
+  const fileName = "reporte_socios";
+
   const meta = <div>{data.meta.total} Socios</div>;
 
-  const newPartner = <NewPartner mutate={mutate} />;
+  const newPartner = (
+    <div>
+      <NewPartner mutate={mutate} />
+      <ButtonReport
+        tableColumn={columnsReport}
+        tableRows={handleRows(data.data)}
+        title={title}
+        fileName={fileName}
+      />
+    </div>
+  );
 
   return (
     <>

@@ -47,11 +47,12 @@ const NewAffiliate = (prop) => {
   const handlemutate = () => {
     prop.mutate();
   };
+  
 
   return (
     <>
       <Button className={classes.button} onClick={handleOpen}>
-        Registrar Afiliado
+        Nuevo Afiliado
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
