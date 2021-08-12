@@ -8,7 +8,7 @@ const TableData = (props) => {
         <DataGrid
           rows={props.rows}
           columns={props.columns}
-          pageSize={20}
+          pageSize={10}
           autoHeight={true}
           disableExtendRowFullWidth={true}
           disableSelectionOnClick

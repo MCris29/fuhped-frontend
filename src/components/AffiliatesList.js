@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper } from "@material-ui/core";
 import ActionBar from "@/components/ActionBar";
 import NewAffiliate from "@/components/NewAffiliate";
 import DeleteAffiliate from "@/components/DeleteAffiliate";
@@ -15,10 +14,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: "40px",
     borderRadius: theme.border.default,
-  },
-  container: {
-    maxHeight: 440,
-    borderRadius: theme.border.default,
+    backgroundColor: "#fff",
   },
 }));
 
@@ -96,9 +92,9 @@ const AffiliatesList = () => {
   return (
     <>
       <ActionBar actionFirst={meta} actionSecond={newAffiliate} />
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <TableData columns={columns} rows={data.data} />
-      </Paper>
+      </div>
     </>
   );
 };
