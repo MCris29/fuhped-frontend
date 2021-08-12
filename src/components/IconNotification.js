@@ -108,7 +108,7 @@ const IconNotification = () => {
               </StyledMenuItem>
             ))
           ) : (
-            <StyledMenuItem key={"icon-notification"}>
+            <StyledMenuItem key={"icon-notification"} disabled>
               Sin notificaciones
             </StyledMenuItem>
           )}

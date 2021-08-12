@@ -96,7 +96,10 @@ const FormAppointment = (prop) => {
       // console.log("dataAppointment", dataAppointment);
 
       const NewNotification = {
-        title: dataAppointment.data.partner + " te asignó una cita con fecha " + data.date,
+        title:
+          dataAppointment.data.partner +
+          " te asignó una cita con fecha " +
+          data.date,
         receiver_id: afiliate,
       };
 
@@ -197,8 +200,8 @@ const FormAppointment = (prop) => {
               >
                 {data ? (
                   data.data.map((afiliate, index) => (
-                    <MenuItem key={index} value={afiliate.user.id}>
-                      {afiliate.user.name + " " + afiliate.user.last_name}
+                    <MenuItem key={index} value={afiliate.user_id}>
+                      {afiliate.name}
                     </MenuItem>
                   ))
                 ) : (
