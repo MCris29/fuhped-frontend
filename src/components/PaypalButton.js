@@ -4,6 +4,7 @@ import {
   RadioGroup,
   FormControlLabel,
   FormControl,
+  Typography,
 } from "@material-ui/core";
 
 const PaypalButton = () => {
@@ -27,7 +28,7 @@ const PaypalButton = () => {
         div.removeChild(div.lastChild);
       }
     } else {
-      alert("No existe el botón previamente creada.");
+      console.log("No existe el botón previamente creado.");
     }
   }
 
@@ -81,6 +82,7 @@ const PaypalButton = () => {
 
   return (
     <>
+      <Typography variant="body2">Escoje un valor: </Typography>
       <FormControl component="fieldset">
         <RadioGroup
           aria-label="value"

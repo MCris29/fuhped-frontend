@@ -1,8 +1,8 @@
 import react from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import { Grid } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
+import Routes from "@/constants/routes";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Grid, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,23 +28,27 @@ const useStyles = makeStyles((theme) => ({
 const links = [
   {
     title: "Inicio",
-    path: "",
+    to: Routes.HOME,
   },
   {
     title: "Blog",
-    path: "",
+    to: Routes.BLOG,
   },
   {
     title: "Nosotros",
-    path: "",
+    to: "/#about-us",
   },
   {
     title: "Donaciones",
-    path: "",
+    to: "/#donation",
   },
   {
     title: "Servicios",
-    path: "",
+    to: Routes.SERVICES,
+  },
+  {
+    title: "Contáctanos",
+    to: "/#contact-us",
   },
 ];
 
@@ -99,9 +103,9 @@ const Footer = () => {
           </Grid>
           <Grid item xs={12} md={4}>
             {links.map((value, index) => (
-              <div key={index} className={classes.item}>
+              <Link href={value.to} key={index} className={classes.item}>
                 <Typography>{value.title}</Typography>
-              </div>
+              </Link>
             ))}
           </Grid>
           <Grid item xs={12} className={classes.copyright}>
