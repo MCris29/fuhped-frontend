@@ -61,7 +61,7 @@ const Information = () => {
 
   return (
     <>
-      <div className={classes.container}>
+      <div className={classes.container} id="about-us">
         <div className={classes.title}>
           <div className={classes.underline}>
             <Typography variant="h4">¿Quiénes Somos?</Typography>

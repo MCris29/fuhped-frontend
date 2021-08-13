@@ -1,15 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Grid,
-  Typography,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  TextField,
-} from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import PaypalButton from "@/components/PaypalButton";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,15 +34,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Donation = () => {
   const classes = useStyles();
-  // const [value, setValue] = useState(10);
-
-  // const handleChange = (event) => {
-  //   setValue(event.target.value);
-  // };
 
   return (
     <>
-      <div className={classes.itemContainer}>
+      <div className={classes.itemContainer} id="donation">
         <Grid container justify="center" className={classes.container}>
           <Grid item xs={12} md={6}>
             <Image
@@ -64,19 +51,6 @@ const Donation = () => {
             <div className={classes.space}>
               <Typography variant="h4">Realiza tu Donación</Typography>
             </div>
-            {/* <FormControl component="fieldset">
-              <RadioGroup
-                aria-label="value"
-                name="gender1"
-                value={value}
-                onChange={handleChange}
-                row
-              >
-                <FormControlLabel value="10" control={<Radio />} label="$10" />
-                <FormControlLabel value="20" control={<Radio />} label="$20" />
-                <FormControlLabel value="50" control={<Radio />} label="$50" />
-              </RadioGroup>
-            </FormControl> */}
             <PaypalButton />
           </Grid>
         </Grid>

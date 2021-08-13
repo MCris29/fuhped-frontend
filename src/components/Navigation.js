@@ -42,15 +42,15 @@ const mainMenuItems = [
   },
   {
     text: "Donaciones",
-    to: Routes.HOME,
+    to: "/#donation",
   },
   {
     text: "Nosotros",
-    to: Routes.HOME,
+    to: "/#about-us",
   },
   {
     text: "Contáctanos",
-    to: Routes.HOME,
+    to: "/#contact-us",
   },
 ];
 
