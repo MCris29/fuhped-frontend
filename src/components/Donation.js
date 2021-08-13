@@ -1,10 +1,16 @@
-import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import { Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Block } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Grid,
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  TextField,
+} from "@material-ui/core";
+import PaypalButton from "@/components/PaypalButton";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -36,7 +42,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Donation = () => {
   const classes = useStyles();
-  const theme = useTheme();
+  // const [value, setValue] = useState(10);
+
+  // const handleChange = (event) => {
+  //   setValue(event.target.value);
+  // };
 
   return (
     <>
@@ -54,19 +64,20 @@ const Donation = () => {
             <div className={classes.space}>
               <Typography variant="h4">Realiza tu Donación</Typography>
             </div>
-            <Typography variant="body1"> </Typography>
-            <Grid container className={classes.space}>
-              <Grid item xs={12}>
-                <Button variant="contained" className={classes.button}>
-                  Paypal
-                </Button>
-              </Grid>
-              <Grid item xs={12}>
-                <Button variant="contained" className={classes.button}>
-                  Transferencia
-                </Button>
-              </Grid>
-            </Grid>
+            {/* <FormControl component="fieldset">
+              <RadioGroup
+                aria-label="value"
+                name="gender1"
+                value={value}
+                onChange={handleChange}
+                row
+              >
+                <FormControlLabel value="10" control={<Radio />} label="$10" />
+                <FormControlLabel value="20" control={<Radio />} label="$20" />
+                <FormControlLabel value="50" control={<Radio />} label="$50" />
+              </RadioGroup>
+            </FormControl> */}
+            <PaypalButton />
           </Grid>
         </Grid>
       </div>
