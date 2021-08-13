@@ -1,13 +1,21 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
+import Link from "next/link";
+import Routes from "@/constants/routes";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Grid,
+  Typography,
+} from "@material-ui/core";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { fetcher } from "@/lib/utils";
+import useSWR from "swr";
 
 const post = [
   {
@@ -22,6 +30,14 @@ const post = [
     title: "Noticia 3",
     description: "Descripción",
   },
+  {
+    title: "Noticia 4",
+    description: "Descripción",
+  },
+  {
+    title: "Noticia 5",
+    description: "Descripción",
+  },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -33,15 +49,12 @@ const useStyles = makeStyles((theme) => ({
     padding: "9em 40px",
   },
   cardContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    margin: "3em 0",
-    padding: "0 40px",
+    minHeight: "345px",
   },
   card: {
-    width: "100%",
+    maxWidth: 345,
+    margin: "0 30px",
+    borderRadius: "10px",
   },
   title: {
     padding: "0 0 70px 0",
@@ -56,16 +69,48 @@ const useStyles = makeStyles((theme) => ({
     borderBottomColor: theme.palette.primary.second,
   },
   button: {
-    padding: "7px 25px",
-    borderRadius: "10px",
     backgroundColor: theme.palette.primary.second,
+    borderRadius: theme.border.default,
     color: theme.palette.text.second,
+    textTransform: "none",
+    padding: "5px 30px",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
+  carouselContainer: {
+    height: "100%",
+  },
+  media: {
+    height: 140,
   },
 }));
 
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
+
 const BlogComponent = () => {
   const classes = useStyles();
-  const theme = useTheme();
+  const { data, error, mutate } = useSWR(`/publications`, fetcher);
+
+  if (error) return <div>No se pudo cargar la información</div>;
+  if (!data) return <div>Cargando...</div>;
 
   return (
     <>
@@ -77,37 +122,43 @@ const BlogComponent = () => {
             </div>
           </div>
           <Grid container justify="center">
-            {post.map((value, index) => (
-              <Grid
-                item
-                key={index}
-                xs={12}
-                md={4}
-                className={classes.cardContainer}
-              >
-                <Card className={classes.card}>
-                  <CardActionArea>
-                    <CardMedia component="img" height="140" />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {value.title}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {value.description}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              </Grid>
-            ))}
+            <Grid item xs={12} className={classes.carouselContainer}>
+              <Carousel responsive={responsive}>
+                {data.data.map((publication, index) => (
+                  <div key={index} className={classes.cardContainer}>
+                    <Card className={classes.card}>
+                      <CardActionArea>
+                        <CardMedia
+                          component="img"
+                          height="140"
+                          className={classes.media}
+                          image={publication.image}
+                          title={publication.title}
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {publication.title}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            component="p"
+                          >
+                            {publication.description}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </div>
+                ))}
+              </Carousel>
+            </Grid>
             <Grid item xs={12}>
-              <Button variant="contained" className={classes.button}>
-                Ver más..
-              </Button>
+              <Link href={Routes.BLOG}>
+                <Button variant="contained" className={classes.button}>
+                  Ver más..
+                </Button>
+              </Link>
             </Grid>
           </Grid>
         </div>

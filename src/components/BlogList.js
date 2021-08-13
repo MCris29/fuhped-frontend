@@ -68,9 +68,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BlogList = () => {
-  const { data, error, mutate } = useSWR(`/publications`, fetcher);
   const classes = useStyles();
-  const theme = useTheme();
+  const { data, error, mutate } = useSWR(`/publications`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <Loading />;
