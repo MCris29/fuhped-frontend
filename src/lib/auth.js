@@ -47,7 +47,6 @@ function useAuthProvider() {
       const response = await api.post("/register", data, config);
       console.log("response", response);
 
-      handleUser(response.data);
       return response;
     } catch (error) {
       if (error.response) {

@@ -17,29 +17,6 @@ import "react-multi-carousel/lib/styles.css";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 
-const post = [
-  {
-    title: "Noticia 1",
-    description: "Descripción",
-  },
-  {
-    title: "Noticia 2",
-    description: "Descripción",
-  },
-  {
-    title: "Noticia 3",
-    description: "Descripción",
-  },
-  {
-    title: "Noticia 4",
-    description: "Descripción",
-  },
-  {
-    title: "Noticia 5",
-    description: "Descripción",
-  },
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
