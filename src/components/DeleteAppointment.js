@@ -8,6 +8,7 @@ import {
   Fade,
   Typography,
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Appointments } from "@/lib/appointments";
 
@@ -105,7 +106,7 @@ const DeleteAffiliate = (prop) => {
     <>
       {alert}
       <Button className={classes.buttonCancel} onClick={handleOpen}>
-        Eliminar
+        <DeleteIcon color="error" />
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
