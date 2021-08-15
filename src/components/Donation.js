@@ -1,10 +1,8 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import { Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import Image from "next/image";
-import { Block } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Typography } from "@material-ui/core";
+import PaypalButton from "@/components/PaypalButton";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -36,11 +34,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Donation = () => {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <>
-      <div className={classes.itemContainer}>
+      <div className={classes.itemContainer} id="donation">
         <Grid container justify="center" className={classes.container}>
           <Grid item xs={12} md={6}>
             <Image
@@ -54,19 +51,7 @@ const Donation = () => {
             <div className={classes.space}>
               <Typography variant="h4">Realiza tu Donación</Typography>
             </div>
-            <Typography variant="body1"> </Typography>
-            <Grid container className={classes.space}>
-              <Grid item xs={12}>
-                <Button variant="contained" className={classes.button}>
-                  Paypal
-                </Button>
-              </Grid>
-              <Grid item xs={12}>
-                <Button variant="contained" className={classes.button}>
-                  Transferencia
-                </Button>
-              </Grid>
-            </Grid>
+            <PaypalButton />
           </Grid>
         </Grid>
       </div>

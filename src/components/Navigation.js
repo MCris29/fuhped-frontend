@@ -2,10 +2,7 @@ import { React, useState, cloneElement } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "next/link";
-import IconButton from "@material-ui/core/IconButton";
-import MenuItem from "@material-ui/core/MenuItem";
-import Icon from "@material-ui/core/Icon";
-import List from "@material-ui/core/List";
+import Routes from "@/constants/routes";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import {
@@ -18,8 +15,11 @@ import {
   AppBar,
   Toolbar,
   Slide,
+  IconButton,
+  MenuItem,
+  Icon,
+  List,
 } from "@material-ui/core";
-import Routes from "@/constants/routes";
 import IconMenu from "@/components/IconMenu";
 import PropTypes from "prop-types";
 import clsx from "clsx";
@@ -42,15 +42,15 @@ const mainMenuItems = [
   },
   {
     text: "Donaciones",
-    to: Routes.HOME,
+    to: "/#donation",
   },
   {
     text: "Nosotros",
-    to: Routes.HOME,
+    to: "/#about-us",
   },
   {
     text: "Contáctanos",
-    to: Routes.HOME,
+    to: "/#contact-us",
   },
 ];
 

@@ -34,9 +34,7 @@ const CardPartners = (props) => {
         <Typography variant="body2" component="p">
           {props.partner.description}
         </Typography>
-        <Typography color="textSecondary">
-          {props.partner.user.name} {props.partner.user.last_name}
-        </Typography>
+        <Typography color="textSecondary">{props.partner.name}</Typography>
       </CardContent>
       <CardActions>
         <Button className={classes.button}>

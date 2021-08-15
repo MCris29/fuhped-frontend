@@ -54,7 +54,7 @@ const Contact = () => {
 
   return (
     <>
-      <div className={classes.root}>
+      <div className={classes.root} id="contact-us">
         <div className={classes.container}>
           <div className={classes.title}>
             <div className={classes.underline}>

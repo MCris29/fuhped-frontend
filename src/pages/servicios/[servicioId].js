@@ -33,9 +33,7 @@ export default function ServiceId() {
             <Typography variant="h4">{data.business}</Typography>
           </div>
           <div className={classes.itemContainer}>
-            <Typography variant="subtitle1">
-              {data.user.name} {data.user.last_name}
-            </Typography>
+            <Typography variant="subtitle1">{data.name}</Typography>
           </div>
           <div className={classes.itemContainer}>
             <Typography variant="body1">{data.description}</Typography>
@@ -47,18 +45,18 @@ export default function ServiceId() {
           </div>
           <div className={classes.itemContainer}>
             <Typography variant="body1">
-              <strong>Teléfono:</strong> {data.user.phone}
+              <strong>Teléfono:</strong> {data.phone}
             </Typography>
           </div>
           <div className={classes.itemContainer}>
             <Typography variant="body1">
-              <strong>Correo:</strong> {data.user.email}
+              <strong>Correo:</strong> {data.email}
             </Typography>
           </div>
         </Grid>
       </Grid>
       <Grid container>
-        <ListCardsServices userid={data.user.id} />
+        <ListCardsServices userid={data.user_id} />
       </Grid>
     </>
   );
