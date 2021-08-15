@@ -18,37 +18,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//Columns for data table
-const columns = [
-  { field: "id", headerName: "ID" },
-  {
-    field: "name",
-    headerName: "Nombre",
-    flex: 1,
-  },
-  {
-    field: "email",
-    headerName: "Correo",
-    flex: 1,
-  },
-  {
-    field: "phone",
-    headerName: "Teléfono",
-    flex: 1,
-  },
-  {
-    field: "address",
-    headerName: "Dirección",
-    flex: 2,
-  },
-];
-
 const AffiliatesList = () => {
   const classes = useStyles();
   const { data, error, mutate } = useSWR(`/afiliates`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <Loading />;
+
+  //Columns for data table
+  const columns = [
+    { field: "id", headerName: "ID" },
+    {
+      field: "name",
+      headerName: "Nombre",
+      flex: 1,
+    },
+    {
+      field: "email",
+      headerName: "Correo",
+      flex: 1,
+    },
+    {
+      field: "phone",
+      headerName: "Teléfono",
+      flex: 1,
+    },
+    {
+      field: "address",
+      headerName: "Dirección",
+      flex: 2,
+    },
+    {
+      field: "Acciones",
+      flex: 1,
+      renderCell: (data) => {
+        return <DeleteAffiliate affiliate={data.row} mutate={mutate} />;
+      },
+    },
+  ];
 
   //Columns for PDF report
   const columnsReport = ["Código", "Nombre", "Correo", "Teléfono", "Dirección"];

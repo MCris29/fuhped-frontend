@@ -18,47 +18,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// columns for data table
-const columns = [
-  { field: "id", headerName: "ID" },
-  {
-    field: "name",
-    headerName: "Nombre",
-    flex: 1,
-  },
-  {
-    field: "email",
-    headerName: "Correo",
-    flex: 1,
-  },
-  {
-    field: "phone",
-    headerName: "Teléfono",
-    flex: 1,
-  },
-  {
-    field: "business",
-    headerName: "Negocio",
-    flex: 1,
-  },
-  {
-    field: "description",
-    headerName: "Descripción",
-    flex: 1,
-  },
-  {
-    field: "address",
-    headerName: "Dirección",
-    flex: 2,
-  },
-];
-
 const PartnersList = () => {
   const classes = useStyles();
   const { data, error, mutate } = useSWR(`/partners`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <Loading />;
+
+  // columns for data table
+  const columns = [
+    { field: "id", headerName: "ID" },
+    {
+      field: "name",
+      headerName: "Nombre",
+      flex: 1,
+    },
+    {
+      field: "email",
+      headerName: "Correo",
+      flex: 1,
+    },
+    {
+      field: "phone",
+      headerName: "Teléfono",
+      flex: 1,
+    },
+    {
+      field: "business",
+      headerName: "Negocio",
+      flex: 1,
+    },
+    {
+      field: "description",
+      headerName: "Descripción",
+      flex: 1,
+    },
+    {
+      field: "address",
+      headerName: "Dirección",
+      flex: 2,
+    },
+    {
+      field: "Acciones",
+      flex: 1,
+      renderCell: (data) => {
+        return <DeletePartner partner={data.row} mutate={mutate} />;
+      },
+    },
+  ];
 
   //Columns for PDF report
   const columnsReport = [

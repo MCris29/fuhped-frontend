@@ -8,6 +8,7 @@ import {
   Fade,
   Typography,
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Affiliates } from "@/lib/affiliates";
 
@@ -58,7 +59,7 @@ const DeleteAffiliate = (prop) => {
     setLoading(true);
     try {
       await Affiliates.deleteAffiliate(prop.affiliate.id);
-      prop.handleMutate();
+      prop.mutate();
       handleSuccessOpen();
     } catch (e) {
       console.log("error", e);
@@ -103,7 +104,7 @@ const DeleteAffiliate = (prop) => {
     <>
       {alert}
       <Button className={classes.buttonCancel} onClick={handleOpen}>
-        Eliminar
+        <DeleteIcon />
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -120,8 +121,7 @@ const DeleteAffiliate = (prop) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar a {prop.affiliate.user.name}{" "}
-              {prop.affiliate.user.last_name}?
+              ¿Esta seguro que quiere eliminar a {prop.affiliate.name}?
             </Typography>
             <div
               id="transition-modal-description"

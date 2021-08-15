@@ -8,6 +8,7 @@ import {
   Fade,
   Typography,
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Partners } from "@/lib/partners";
 
@@ -57,8 +58,8 @@ const DeletePartner = (prop) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await Partners.deletePartner(prop.partner.user.id);
-      prop.handleMutate();
+      await Partners.deletePartner(prop.partner.id);
+      prop.mutate();
       handleSuccessOpen();
     } catch (e) {
       console.log("error", e);
@@ -103,7 +104,7 @@ const DeletePartner = (prop) => {
     <>
       {alert}
       <Button className={classes.buttonCancel} onClick={handleOpen}>
-        Eliminar
+        <DeleteIcon />
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -120,9 +121,7 @@ const DeletePartner = (prop) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar a {prop.partner.user.name}
-              {" "}
-              {prop.partner.user.last_name}?
+              ¿Esta seguro que quiere eliminar a {prop.partner.name}
             </Typography>
             <div
               id="transition-modal-description"

@@ -18,7 +18,6 @@ import translateMessage from "@/constants/messages";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Partners } from "@/lib/partners";
 import { useAuth } from "@/lib/auth";
 import clsx from "clsx";
 
