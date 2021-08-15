@@ -1,16 +1,8 @@
-import { React, useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-} from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import ActionBar from "@/components/ActionBar";
+import TableData from "@/components/TableData";
 import ButtonReport from "@/components/ButtonReport";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
@@ -37,22 +29,39 @@ const columns = [
 
 const AppointmentListAffiliate = () => {
   const classes = useStyles();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
   const { data, error } = useSWR(`/appointments_afiliate`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <Loading />;
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  //Columns for data table
+  const columns = [
+    {
+      field: "title",
+      headerName: "Título",
+      flex: 1,
+    },
+    {
+      field: "description",
+      headerName: "Descripción",
+      flex: 2,
+    },
+    {
+      field: "date",
+      headerName: "Fecha",
+      flex: 1,
+    },
+    {
+      field: "partner",
+      headerName: "Socio",
+      flex: 1,
+    },
+    {
+      field: "state",
+      headerName: "Estado",
+      flex: 1,
+    },
+  ];
 
   //Columns for PDF report
   const columnsReport = [
@@ -102,60 +111,7 @@ const AppointmentListAffiliate = () => {
     <>
       <ActionBar actionFirst={meta} actionSecond={buttonReport} />
       <Paper className={classes.root}>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.data.map((row, index) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.code}
-                    key={"row" + index}
-                  >
-                    {columns.map((column, index) => {
-                      const value = row[column.id];
-
-                      return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          key={"column" + index}
-                        >
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        {/* <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={20}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-        /> */}
+        <TableData columns={columns} rows={data.data} />
       </Paper>
     </>
   );
