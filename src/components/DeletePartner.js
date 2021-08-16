@@ -11,6 +11,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Partners } from "@/lib/partners";
+import { Users } from "@/lib/users";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -58,6 +59,7 @@ const DeletePartner = (prop) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
+      await Users.deleteUser(prop.partner.user_id);
       await Partners.deletePartner(prop.partner.id);
       prop.mutate();
       handleSuccessOpen();
@@ -104,7 +106,7 @@ const DeletePartner = (prop) => {
     <>
       {alert}
       <Button className={classes.buttonCancel} onClick={handleOpen}>
-        <DeleteIcon />
+        <DeleteIcon color="error" />
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
