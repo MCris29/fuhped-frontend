@@ -122,8 +122,10 @@ const DeletePartner = (prop) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar a {prop.partner.name}
+            <Typography id="transition-modal-title" variant="body2">
+              ¿Esta seguro que quiere eliminar a{" "}
+              <strong>{prop.partner.name}</strong> se eliminaran todos los datos
+              asociados a este usuario?
             </Typography>
             <div
               id="transition-modal-description"
