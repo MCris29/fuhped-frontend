@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    maxWidth: "70%",
   },
   buttonCancel: {
     backgroundColor: theme.palette.background.default,
@@ -120,9 +121,9 @@ const DeleteBlog = (prop) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <Typography id="transition-modal-title" variant="h6">
+            <Typography id="transition-modal-title" variant="body2">
               ¿Esta seguro que quiere eliminar la publicación{" "}
-              {prop.publication.title}?
+              <strong>{prop.publication.title}</strong>?
             </Typography>
             <div
               id="transition-modal-description"

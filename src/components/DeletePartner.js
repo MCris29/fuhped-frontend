@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    maxWidth: "70%",
   },
   buttonCancel: {
     backgroundColor: theme.palette.background.default,

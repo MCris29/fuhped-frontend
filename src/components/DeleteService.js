@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    maxWidth: "70%",
   },
   buttonCancel: {
     backgroundColor: theme.palette.background.default,
@@ -120,8 +121,9 @@ const DeleteService = (prop) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar el servicio {prop.service.name}?
+            <Typography id="transition-modal-title" variant="body2">
+              ¿Esta seguro que quiere eliminar el servicio{" "}
+              <strong>{prop.service.name}</strong>?
             </Typography>
             <div
               id="transition-modal-description"

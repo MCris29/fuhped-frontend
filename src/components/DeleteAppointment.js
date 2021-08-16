@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    maxWidth: "50%",
+    maxWidth: "70%",
   },
   buttonCancel: {
     backgroundColor: theme.palette.background.default,
@@ -122,9 +122,11 @@ const DeleteAffiliate = (prop) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar la cita {prop.appointment.title}{" "}
-              con {prop.appointment.afiliate} con fecha {prop.appointment.date}?
+            <Typography id="transition-modal-title" variant="body2">
+              ¿Esta seguro que quiere eliminar la cita{" "}
+              <strong>{prop.appointment.title}</strong> con{" "}
+              <strong>{prop.appointment.afiliate}</strong> con fecha{" "}
+              <strong>{prop.appointment.date}</strong>?
             </Typography>
             <div
               id="transition-modal-description"
