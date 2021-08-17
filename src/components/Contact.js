@@ -1,9 +1,6 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import { Typography } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import React, { useState } from "react";
+import { Typography, Grid, Button, TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,14 +40,41 @@ const useStyles = makeStyles((theme) => ({
     width: "29em",
   },
   button: {
-    background: theme.palette.primary.second,
+    backgroundColor: theme.palette.primary.second,
+    borderRadius: theme.border.default,
     color: theme.palette.text.second,
+    textTransform: "none",
+    padding: "5px 30px",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
   },
 }));
 
 const Contact = () => {
   const classes = useStyles();
-  const theme = useTheme();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleOnSubmit(e) {
+    setLoading(true);
+    e.preventDefault();
+
+    const formData = {
+      name,
+      email,
+      message,
+    };
+
+    await fetch("/api/contact", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+    document.getElementById("contact-form").reset();
+    setLoading(false);
+  }
 
   return (
     <>
@@ -61,7 +85,13 @@ const Contact = () => {
               <Typography variant="h4">Contáctanos</Typography>
             </div>
           </div>
-          <form className={classes.form} noValidate autoComplete="off">
+          <form
+            id="contact-form"
+            onSubmit={handleOnSubmit}
+            className={classes.form}
+            noValidate
+            autoComplete="off"
+          >
             <Grid container justify="center" style={{ width: "100%" }}>
               <Grid item xs={12} className={classes.inputContainer}>
                 <TextField
@@ -69,6 +99,7 @@ const Contact = () => {
                   id="outlined-basic"
                   label="Nombre"
                   variant="outlined"
+                  onChange={(e) => setName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} className={classes.inputContainer}>
@@ -77,6 +108,7 @@ const Contact = () => {
                   id="outlined-basic"
                   label="Correo"
                   variant="outlined"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} className={classes.inputContainer}>
@@ -87,10 +119,16 @@ const Contact = () => {
                   multiline
                   rows={4}
                   variant="outlined"
+                  onChange={(e) => setMessage(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button variant="contained" className={classes.button}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={loading}
+                  className={classes.button}
+                >
                   Enviar
                 </Button>
               </Grid>
