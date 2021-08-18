@@ -8,12 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     textAlign: "center",
-    padding: "0 40px 9em ",
-  },
-  inputContainer: {
-    textAlign: "center",
-    margin: "9px 0",
-    padding: "0 40px",
+    padding: "5em 40px",
   },
   title: {
     padding: "0 0 70px 0",
@@ -28,16 +23,9 @@ const useStyles = makeStyles((theme) => ({
     borderBottomColor: theme.palette.primary.second,
   },
   form: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
+    [theme.breakpoints.up("md")]: {
+      maxWidth: "40%",
     },
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  input: {
-    width: "29em",
   },
   button: {
     backgroundColor: theme.palette.primary.second,
@@ -59,21 +47,23 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
 
   async function handleOnSubmit(e) {
-    setLoading(true);
-    e.preventDefault();
+    if (name !== "" && email !== "" && message !== "") {
+      setLoading(true);
+      e.preventDefault();
 
-    const formData = {
-      name,
-      email,
-      message,
-    };
+      const formData = {
+        name,
+        email,
+        message,
+      };
 
-    await fetch("/api/contact", {
-      method: "POST",
-      body: JSON.stringify(formData),
-    });
-    document.getElementById("contact-form").reset();
-    setLoading(false);
+      await fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(formData),
+      });
+      document.getElementById("contact-form").reset();
+      setLoading(false);
+    }
   }
 
   return (
@@ -85,55 +75,51 @@ const Contact = () => {
               <Typography variant="h4">Contáctanos</Typography>
             </div>
           </div>
-          <form
-            id="contact-form"
-            onSubmit={handleOnSubmit}
-            className={classes.form}
-            noValidate
-            autoComplete="off"
-          >
-            <Grid container justify="center" style={{ width: "100%" }}>
-              <Grid item xs={12} className={classes.inputContainer}>
-                <TextField
-                  className={classes.input}
-                  id="outlined-basic"
-                  label="Nombre"
-                  variant="outlined"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} className={classes.inputContainer}>
-                <TextField
-                  className={classes.input}
-                  id="outlined-basic"
-                  label="Correo"
-                  variant="outlined"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} className={classes.inputContainer}>
-                <TextField
-                  className={classes.input}
-                  id="outlined-multiline-static"
-                  label="Comentario"
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                  onChange={(e) => setMessage(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  disabled={loading}
-                  className={classes.button}
-                >
-                  Enviar
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
+          <Grid container justify="center">
+            <form
+              id="contact-form"
+              onSubmit={handleOnSubmit}
+              className={classes.form}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="outlined-basic"
+                label="Nombre"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                onChange={(e) => setName(e.target.value)}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Correo"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                id="outlined-multiline-static"
+                type="email"
+                label="Comentario"
+                multiline
+                rows={4}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                onChange={(e) => setMessage(e.target.value)}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={loading}
+                className={classes.button}
+              >
+                Enviar
+              </Button>
+            </form>
+          </Grid>
         </div>
       </div>
     </>

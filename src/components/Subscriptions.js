@@ -1,18 +1,30 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import { Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import Image from "next/image";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: "9em 40px",
+    padding: "5em 40px",
     textAlign: "center",
   },
   card: {
     textAlign: "center",
     padding: "0 40px",
+  },
+  imageContainerDesktop: {
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
+      alignItems: "center",
+    },
+  },
+  imageContainerMobile: {
+    display: "flex",
+    alignItems: "center",
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
   },
   imageContainer: {
     display: "flex",
@@ -20,12 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   space: {
     padding: "3em 0",
-  },
-  button: {
-    padding: "7px 25px",
-    borderRadius: "10px",
-    backgroundColor: theme.palette.primary.second,
-    color: theme.palette.text.second,
   },
   title: {
     padding: "0 0 70px 0",
@@ -43,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Subscription = () => {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <>
@@ -55,6 +60,14 @@ const Subscription = () => {
         </div>
         <div>
           <Grid container>
+            <Grid item xs={12} md={6} className={classes.imageContainerMobile}>
+              <Image
+                src="/afiliate.svg"
+                alt="Afiliado"
+                width={750}
+                height={250}
+              />
+            </Grid>
             <Grid item xs={12} md={6} className={classes.card}>
               <div className={classes.space}>
                 <Typography variant="h4">Afiliado</Typography>
@@ -62,13 +75,9 @@ const Subscription = () => {
               <Typography variant="body1">
                 Conviertete en afiliado, obten muchos beneficios{" "}
               </Typography>
-              <div className={classes.space}>
-                <Button variant="contained" className={classes.button}>
-                  Ver más...
-                </Button>
-              </div>
+              <div className={classes.space}></div>
             </Grid>
-            <Grid item xs={12} md={6} className={classes.imageContainer}>
+            <Grid item xs={12} md={6} className={classes.imageContainerDesktop}>
               <Image
                 src="/afiliate.svg"
                 alt="Afiliado"
@@ -89,11 +98,6 @@ const Subscription = () => {
                 Convierte en socio, trabajemos juntos a favor de niños y
                 adolocentes deportistas{" "}
               </Typography>
-              <div className={classes.space}>
-                <Button variant="contained" className={classes.button}>
-                  Ver más...
-                </Button>
-              </div>
             </Grid>
           </Grid>
         </div>
