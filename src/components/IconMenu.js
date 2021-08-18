@@ -6,6 +6,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuIcon from "@material-ui/icons/Menu";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {
   Menu,
   MenuItem,
@@ -157,34 +158,12 @@ const IconsMenu = () => {
     </StyledMenu>
   );
 
-  const mobileMenuId = "mobile-account-menu";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <Link href={Routes.LOGIN}>
-        <MenuItem className={classes.text}>
-          <p>Iniciar sesión</p>
-        </MenuItem>
-      </Link>
-    </Menu>
-  );
-
   return (
     <>
       <div className={classes.sectionDesktop}>
         {user ? (
           <div className={classes.containerIcons}>
-            <MenuItem
-              id="notification-button"
-              className={classes.menuButton}
-            >
+            <MenuItem id="notification-button" className={classes.menuButton}>
               <IconNotification />
             </MenuItem>
             <MenuItem
@@ -212,22 +191,12 @@ const IconsMenu = () => {
             </MenuItem>
           </div>
         ) : (
-          <div>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-              id="mobile-account-menu-button"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
+          <Link href={Routes.LOGIN}>
+            <AccountCircleIcon />
+          </Link>
         )}
       </div>
       {renderMenuAccount}
-      {renderMobileMenu}
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { React, useState, cloneElement } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import theme from "../pages/theme";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "next/link";
 import Routes from "@/constants/routes";
@@ -14,7 +15,6 @@ import {
   Grid,
   AppBar,
   Toolbar,
-  Slide,
   IconButton,
   MenuItem,
   Icon,
@@ -69,8 +69,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textTransform: "none",
     "&:hover": {
-      color: theme.palette.primary.second,
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: "rgb(0, 0, 0, 0)",
       borderRadius: theme.border.default,
       transform: "scale(1.1)",
     },
@@ -105,7 +104,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
   },
   gridContainer: {
-    padding: "0 40px",
+    [theme.breakpoints.up("md")]: {
+      padding: "0 40px",
+    },
   },
 }));
 
@@ -118,7 +119,13 @@ function ElevationScroll(props) {
   });
 
   return cloneElement(children, {
-    elevation: trigger ? 4 : 0,
+    elevation: trigger ? 7 : 0,
+    style: {
+      backgroundColor: trigger
+        ? theme.palette.background.default
+        : theme.palette.primary.third,
+      color: trigger ? theme.palette.text.main : theme.palette.text.second,
+    },
   });
 }
 

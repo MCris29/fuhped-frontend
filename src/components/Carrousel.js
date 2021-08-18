@@ -10,18 +10,20 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     padding: "5em 40px",
     backgroundColor: theme.palette.primary.third,
+    minHeight: "100vh",
   },
   space: {
     padding: "3em 0",
   },
   button: {
-    backgroundColor: theme.palette.primary.second,
+    backgroundColor: theme.palette.background.default,
     borderRadius: theme.border.default,
-    color: theme.palette.text.second,
+    color: theme.palette.text.main,
     textTransform: "none",
     padding: "5px 30px",
     "&:hover": {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.background.default,
+      transform: "scale(1.04)",
     },
   },
   media: {
@@ -37,6 +39,12 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Raleway", sans-serif',
     fontWeight: "800",
     color: theme.palette.text.second,
+    [theme.breakpoints.up("md")]: {
+      fontSize: 75,
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: 40,
+    },
   },
   textBody: {
     fontFamily: '"Raleway", sans-serif',
@@ -46,13 +54,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Carrousel = () => {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <>
       <div>
         <Grid container className={classes.container}>
-          <Grid item xs={12} md={6} className={classes.textCarousel}>
+          <Grid item xs={12} md={5} className={classes.textCarousel}>
             <div className={classes.space}>
               <Typography variant="h2" className={classes.textHead}>
                 Fundación Halcones por el Deporte
@@ -70,7 +77,7 @@ const Carrousel = () => {
               </Link>
             </div>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={7}>
             <Image
               src="/carousel_1.svg"
               alt="Donaciones"
