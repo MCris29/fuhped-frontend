@@ -12,7 +12,6 @@ import Routes from "@/constants/routes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 275,
     borderRadius: theme.border.default,
     margin: "0 40px 20px",
   },

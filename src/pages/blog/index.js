@@ -8,7 +8,7 @@ import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: "1em 40px",
+    marginTop: "40px",
   },
   cardContainer: {
     padding: "12px",
@@ -16,10 +16,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   title: {
-    padding: "0 0 70px 0",
+    padding: "0 80px 70px",
     display: "flex",
     justifyContent: "center",
     width: "100%",
+    textAlign: "center",
   },
   underline: {
     width: "fit-content",

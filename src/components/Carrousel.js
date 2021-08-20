@@ -9,20 +9,23 @@ const useStyles = makeStyles((theme) => ({
   container: {
     textAlign: "center",
     padding: "5em 40px",
-    backgroundColor: theme.palette.primary.third,
+    // backgroundColor: theme.palette.primary.third,
+    backgroundColor: theme.palette.background.default,
     minHeight: "100vh",
   },
   space: {
     padding: "3em 0",
   },
   button: {
-    backgroundColor: theme.palette.background.default,
+    // backgroundColor: theme.palette.background.default,
+    // color: theme.palette.text.main,
+    backgroundColor: theme.palette.primary.second,
+    color: theme.palette.text.second,
     borderRadius: theme.border.default,
-    color: theme.palette.text.main,
     textTransform: "none",
     padding: "5px 30px",
     "&:hover": {
-      backgroundColor: theme.palette.background.default,
+      // backgroundColor: theme.palette.background.default,
       transform: "scale(1.04)",
     },
   },
@@ -38,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
   textHead: {
     fontFamily: '"Raleway", sans-serif',
     fontWeight: "800",
-    color: theme.palette.text.second,
+    // color: theme.palette.text.second,
+    color: theme.palette.text.main,
     [theme.breakpoints.up("md")]: {
       fontSize: 75,
     },
@@ -48,7 +52,8 @@ const useStyles = makeStyles((theme) => ({
   },
   textBody: {
     fontFamily: '"Raleway", sans-serif',
-    color: theme.palette.text.second,
+    // color: theme.palette.text.second,
+    color: theme.palette.text.main,
   },
 }));
 

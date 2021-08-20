@@ -120,12 +120,12 @@ function ElevationScroll(props) {
 
   return cloneElement(children, {
     elevation: trigger ? 7 : 0,
-    style: {
-      backgroundColor: trigger
-        ? theme.palette.background.default
-        : theme.palette.primary.third,
-      color: trigger ? theme.palette.text.main : theme.palette.text.second,
-    },
+    // style: {
+    //   backgroundColor: trigger
+    //     ? theme.palette.background.default
+    //     : theme.palette.primary.third,
+    //   color: trigger ? theme.palette.text.main : theme.palette.text.second,
+    // },
   });
 }
 

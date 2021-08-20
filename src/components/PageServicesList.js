@@ -23,7 +23,7 @@ const PageServicesList = () => {
     <>
       <Grid container className={classes.container}>
         {data.data.map((partner, index) => (
-          <Grid item xs={4} key={index}>
+          <Grid item xs={12} md={4} key={index}>
             <CardPartners partner={partner} />
           </Grid>
         ))}
