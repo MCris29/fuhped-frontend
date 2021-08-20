@@ -146,6 +146,25 @@ function useAuthProvider() {
     }
   }
 
+  async function updatePassword(data) {
+    try {
+      const response = await api.put("/reset_password", data);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        return error.response;
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }
+  }
+
   useEffect(() => {
     console.log("RENDER AUTH", user);
     try {
@@ -161,5 +180,6 @@ function useAuthProvider() {
     register,
     login,
     logout,
+    updatePassword,
   };
 }

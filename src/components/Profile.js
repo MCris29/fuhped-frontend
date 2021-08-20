@@ -1,7 +1,6 @@
 import React from "react";
 import FormProfile from "@/components/FormProfile";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Tabs, Tab, Typography, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {

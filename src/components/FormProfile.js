@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import Loading from "@/components/Loading";
+import UpdatePassword from "@/components/UpdatePassword";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
