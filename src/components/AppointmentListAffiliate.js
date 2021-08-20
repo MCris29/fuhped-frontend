@@ -7,6 +7,7 @@ import ButtonReport from "@/components/ButtonReport";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import Loading from "@/components/Loading";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,15 +18,14 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: 740,
     borderRadius: theme.border.default,
   },
+  cell: {
+    display: "block",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    borderBottom: "1px solid rgba(224, 224, 224, 1)",
+    textOverflow: "ellipsis",
+  },
 }));
-
-const columns = [
-  { id: "title", label: "Título" },
-  { id: "description", label: "Descripción" },
-  { id: "date", label: "Fecha" },
-  { id: "partner", label: "Socio" },
-  { id: "state", label: "Estado" },
-];
 
 const AppointmentListAffiliate = () => {
   const classes = useStyles();
@@ -40,26 +40,61 @@ const AppointmentListAffiliate = () => {
       field: "title",
       headerName: "Título",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.title} arrow>
+            <div className={classes.cell}>{data.row.title}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "description",
       headerName: "Descripción",
       flex: 2,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.description} arrow>
+            <div className={classes.cell}>{data.row.description}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "date",
       headerName: "Fecha",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.date} arrow>
+            <div className={classes.cell}>{data.row.date}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "partner",
       headerName: "Socio",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.partner} arrow>
+            <div className={classes.cell}>{data.row.partner}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "state",
       headerName: "Estado",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.state} arrow>
+            <div className={classes.cell}>{data.row.state}</div>
+          </Tooltip>
+        );
+      },
     },
   ];
 

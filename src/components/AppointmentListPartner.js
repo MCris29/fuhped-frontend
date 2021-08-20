@@ -10,6 +10,7 @@ import ButtonReport from "@/components/ButtonReport";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import Loading from "@/components/Loading";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
   },
   containerButton: {
     display: "flex",
+  },
+  cell: {
+    display: "block",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    borderBottom: "1px solid rgba(224, 224, 224, 1)",
+    textOverflow: "ellipsis",
   },
 }));
 
@@ -38,26 +46,61 @@ const AppointmentListPartner = () => {
       field: "title",
       headerName: "Título",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.title} arrow>
+            <div className={classes.cell}>{data.row.title}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "description",
       headerName: "Descripción",
       flex: 2,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.description} arrow>
+            <div className={classes.cell}>{data.row.description}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "date",
       headerName: "Fecha",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.date} arrow>
+            <div className={classes.cell}>{data.row.date}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "afiliate",
       headerName: "Afiliado",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.afiliate} arrow>
+            <div className={classes.cell}>{data.row.afiliate}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "state",
       headerName: "Estado",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.state} arrow>
+            <div className={classes.cell}>{data.row.state}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "Acciones",

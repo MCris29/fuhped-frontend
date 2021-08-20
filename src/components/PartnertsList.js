@@ -6,6 +6,7 @@ import DeletePartner from "@/components/DeletePartner";
 import ButtonReport from "@/components/ButtonReport";
 import Loading from "@/components/Loading";
 import TableData from "@/components/TableData";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
@@ -15,6 +16,13 @@ const useStyles = makeStyles((theme) => ({
     margin: "40px",
     borderRadius: theme.border.default,
     backgroundColor: "#fff",
+  },
+  cell: {
+    display: "block",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    borderBottom: "1px solid rgba(224, 224, 224, 1)",
+    textOverflow: "ellipsis",
   },
 }));
 
@@ -32,31 +40,73 @@ const PartnersList = () => {
       field: "name",
       headerName: "Nombre",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.name} arrow>
+            <div className={classes.cell}>{data.row.name}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "email",
       headerName: "Correo",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.email} arrow>
+            <div className={classes.cell}>{data.row.email}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "phone",
       headerName: "Teléfono",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.phone} arrow>
+            <div className={classes.cell}>{data.row.phone}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "business",
       headerName: "Negocio",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.business} arrow>
+            <div className={classes.cell}>{data.row.business}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "description",
       headerName: "Descripción",
       flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.description} arrow>
+            <div className={classes.cell}>{data.row.description}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "address",
       headerName: "Dirección",
       flex: 2,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.address} arrow>
+            <div className={classes.cell}>{data.row.address}</div>
+          </Tooltip>
+        );
+      },
     },
     {
       field: "Acciones",

@@ -7,6 +7,7 @@ import {
   Backdrop,
   Fade,
   Typography,
+  Tooltip,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -106,9 +107,11 @@ const DeleteAffiliate = (prop) => {
   return (
     <>
       {alert}
-      <Button className={classes.buttonCancel} onClick={handleOpen}>
-        <DeleteIcon color="error" />
-      </Button>
+      <Tooltip title="Eliminar" arrow>
+        <Button className={classes.buttonCancel} onClick={handleOpen}>
+          <DeleteIcon color="error" />
+        </Button>
+      </Tooltip>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

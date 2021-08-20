@@ -7,6 +7,7 @@ import {
   Backdrop,
   Fade,
   Typography,
+  Tooltip,
 } from "@material-ui/core";
 import CreateIcon from "@material-ui/icons/Create";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -90,9 +91,11 @@ const EditAppointment = (prop) => {
   return (
     <>
       {alert}
-      <Button onClick={handleOpen}>
-        <CreateIcon color="action" />
-      </Button>
+      <Tooltip title="Editar" arrow>
+        <Button onClick={handleOpen}>
+          <CreateIcon color="action" />
+        </Button>
+      </Tooltip>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
