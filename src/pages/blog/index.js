@@ -2,9 +2,12 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Navigation from "@/components/Navigation";
 import CardBlog from "@/components/CardBlog";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
+import NavItems from "@/components/NavItems";
+import NavItemsMobile from "@/components/NavItemsMobile";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -32,14 +35,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Blog = () => {
-  const { data, error } = useSWR(`/publications`, fetcher);
   const classes = useStyles();
+  const { data, error } = useSWR(`/publications`, fetcher);
+
+  const navItems = <NavItems />;
+  const navItemsMobile = <NavItemsMobile />;
 
   if (error) return <div>No se pudo cargar la información del usuario</div>;
   if (!data) return <div>Cargando...</div>;
 
   return (
     <>
+      <Navigation navItems={navItems} navItemsMobile={navItemsMobile} />
       <Grid container className={classes.container}>
         <div className={classes.title}>
           <div className={classes.underline}>

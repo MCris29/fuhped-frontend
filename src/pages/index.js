@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import Navigation from "@/components/Navigation";
 import Carrousel from "@/components/Carrousel";
 import Information from "@/components/Information";
 import BlogComponent from "@/components/BlogComponent";
@@ -7,8 +8,14 @@ import Donation from "@/components/Donation";
 import Subscription from "@/components/Subscriptions";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import theme from "../pages/theme";
+import NavItems from "@/components/NavItems";
+import NavItemsMobile from "@/components/NavItemsMobile";
 
 export default function Home() {
+  const navItems = <NavItems />;
+  const navItemsMobile = <NavItemsMobile />;
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,6 +25,14 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <Navigation
+          backgroundColorOne={theme.palette.background.default}
+          backgroundColorTwo={theme.palette.primary.third}
+          textColorOne={theme.palette.text.main}
+          textColorTwo={theme.palette.text.second}
+          navItems={navItems}
+          navItemsMobile={navItemsMobile}
+        />
         <Carrousel />
         <Information />
         <BlogComponent />
