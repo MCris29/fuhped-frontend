@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "40px",
+    margin: "0 40px",
     padding: "10px",
     borderRadius: theme.border.default,
     backgroundColor: theme.palette.background.main,
@@ -30,10 +30,10 @@ const ActionBar = ({ actionFirst, actionSecond }) => {
     <>
       <div className={classes.root}>
         <Grid container>
-          <Grid item xs={12} md={6} className={classes.actionFirst}>
+          <Grid item xs={12} sm={3} className={classes.actionFirst}>
             {actionFirst}
           </Grid>
-          <Grid item xs={12} md={6} className={classes.actionSecond}>
+          <Grid item xs={12} sm={9} className={classes.actionSecond}>
             {actionSecond}
           </Grid>
         </Grid>

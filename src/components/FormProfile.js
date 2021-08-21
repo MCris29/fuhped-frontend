@@ -42,6 +42,11 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     margin: "20px 0",
   },
+  mainContainer: {
+    padding: "40px 0",
+    display: "flex",
+    justifyContent: "center",
+  },
 }));
 
 const schema = yup.object().shape({
@@ -104,103 +109,105 @@ const FormProfile = () => {
     <>
       {alert}
       {user ? (
-        <div>
-          <form
-            id="user-form"
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <Grid container className={classes.container}>
-              <Grid item xs={12}>
-                <Typography variant="body2">Datos de usuario</Typography>
-                <Controller
-                  name="name"
-                  control={control}
-                  defaultValue={user.name}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      id="name-form"
-                      required
-                      label="Nombre"
-                      variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      error={Boolean(errors.name)}
-                    />
-                  )}
-                />
-                <span className={classes.error}>{errors.name?.message}</span>
+        <div className={classes.mainContainer}>
+          <div>
+            <form
+              id="user-form"
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <Grid container className={classes.container}>
+                <Grid item xs={12}>
+                  <Typography variant="body2">Datos de usuario</Typography>
+                  <Controller
+                    name="name"
+                    control={control}
+                    defaultValue={user.name}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        id="name-form"
+                        required
+                        label="Nombre"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        error={Boolean(errors.name)}
+                      />
+                    )}
+                  />
+                  <span className={classes.error}>{errors.name?.message}</span>
 
-                <Controller
-                  name="last_name"
-                  control={control}
-                  defaultValue={user.last_name}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      id="last-name-form"
-                      required
-                      label="Apellido"
-                      variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      error={Boolean(errors.last_name)}
-                    />
-                  )}
-                />
-                <span className={classes.error}>
-                  {errors.last_name?.message}
-                </span>
+                  <Controller
+                    name="last_name"
+                    control={control}
+                    defaultValue={user.last_name}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        id="last-name-form"
+                        required
+                        label="Apellido"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        error={Boolean(errors.last_name)}
+                      />
+                    )}
+                  />
+                  <span className={classes.error}>
+                    {errors.last_name?.message}
+                  </span>
 
-                <Controller
-                  name="phone"
-                  control={control}
-                  defaultValue={user.phone}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      id="phone-form"
-                      required
-                      label="Teléfono"
-                      variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      error={Boolean(errors.phone)}
-                    />
-                  )}
-                />
-                <span className={classes.error}>{errors.phone?.message}</span>
+                  <Controller
+                    name="phone"
+                    control={control}
+                    defaultValue={user.phone}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        id="phone-form"
+                        required
+                        label="Teléfono"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        error={Boolean(errors.phone)}
+                      />
+                    )}
+                  />
+                  <span className={classes.error}>{errors.phone?.message}</span>
 
-                <TextField
-                  id="email-form"
-                  disabled
-                  label="Correo"
-                  variant="outlined"
-                  margin="normal"
-                  defaultValue={user.email}
-                  fullWidth
-                />
+                  <TextField
+                    id="email-form"
+                    disabled
+                    label="Correo"
+                    variant="outlined"
+                    margin="normal"
+                    defaultValue={user.email}
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12} className={classes.actionContainer}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    className={classes.button}
+                    disabled={loading}
+                  >
+                    Guardar
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={12} className={classes.actionContainer}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  className={classes.button}
-                  disabled={loading}
-                >
-                  Guardar
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-          <Divider className={classes.divider} />
-          <UpdatePassword />
+            </form>
+            <Divider className={classes.divider} />
+            <UpdatePassword />
+          </div>
         </div>
       ) : (
         <Loading />
