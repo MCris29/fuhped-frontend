@@ -84,7 +84,7 @@ const UpdatePassword = () => {
 
   return (
     <>
-      {/* {alert} */}
+      {alert}
       <Button className={classes.button} onClick={handleOpen} fullWidth>
         Cambiar Contraseña
       </Button>

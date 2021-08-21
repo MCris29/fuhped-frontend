@@ -77,7 +77,8 @@ const useStyles = makeStyles((theme) => ({
 const schema = yup.object().shape({
   current_password: yup
     .string()
-    .required("Por favor ingrese su contraseña actual"),
+    .required("Por favor ingrese su contraseña actual")
+    .min(8, "La contraseña debe tener al menos 8 caracteres."),
   password: yup
     .string()
     .required("Por favor ingrese su nueva contraseña")
@@ -116,20 +117,23 @@ const FormUpdatePassword = (prop) => {
       const passwordData = await updatePassword(data);
       console.log("paswordData", passwordData);
 
-      if (passwordData.data.errors !== null) {
-        if (passwordData.data.errors.current_password !== null)
+      if (passwordData.data.errors !== undefined) {
+        if (passwordData.data.errors.current_password !== undefined) {
+          console.log("error c_p", passwordData.data.errors);
           setErrorCurrentPassword(
             translateMessage(passwordData.data.errors.current_password[0])
           );
-        if (passwordData.data.errors.password !== null) {
+        }
+        if (passwordData.data.errors.password !== undefined) {
+          console.log("error p", passwordData.data.errors);
           setErrorPassword(
             translateMessage(passwordData.data.errors.password[0])
           );
         }
+      } else {
+        prop.handleOpenSucces();
+        prop.handleClose();
       }
-
-      // prop.handleOpenSucces();
-      // prop.handleClose();
     } catch (error) {
       console.log("error", error);
     }
@@ -267,7 +271,10 @@ const FormUpdatePassword = (prop) => {
                 margin="normal"
                 fullWidth
                 {...field}
-                error={Boolean(errors.password) || Boolean(errorPassword)}
+                error={
+                  Boolean(errors.password_confirmation) ||
+                  Boolean(errorPassword)
+                }
               >
                 <InputLabel htmlFor="password_confirmation">
                   Confirmar Contraseña *
@@ -324,7 +331,7 @@ const FormUpdatePassword = (prop) => {
               <Button
                 fullWidth
                 className={classes.buttonCancel}
-                // onClick={prop.handleClose}
+                onClick={prop.handleClose}
               >
                 Cancelar
               </Button>
