@@ -1,4 +1,3 @@
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core";
 import Loading from "@/components/Loading";
@@ -19,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ServiceId() {
+const ServiceDetails = () => {
   const classes = useStyles();
   const router = useRouter();
   const { servicioId } = router.query;
@@ -67,4 +66,6 @@ export default function ServiceId() {
       </Grid>
     </>
   );
-}
+};
+
+export default ServiceDetails;

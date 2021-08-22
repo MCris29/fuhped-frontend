@@ -1,7 +1,9 @@
 const publicRoutes = {
   LOGIN: "/iniciar-sesion",
   BLOG: "/blog",
+  BLOG_ID: "/blog/:id",
   SERVICES: "/servicios",
+  SERVICES_ID: "/servicios/:id",
 };
 
 const privateRoutes = {
