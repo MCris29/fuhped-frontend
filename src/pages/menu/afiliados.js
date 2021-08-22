@@ -1,14 +1,14 @@
 import React from "react";
 import withAuth from "@/hocs/withAuth";
 import Menu from "@/components/Menu";
-import AffiliatesList from "@/components/AffiliatesList";
+import AffiliateList from "@/components/AffiliateList";
 
 const PageAffiliates = () => {
-  const affiliatesList = <AffiliatesList />;
+  const affiliateList = <AffiliateList />;
 
   return (
     <>
-      <Menu page={affiliatesList} />
+      <Menu page={affiliateList} />
     </>
   );
 };

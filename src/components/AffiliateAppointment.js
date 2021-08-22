@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AppointmentListAffiliate = () => {
+const AffiliateAppointment = () => {
   const classes = useStyles();
   const { data, error } = useSWR(`/appointments_afiliate`, fetcher);
 
@@ -152,4 +152,4 @@ const AppointmentListAffiliate = () => {
   );
 };
 
-export default AppointmentListAffiliate;
+export default AffiliateAppointment;

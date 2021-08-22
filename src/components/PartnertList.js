@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ActionBar from "@/components/ActionBar";
-import NewAffiliate from "@/components/NewAffiliate";
-import DeleteAffiliate from "@/components/DeleteAffiliate";
+import NewPartner from "@/components/NewPartner";
+import DeletePartner from "@/components/DeletePartner";
 import ButtonReport from "@/components/ButtonReport";
 import Loading from "@/components/Loading";
 import TableData from "@/components/TableData";
@@ -26,14 +26,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AffiliatesList = () => {
+const PartnerList = () => {
   const classes = useStyles();
-  const { data, error, mutate } = useSWR(`/afiliates`, fetcher);
+  const { data, error, mutate } = useSWR(`/partners`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <Loading />;
 
-  //Columns for data table
+  // columns for data table
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -73,6 +73,30 @@ const AffiliatesList = () => {
       },
     },
     {
+      field: "business",
+      headerName: "Negocio",
+      flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.business} arrow>
+            <div className={classes.cell}>{data.row.business}</div>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      field: "description",
+      headerName: "Descripción",
+      flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.description} arrow>
+            <div className={classes.cell}>{data.row.description}</div>
+          </Tooltip>
+        );
+      },
+    },
+    {
       field: "address",
       headerName: "Dirección",
       flex: 2,
@@ -88,13 +112,21 @@ const AffiliatesList = () => {
       field: "Acciones",
       flex: 1,
       renderCell: (data) => {
-        return <DeleteAffiliate affiliate={data.row} mutate={mutate} />;
+        return <DeletePartner partner={data.row} mutate={mutate} />;
       },
     },
   ];
 
   //Columns for PDF report
-  const columnsReport = ["Código", "Nombre", "Correo", "Teléfono", "Dirección"];
+  const columnsReport = [
+    "Código",
+    "Nombre",
+    "Correo",
+    "Teléfono",
+    "Negocio",
+    "Descripción",
+    "Dirección",
+  ];
 
   //Rows for PDF report
   const handleRows = (dataRow) => {
@@ -105,6 +137,8 @@ const AffiliatesList = () => {
         item.name,
         item.email,
         item.phone,
+        item.business,
+        item.description,
         item.address,
       ];
 
@@ -115,14 +149,14 @@ const AffiliatesList = () => {
   };
 
   //Data for PDF report
-  const title = "Reporte de Afiliados";
-  const fileName = "reporte_afiliados";
+  const title = "Reporte de Socios";
+  const fileName = "reporte_socios";
 
-  const meta = <div>{data.meta.total} Afiliados</div>;
+  const meta = <div>{data.meta.total} Socios</div>;
 
-  const newAffiliate = (
+  const newPartner = (
     <div>
-      <NewAffiliate mutate={mutate} />
+      <NewPartner mutate={mutate} />
       <ButtonReport
         tableColumn={columnsReport}
         tableRows={handleRows(data.data)}
@@ -134,7 +168,7 @@ const AffiliatesList = () => {
 
   return (
     <>
-      <ActionBar actionFirst={meta} actionSecond={newAffiliate} />
+      <ActionBar actionFirst={meta} actionSecond={newPartner} />
       <div className={classes.root}>
         <TableData columns={columns} rows={data.data} />
       </div>
@@ -142,4 +176,4 @@ const AffiliatesList = () => {
   );
 };
 
-export default AffiliatesList;
+export default PartnerList;

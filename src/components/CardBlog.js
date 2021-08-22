@@ -33,7 +33,7 @@ const CardBlog = (props) => {
     <>
       <Card className={classes.card}>
         <CardActionArea>
-          <Link href={`${Routes.BLOG}/${props.publication.id}`}>
+          <Link href={`/blog/${props.publication.id}`}>
             <div>
               <CardMedia
                 component="img"

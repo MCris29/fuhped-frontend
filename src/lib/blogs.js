@@ -6,7 +6,7 @@ let config = {
   },
 };
 async function getById(id) {
-  return await api.get(`publications/${id}`);
+  return await api.get(`/publications/${id}`);
 }
 async function create(data) {
   return await api.post(`/publications`, data);

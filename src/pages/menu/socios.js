@@ -1,14 +1,14 @@
 import React from "react";
 import withAuth from "@/hocs/withAuth";
 import Menu from "@/components/Menu";
-import PartnertsList from "@/components/PartnertsList";
+import PartnertList from "@/components/PartnertList";
 
 const PagePartners = () => {
-  const partnertsList = <PartnertsList />;
+  const partnertList = <PartnertList />;
 
   return (
     <>
-      <Menu page={partnertsList} />
+      <Menu page={partnertList} />
     </>
   );
 };

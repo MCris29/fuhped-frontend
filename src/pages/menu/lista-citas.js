@@ -1,14 +1,14 @@
 import React from "react";
 import withAuth from "@/hocs/withAuth";
 import Menu from "@/components/Menu";
-import AppointmentListPartner from "@/components/AppointmentListPartner";
+import PartnerAppointment from "@/components/PartnerAppointment";
 
 const PagePartnerAppointment = () => {
-  const appointmentListPartner = <AppointmentListPartner />;
+  const partnerAppointment = <PartnerAppointment />;
 
   return (
     <>
-      <Menu page={appointmentListPartner} />
+      <Menu page={partnerAppointment} />
     </>
   );
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -8,6 +7,7 @@ import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import NavItems from "@/components/NavItems";
 import NavItemsMobile from "@/components/NavItemsMobile";
+import Loading from "@/components/Loading";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -41,8 +41,8 @@ const Blog = () => {
   const navItems = <NavItems />;
   const navItemsMobile = <NavItemsMobile />;
 
-  if (error) return <div>No se pudo cargar la información del usuario</div>;
-  if (!data) return <div>Cargando...</div>;
+  if (error) return <div>No se pudo cargar la información</div>;
+  if (!data) return <Loading />;
 
   return (
     <>

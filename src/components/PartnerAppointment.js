@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AppointmentListPartner = () => {
+const PartnerAppointment = () => {
   const classes = useStyles();
   const { data, error, mutate } = useSWR(`/appointments_partner`, fetcher);
 
@@ -173,4 +173,4 @@ const AppointmentListPartner = () => {
   );
 };
 
-export default AppointmentListPartner;
+export default PartnerAppointment;
