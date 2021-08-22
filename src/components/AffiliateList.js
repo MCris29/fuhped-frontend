@@ -53,6 +53,7 @@ const AffiliateList = () => {
       field: "email",
       headerName: "Correo",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.email} arrow>
@@ -65,6 +66,7 @@ const AffiliateList = () => {
       field: "phone",
       headerName: "Teléfono",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.phone} arrow>
@@ -77,6 +79,7 @@ const AffiliateList = () => {
       field: "address",
       headerName: "Dirección",
       flex: 2,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.address} arrow>
@@ -88,6 +91,7 @@ const AffiliateList = () => {
     {
       field: "Acciones",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return <DeleteAffiliate affiliate={data.row} mutate={mutate} />;
       },

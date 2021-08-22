@@ -36,6 +36,7 @@ const AppointmentList = () => {
       field: "title",
       headerName: "Título",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.title} arrow>
@@ -48,6 +49,7 @@ const AppointmentList = () => {
       field: "description",
       headerName: "Descripción",
       flex: 2,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.description} arrow>
@@ -60,6 +62,7 @@ const AppointmentList = () => {
       field: "date",
       headerName: "Fecha",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.date} arrow>
@@ -72,6 +75,7 @@ const AppointmentList = () => {
       field: "state",
       headerName: "Estado",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.state} arrow>
@@ -84,6 +88,7 @@ const AppointmentList = () => {
       field: "partner",
       headerName: "Socio",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.partner} arrow>
@@ -96,6 +101,7 @@ const AppointmentList = () => {
       field: "afiliate",
       headerName: "Afiliado",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.afiliate} arrow>
