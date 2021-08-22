@@ -4,16 +4,16 @@ import Navigation from "@/components/Navigation";
 import NavItems from "@/components/NavItems";
 import NavItemsMobile from "@/components/NavItemsMobile";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     padding: "40px 60px",
   },
   itemContainer: {
     margin: "10px 0",
   },
-});
+}));
 
-const blogDetails = ({ blog }) => {
+const BlogDetails = ({ blog }) => {
   const classes = useStyles();
 
   const navItems = <NavItems />;
@@ -78,4 +78,4 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-export default blogDetails;
+export default BlogDetails;

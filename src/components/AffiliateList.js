@@ -40,6 +40,7 @@ const AffiliateList = () => {
       field: "name",
       headerName: "Nombre",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.name} arrow>
