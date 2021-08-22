@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import api from "@/lib/api";
 import { makeStyles } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import {
@@ -15,8 +16,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import translateMessage from "@/constants/messages";
 import clsx from "clsx";
-
-import { useAuth } from "@/lib/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,8 +99,6 @@ const FormUpdatePassword = (prop) => {
   const [errorPassword, setErrorPassword] = useState("");
   const [errorCurrentPassword, setErrorCurrentPassword] = useState("");
 
-  const { updatePassword } = useAuth();
-
   const classes = useStyles();
   const {
     control,
@@ -114,28 +111,29 @@ const FormUpdatePassword = (prop) => {
     setLoading(true);
 
     try {
-      const passwordData = await updatePassword(data);
+      setErrorCurrentPassword("");
+      setErrorPassword("");
+      const passwordData = await api.put("/reset_password", data);
       console.log("paswordData", passwordData);
 
-      if (passwordData.data.errors !== undefined) {
-        if (passwordData.data.errors.current_password !== undefined) {
-          console.log("error c_p", passwordData.data.errors);
-          setErrorCurrentPassword(
-            translateMessage(passwordData.data.errors.current_password[0])
-          );
-        }
-        if (passwordData.data.errors.password !== undefined) {
-          console.log("error p", passwordData.data.errors);
-          setErrorPassword(
-            translateMessage(passwordData.data.errors.password[0])
-          );
-        }
-      } else {
-        prop.handleOpenSucces();
-        prop.handleClose();
-      }
+      prop.handleOpenSucces();
+      prop.handleClose();
     } catch (error) {
-      console.log("error", error);
+      console.log("error", error.response.data.errors);
+      if (error.response.data.errors !== undefined) {
+        if (error.response.data.errors.current_password !== undefined) {
+          console.log("error c_p", error.response.data.errors);
+          setErrorCurrentPassword(
+            translateMessage(error.response.data.errors.current_password[0])
+          );
+        }
+        if (error.response.data.errors.password !== undefined) {
+          console.log("error p", error.response.data.errors);
+          setErrorPassword(
+            translateMessage(error.response.data.errors.password[0])
+          );
+        }
+      }
     }
     setLoading(false);
   };
@@ -210,7 +208,7 @@ const FormUpdatePassword = (prop) => {
             {errors.current_password?.message}
           </span>
           {errorCurrentPassword ? (
-            <span className={classes.error}>{errorCurrentPassword}</span>
+            <span className={classes.error}> {errorCurrentPassword}</span>
           ) : (
             <span></span>
           )}
