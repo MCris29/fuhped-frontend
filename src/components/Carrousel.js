@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { Typography, Button } from "@material-ui/core";
 import Image from "next/image";
@@ -9,23 +9,20 @@ const useStyles = makeStyles((theme) => ({
   container: {
     textAlign: "center",
     padding: "5em 40px",
-    // backgroundColor: theme.palette.primary.third,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.primary.third,
     minHeight: "100vh",
   },
   space: {
     padding: "3em 0",
   },
   button: {
-    // backgroundColor: theme.palette.background.default,
-    // color: theme.palette.text.main,
-    backgroundColor: theme.palette.primary.second,
-    color: theme.palette.text.second,
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.text.main,
     borderRadius: theme.border.default,
     textTransform: "none",
     padding: "5px 30px",
     "&:hover": {
-      // backgroundColor: theme.palette.background.default,
+      backgroundColor: theme.palette.background.default,
       transform: "scale(1.04)",
     },
   },
@@ -41,8 +38,7 @@ const useStyles = makeStyles((theme) => ({
   textHead: {
     fontFamily: '"Raleway", sans-serif',
     fontWeight: "800",
-    // color: theme.palette.text.second,
-    color: theme.palette.text.main,
+    color: theme.palette.text.second,
     [theme.breakpoints.up("md")]: {
       fontSize: 75,
     },
@@ -52,8 +48,21 @@ const useStyles = makeStyles((theme) => ({
   },
   textBody: {
     fontFamily: '"Raleway", sans-serif',
-    // color: theme.palette.text.second,
-    color: theme.palette.text.main,
+    color: theme.palette.text.second,
+  },
+  imageContainerMobile: {
+    display: "flex",
+    alignItems: "center",
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+  imageContainerDesktop: {
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "flex",
+      alignItems: "center",
+    },
   },
 }));
 
@@ -64,7 +73,15 @@ const Carrousel = () => {
     <>
       <div>
         <Grid container className={classes.container}>
-          <Grid item xs={12} md={5} className={classes.textCarousel}>
+          <Grid item xs={12} sm={7} className={classes.imageContainerMobile}>
+            <Image
+              src="/carousel_1.svg"
+              alt="Donaciones"
+              width={750}
+              height={410}
+            />
+          </Grid>
+          <Grid item xs={12} sm={5} className={classes.textCarousel}>
             <div className={classes.space}>
               <Typography variant="h2" className={classes.textHead}>
                 Fundación Halcones por el Deporte
@@ -82,7 +99,7 @@ const Carrousel = () => {
               </Link>
             </div>
           </Grid>
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12} sm={7} className={classes.imageContainerDesktop}>
             <Image
               src="/carousel_1.svg"
               alt="Donaciones"

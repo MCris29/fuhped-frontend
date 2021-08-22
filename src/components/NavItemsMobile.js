@@ -63,6 +63,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: theme.palette.primary.third,
+    color: theme.palette.text.second,
   },
   drawerHeader: {
     display: "flex",
@@ -70,6 +72,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
+  },
+  iconWhite: {
+    color: theme.palette.text.second,
+  },
+  divider: {
+    backgroundColor: theme.palette.background.default,
+    opacity: 0.3,
   },
 }));
 
@@ -98,10 +107,10 @@ const NavItemsMobile = () => {
     >
       <div className={classes.drawerHeader}>
         <IconButton onClick={handleDrawerClose}>
-          <ChevronLeftIcon />
+          <ChevronLeftIcon className={classes.iconWhite} />
         </IconButton>
       </div>
-      <Divider />
+      <Divider className={classes.divider} variant="middle" />
       <List>
         {mainMenuItems.map((item, index) => (
           <Link href={item.to} key={"movil" + index}>

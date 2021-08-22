@@ -7,10 +7,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 40px",
     padding: "10px",
     borderRadius: theme.border.default,
-    backgroundColor: theme.palette.background.main,
-    color: theme.palette.text.second,
-    boxShadow:
-      "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.text.main,
   },
   actionSecond: {
     display: "flex",
@@ -19,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
   actionFirst: {
     display: "flex",
     alignItems: "center",
-    paddingLeft: "16px",
   },
 }));
 

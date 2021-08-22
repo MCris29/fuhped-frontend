@@ -1,17 +1,10 @@
 import React, { cloneElement } from "react";
-import Link from "next/link";
-import Routes from "@/constants/routes";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import { useScrollTrigger, Grid, AppBar, Toolbar } from "@material-ui/core";
 import IconMenu from "@/components/IconMenu";
+import Logo from "@/components/Logo";
 import PropTypes from "prop-types";
-
-const logo = (
-  <Link href={Routes.HOME}>
-    <h1>FUHPED</h1>
-  </Link>
-);
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -84,16 +77,20 @@ const MainMenu = (prop) => {
             <Grid container className={classes.gridContainer}>
               <Grid item xs={2} style={{ display: "flex" }}>
                 {prop.navItemsMobile}
-                <div className={classes.sectionDesktop}>{logo}</div>
+                <div className={classes.sectionDesktop}>
+                  <Logo />
+                </div>
               </Grid>
               <Grid item xs={8} className={classes.drawerHeader}>
                 <div className={classes.grow} />
                 {prop.navItems}
-                <div className={classes.sectionMobile}>{logo}</div>
+                <div className={classes.sectionMobile}>
+                  <Logo />
+                </div>
                 <div className={classes.grow} />
               </Grid>
               <Grid item xs={2} className={classes.drawerHeader}>
-                <IconMenu />
+                <IconMenu typeIcon={1} />
               </Grid>
             </Grid>
           </Toolbar>

@@ -13,13 +13,15 @@ import {
   Toolbar,
   List,
   CssBaseline,
-  Typography,
   Divider,
   IconButton,
   ListItemIcon,
   ListItem,
   ListItemText,
+  Grid,
 } from "@material-ui/core";
+import Logo from "@/components/Logo";
+import IconMenu from "@/components/IconMenu";
 
 const drawerWidth = 240;
 
@@ -83,6 +85,31 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  sectionDesktop: {
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
+    },
+  },
+  sectionMobile: {
+    display: "flex",
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  navigation: {
+    backgroundColor: theme.palette.background.default,
+  },
 }));
 
 const NavigationMenu = (prop) => {
@@ -103,24 +130,34 @@ const NavigationMenu = (prop) => {
       <CssBaseline />
       <AppBar
         position="fixed"
+        elevation={1}
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
-          <IconButton
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Fuhped
-          </Typography>
+        <Toolbar className={classes.navigation}>
+          <Grid container className={classes.gridContainer}>
+            <Grid item xs={2} style={{ display: "flex" }}>
+              <IconButton
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                className={clsx(classes.menuButton, {
+                  [classes.hide]: open,
+                })}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Logo />
+            </Grid>
+            <Grid item xs={8} className={classes.drawerHeader}>
+              <div className={classes.grow} />
+              <div className={classes.grow} />
+            </Grid>
+            <Grid item xs={2} className={classes.drawerHeader}>
+              <IconMenu typeIcon={0} />
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
 
@@ -151,22 +188,18 @@ const NavigationMenu = (prop) => {
           {prop.menuProfile.map((item, index) => (
             <Link href={item.to} key={item.text}>
               <ListItem button>
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
+                <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.text} />
               </ListItem>
             </Link>
           ))}
         </List>
-        <Divider />
+        <Divider variant="middle" />
         <List>
           {prop.menuItems.map((item, index) => (
             <Link href={item.to} key={item.text}>
               <ListItem button>
-                <ListItemIcon>
-                  <MailIcon />
-                </ListItemIcon>
+                <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.text} />
               </ListItem>
             </Link>
