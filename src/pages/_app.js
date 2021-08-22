@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import { AuthProvider } from "@/lib/auth";
 import Head from "next/head";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
-import theme from "./theme";
+import theme from "@/styles/theme";
 import { Router } from "next/router";
 import NProgress from "nprogress";
 
@@ -14,7 +14,6 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function App({ Component, pageProps }) {
-  
   return (
     <>
       <AuthProvider>
