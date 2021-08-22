@@ -40,6 +40,7 @@ const PartnerList = () => {
       field: "name",
       headerName: "Nombre",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.name} arrow>
@@ -52,6 +53,7 @@ const PartnerList = () => {
       field: "email",
       headerName: "Correo",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.email} arrow>
@@ -64,6 +66,7 @@ const PartnerList = () => {
       field: "phone",
       headerName: "Teléfono",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.phone} arrow>
@@ -76,6 +79,7 @@ const PartnerList = () => {
       field: "business",
       headerName: "Negocio",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.business} arrow>
@@ -88,6 +92,7 @@ const PartnerList = () => {
       field: "description",
       headerName: "Descripción",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.description} arrow>
@@ -100,6 +105,7 @@ const PartnerList = () => {
       field: "address",
       headerName: "Dirección",
       flex: 2,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return (
           <Tooltip title={data.row.address} arrow>
@@ -111,6 +117,7 @@ const PartnerList = () => {
     {
       field: "Acciones",
       flex: 1,
+      // eslint-disable-next-line react/display-name
       renderCell: (data) => {
         return <DeletePartner partner={data.row} mutate={mutate} />;
       },
