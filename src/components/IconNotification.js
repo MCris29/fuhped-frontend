@@ -6,7 +6,7 @@ import { Menu, MenuItem, ListItemText, Typography } from "@material-ui/core";
 import { useAuth } from "@/lib/auth";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import theme from "src/pages/theme";
+import theme from "@/styles/theme";
 
 const useStyles = makeStyles((theme) => ({
   notificationContainer: {

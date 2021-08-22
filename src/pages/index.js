@@ -8,7 +8,7 @@ import Donation from "@/components/Donation";
 import Subscription from "@/components/Subscriptions";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import theme from "../pages/theme";
+import theme from "@/styles/theme";
 import NavItems from "@/components/NavItems";
 import NavItemsMobile from "@/components/NavItemsMobile";
 
