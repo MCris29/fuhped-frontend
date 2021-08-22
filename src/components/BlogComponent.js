@@ -95,7 +95,7 @@ const BlogComponent = () => {
             <Grid item xs={12}>
               <Link href={Routes.BLOG}>
                 <Button variant="contained" className={classes.button}>
-                  Ver más..
+                  Conocer más historias
                 </Button>
               </Link>
             </Grid>

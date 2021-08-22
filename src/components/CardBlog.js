@@ -19,6 +19,11 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 140,
   },
+  tittle: {
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+  },
 }));
 
 const CardBlog = (props) => {
@@ -32,16 +37,26 @@ const CardBlog = (props) => {
             <div>
               <CardMedia
                 component="img"
-                height="140"
+                height="40"
                 className={classes.media}
                 image={props.publication.image}
                 title={props.publication.title}
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                  className={classes.tittle}
+                >
                   {props.publication.title}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  component="p"
+                  className={classes.tittle}
+                >
                   {props.publication.description}
                 </Typography>
               </CardContent>
