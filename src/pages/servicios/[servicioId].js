@@ -6,6 +6,9 @@ import { fetcher } from "@/lib/utils";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import ListCardsServices from "@/components/ListCardsServices";
+import NavItems from "@/components/NavItems";
+import NavItemsMobile from "@/components/NavItemsMobile";
+import Navigation from "@/components/Navigation";
 
 const useStyles = makeStyles({
   container: {
@@ -22,11 +25,15 @@ export default function ServiceId() {
   const { servicioId } = router.query;
   const { data, error } = useSWR(`/partners/${servicioId}`, fetcher);
 
+  const navItems = <NavItems />;
+  const navItemsMobile = <NavItemsMobile />;
+
   if (error) return <div>No se pudo cargar la información del artículo</div>;
   if (!data) return <Loading />;
 
   return (
     <>
+      <Navigation navItems={navItems} navItemsMobile={navItemsMobile} />
       <Grid container className={classes.container}>
         <Grid item xs={12}>
           <div className={classes.itemContainer}>

@@ -6,9 +6,11 @@ import {
   Button,
   TextField,
   Snackbar,
+  Divider,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import Loading from "@/components/Loading";
+import UpdatePassword from "@/components/UpdatePassword";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -28,24 +30,22 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
     color: theme.palette.text.second,
-    margin: "16px 8px 8px 0",
+    marginTop: "16px",
     textTransform: "none",
     "&:hover": {
       backgroundColor: theme.palette.primary.main,
     },
   },
-  buttonCancel: {
-    backgroundColor: theme.palette.background.default,
-    borderRadius: theme.border.default,
-    color: theme.palette.text.main,
-    margin: "16px 0 8px 8px",
-    textTransform: "none",
-    "&:hover": {
-      opacity: 0.5,
-    },
-  },
   error: {
     color: theme.palette.error.main,
+  },
+  divider: {
+    margin: "20px 0",
+  },
+  mainContainer: {
+    padding: "40px 0",
+    display: "flex",
+    justifyContent: "center",
   },
 }));
 
@@ -95,7 +95,7 @@ const FormProfile = () => {
     <div>
       <Snackbar open={open} autoHideDuration={5000} onClose={handleCloseSucces}>
         <Alert onClose={handleCloseSucces} severity="success">
-          Socio Guardado exitosamente
+          Información actualizada con exito
         </Alert>
       </Snackbar>
     </div>
@@ -109,97 +109,106 @@ const FormProfile = () => {
     <>
       {alert}
       {user ? (
-        <form
-          id="user-form"
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <Grid container className={classes.container}>
-            <Grid item xs={12}>
-              <Typography variant="body2">Datos de usuario</Typography>
-              <Controller
-                name="name"
-                control={control}
-                defaultValue={user.name}
-                rules={{ required: true }}
-                render={({ field }) => (
+        <div className={classes.mainContainer}>
+          <div>
+            <form
+              id="user-form"
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <Grid container className={classes.container}>
+                <Grid item xs={12}>
+                  <Typography variant="body2">Datos de usuario</Typography>
+                  <Controller
+                    name="name"
+                    control={control}
+                    defaultValue={user.name}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        id="name-form"
+                        required
+                        label="Nombre"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        error={Boolean(errors.name)}
+                      />
+                    )}
+                  />
+                  <span className={classes.error}>{errors.name?.message}</span>
+
+                  <Controller
+                    name="last_name"
+                    control={control}
+                    defaultValue={user.last_name}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        id="last-name-form"
+                        required
+                        label="Apellido"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        error={Boolean(errors.last_name)}
+                      />
+                    )}
+                  />
+                  <span className={classes.error}>
+                    {errors.last_name?.message}
+                  </span>
+
+                  <Controller
+                    name="phone"
+                    control={control}
+                    defaultValue={user.phone}
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        id="phone-form"
+                        required
+                        label="Teléfono"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        error={Boolean(errors.phone)}
+                      />
+                    )}
+                  />
+                  <span className={classes.error}>{errors.phone?.message}</span>
+
                   <TextField
-                    {...field}
-                    id="name-form"
-                    required
-                    label="Nombre"
+                    id="email-form"
+                    disabled
+                    label="Correo"
                     variant="outlined"
                     margin="normal"
+                    defaultValue={user.email}
                     fullWidth
-                    error={Boolean(errors.name)}
                   />
-                )}
-              />
-              <span className={classes.error}>{errors.name?.message}</span>
-
-              <Controller
-                name="last_name"
-                control={control}
-                defaultValue={user.last_name}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id="last-name-form"
-                    required
-                    label="Apellido"
-                    variant="outlined"
-                    margin="normal"
+                </Grid>
+                <Grid item xs={12} className={classes.actionContainer}>
+                  <Button
+                    type="submit"
+                    variant="contained"
                     fullWidth
-                    error={Boolean(errors.last_name)}
-                  />
-                )}
-              />
-              <span className={classes.error}>{errors.last_name?.message}</span>
-
-              <Controller
-                name="phone"
-                control={control}
-                defaultValue={user.phone}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id="phone-form"
-                    required
-                    label="Teléfono"
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    error={Boolean(errors.phone)}
-                  />
-                )}
-              />
-              <span className={classes.error}>{errors.phone?.message}</span>
-
-              <TextField
-                id="email-form"
-                disabled
-                label="Correo"
-                variant="outlined"
-                margin="normal"
-                defaultValue={user.email}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} className={classes.actionContainer}>
-              <Button
-                type="submit"
-                variant="contained"
-                className={classes.button}
-                disabled={loading}
-              >
-                Guardar
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
+                    className={classes.button}
+                    disabled={loading}
+                  >
+                    Guardar
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+            <Divider className={classes.divider} />
+            <UpdatePassword />
+          </div>
+        </div>
       ) : (
         <Loading />
       )}

@@ -1,15 +1,15 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
+  Button,
   Snackbar,
   Modal,
-  Button,
   Backdrop,
   Fade,
   Typography,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-import { Blogs } from "@/lib/blogs";
+import FormUpdatePassword from "@/components/FormUpdatePassword";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -26,21 +26,16 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    maxWidth: "70%",
   },
-  buttonCancel: {
-    backgroundColor: theme.palette.background.default,
+  button: {
+    backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
-    color: theme.palette.text.main,
+    color: theme.palette.text.second,
     textTransform: "none",
+    padding: "5px 30px",
     "&:hover": {
-      opacity: 0.5,
+      backgroundColor: theme.palette.primary.main,
     },
-  },
-  actionContainer: {
-    display: "flex",
-    justifyContent: "flex-end",
-    width: "100%",
   },
 }));
 
@@ -48,25 +43,11 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const DeleteBlog = (prop) => {
+const UpdatePassword = () => {
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const classes = useStyles();
-
-  const handleDelete = async () => {
-    setLoading(true);
-    try {
-      await Blogs.deleteBlog(prop.publication.id);
-      prop.mutate();
-      handleClose();
-      handleSuccessOpen();
-    } catch (e) {
-      console.log("error", e);
-    }
-    setLoading(false);
-  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -76,11 +57,11 @@ const DeleteBlog = (prop) => {
     setOpen(false);
   };
 
-  const handleSuccessOpen = () => {
+  const handleOpenSucces = () => {
     setSuccess(true);
   };
 
-  const handleSuccessClose = (event, reason) => {
+  const handleCloseSuccess = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -92,10 +73,10 @@ const DeleteBlog = (prop) => {
       <Snackbar
         open={success}
         autoHideDuration={5000}
-        onClose={handleSuccessClose}
+        onClose={handleCloseSuccess}
       >
-        <Alert onClose={handleSuccessClose} severity="success">
-          Eliminado exitosamente!
+        <Alert onClose={handleCloseSuccess} severity="success">
+          Contraseña cambiada
         </Alert>
       </Snackbar>
     </div>
@@ -104,8 +85,8 @@ const DeleteBlog = (prop) => {
   return (
     <>
       {alert}
-      <Button className={classes.buttonCancel} onClick={handleOpen}>
-        Eliminar
+      <Button className={classes.button} onClick={handleOpen} fullWidth>
+        Cambiar Contraseña
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -121,24 +102,14 @@ const DeleteBlog = (prop) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <Typography id="transition-modal-title" variant="body2">
-              ¿Esta seguro que quiere eliminar la publicación{" "}
-              <strong>{prop.publication.title}</strong>?
+            <Typography id="transition-modal-title" variant="h6">
+              Cambio de contraseña
             </Typography>
-            <div
-              id="transition-modal-description"
-              className={classes.actionContainer}
-            >
-              <Button
-                onClick={handleDelete}
-                className={classes.buttonCancel}
-                disabled={loading}
-              >
-                Si, eliminar
-              </Button>
-              <Button onClick={handleClose} className={classes.buttonCancel}>
-                Cancelar
-              </Button>
+            <div id="transition-modal-description">
+              <FormUpdatePassword
+                handleClose={handleClose}
+                handleOpenSucces={handleOpenSucces}
+              />
             </div>
           </div>
         </Fade>
@@ -147,4 +118,4 @@ const DeleteBlog = (prop) => {
   );
 };
 
-export default DeleteBlog;
+export default UpdatePassword;

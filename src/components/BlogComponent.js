@@ -1,44 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import Routes from "@/constants/routes";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import {
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Button, Grid, Typography } from "@material-ui/core";
+import CardBlog from "@/components/CardBlog";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-
-const post = [
-  {
-    title: "Noticia 1",
-    description: "Descripción",
-  },
-  {
-    title: "Noticia 2",
-    description: "Descripción",
-  },
-  {
-    title: "Noticia 3",
-    description: "Descripción",
-  },
-  {
-    title: "Noticia 4",
-    description: "Descripción",
-  },
-  {
-    title: "Noticia 5",
-    description: "Descripción",
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,11 +19,6 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContainer: {
     minHeight: "345px",
-  },
-  card: {
-    maxWidth: 345,
-    margin: "0 30px",
-    borderRadius: "10px",
   },
   title: {
     padding: "0 0 70px 0",
@@ -81,9 +45,6 @@ const useStyles = makeStyles((theme) => ({
   carouselContainer: {
     height: "100%",
   },
-  media: {
-    height: 140,
-  },
 }));
 
 const responsive = {
@@ -107,7 +68,7 @@ const responsive = {
 
 const BlogComponent = () => {
   const classes = useStyles();
-  const { data, error, mutate } = useSWR(`/publications`, fetcher);
+  const { data, error } = useSWR(`/publications`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <div>Cargando...</div>;
@@ -126,29 +87,7 @@ const BlogComponent = () => {
               <Carousel responsive={responsive}>
                 {data.data.map((publication, index) => (
                   <div key={index} className={classes.cardContainer}>
-                    <Card className={classes.card}>
-                      <CardActionArea>
-                        <CardMedia
-                          component="img"
-                          height="140"
-                          className={classes.media}
-                          image={publication.image}
-                          title={publication.title}
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {publication.title}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                          >
-                            {publication.description}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
+                    <CardBlog publication={publication} />
                   </div>
                 ))}
               </Carousel>
@@ -156,7 +95,7 @@ const BlogComponent = () => {
             <Grid item xs={12}>
               <Link href={Routes.BLOG}>
                 <Button variant="contained" className={classes.button}>
-                  Ver más..
+                  Conocer más historias
                 </Button>
               </Link>
             </Grid>

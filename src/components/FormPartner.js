@@ -14,10 +14,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
+import translateMessage from "@/constants/messages";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Partners } from "@/lib/partners";
 import { useAuth } from "@/lib/auth";
 import clsx from "clsx";
 
@@ -69,17 +69,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({
-  business: yup.string().required("Ingrese el nombre de su negocio"),
-  description: yup.string().required("Ingrese una descripción"),
-
-  password: yup.string().required("Ingrese su contraseña"),
-  password_confirmation: yup.string().required("Confirme su contraseña"),
+  name: yup.string().required("Ingrese el nombre."),
+  last_name: yup.string().required("Ingrese el apellido."),
+  phone: yup.string().required("Ingrese un teléfono."),
+  address: yup.string().required("Ingrese una dirección."),
+  email: yup
+    .string()
+    .required("Ingrese el correo.")
+    .email("Ingrese un correo válido."),
+  password: yup
+    .string()
+    .required("Ingrese una contraseña.")
+    .min(8, "La clave debe tener al menos 8 caracteres."),
+  password_confirmation: yup
+    .string()
+    .required("Confirme la contraseña.")
+    .min(8, "La clave debe tener al menos 8 caracteres."),
+  business: yup.string().required("Ingrese el nombre de su negocio."),
+  description: yup.string().required("Ingrese una descripción."),
 });
 
 const FormPartner = (prop) => {
   const classes = useStyles();
   const { register } = useAuth();
   const [open, setOpen] = useState(false);
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     password: "",
     password_confirmation: "",
@@ -93,12 +109,13 @@ const FormPartner = (prop) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
+    setLoading(true);
+
     const newUser = {
       name: data.name,
       last_name: data.last_name,
       phone: data.phone,
       email: data.email,
-      state: "Habilitado",
       role: "ROLE_PARTNER",
       password: data.password,
       password_confirmation: data.password_confirmation,
@@ -114,7 +131,6 @@ const FormPartner = (prop) => {
     formUserData.append("last_name", newUser.last_name);
     formUserData.append("phone", newUser.phone);
     formUserData.append("email", newUser.email);
-    formUserData.append("state", newUser.state);
     formUserData.append("role", newUser.role);
     formUserData.append("password", newUser.password);
     formUserData.append("password_confirmation", newUser.password_confirmation);
@@ -129,11 +145,15 @@ const FormPartner = (prop) => {
 
       prop.handlemutate();
       handleOpenSucces();
-      document.getElementById("partner-form").reset();
       prop.handleClose();
-    } catch (e) {
-      console.log("error", e);
+    } catch (error) {
+      console.log("error", error.data);
+      if (error.email !== null)
+        setErrorEmail(translateMessage(error.data.email));
+      if (error.password !== null)
+        setErrorPassword(translateMessage(error.data.password));
     }
+    setLoading(false);
   };
 
   const handleChange = (prop) => (event) => {
@@ -261,11 +281,16 @@ const FormPartner = (prop) => {
                     variant="outlined"
                     margin="normal"
                     fullWidth
-                    error={Boolean(errors.email)}
+                    error={Boolean(errors.email) || Boolean(errorEmail)}
                   />
                 )}
               />
               <span className={classes.error}>{errors.email?.message}</span>
+              {errorEmail ? (
+                <span className={classes.error}> {errorEmail}</span>
+              ) : (
+                <span></span>
+              )}
 
               <Controller
                 name="password"
@@ -321,7 +346,10 @@ const FormPartner = (prop) => {
                     variant="outlined"
                     margin="normal"
                     {...field}
-                    error={Boolean(errors.password_confirmation)}
+                    error={
+                      Boolean(errors.password_confirmation) ||
+                      Boolean(errorPassword)
+                    }
                   >
                     <InputLabel htmlFor="password_confirmation">
                       Confirmar Contraseña *
@@ -348,7 +376,7 @@ const FormPartner = (prop) => {
                           </IconButton>
                         </InputAdornment>
                       }
-                      labelWidth={93}
+                      labelWidth={170}
                     />
                   </FormControl>
                 )}
@@ -356,6 +384,11 @@ const FormPartner = (prop) => {
               <span className={classes.error}>
                 {errors.password_confirmation?.message}
               </span>
+              {errorPassword ? (
+                <span className={classes.error}>{errorPassword}</span>
+              ) : (
+                <span></span>
+              )}
             </Grid>
             <Grid item xs={12} md={2}></Grid>
             <Grid item xs={12} md={5}>
@@ -432,6 +465,7 @@ const FormPartner = (prop) => {
               <Button
                 type="submit"
                 variant="contained"
+                disabled={loading}
                 className={classes.button}
               >
                 Guardar Socio

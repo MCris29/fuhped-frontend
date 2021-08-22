@@ -1,16 +1,8 @@
-import { React, useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-} from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import ActionBar from "@/components/ActionBar";
+import TableData from "@/components/TableData";
 import NewAppointment from "@/components/NewAppointment";
 import DeleteAppointment from "@/components/DeleteAppointment";
 import EditAppointment from "@/components/EditAppointment";
@@ -18,6 +10,7 @@ import ButtonReport from "@/components/ButtonReport";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import Loading from "@/components/Loading";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,34 +21,100 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: 740,
     borderRadius: theme.border.default,
   },
+  containerButton: {
+    display: "flex",
+  },
+  cell: {
+    display: "block",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    borderBottom: "1px solid rgba(224, 224, 224, 1)",
+    textOverflow: "ellipsis",
+  },
 }));
-
-const columns = [
-  { id: "title", label: "Título" },
-  { id: "description", label: "Descripción" },
-  { id: "date", label: "Fecha" },
-  { id: "afiliate", label: "Afiliado" },
-  { id: "state", label: "Estado" },
-];
 
 const AppointmentListPartner = () => {
   const classes = useStyles();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
   const { data, error, mutate } = useSWR(`/appointments_partner`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <Loading />;
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  //Columns for data table
+  const columns = [
+    {
+      field: "title",
+      headerName: "Título",
+      flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.title} arrow>
+            <div className={classes.cell}>{data.row.title}</div>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      field: "description",
+      headerName: "Descripción",
+      flex: 2,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.description} arrow>
+            <div className={classes.cell}>{data.row.description}</div>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      field: "date",
+      headerName: "Fecha",
+      flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.date} arrow>
+            <div className={classes.cell}>{data.row.date}</div>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      field: "afiliate",
+      headerName: "Afiliado",
+      flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.afiliate} arrow>
+            <div className={classes.cell}>{data.row.afiliate}</div>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      field: "state",
+      headerName: "Estado",
+      flex: 1,
+      renderCell: (data) => {
+        return (
+          <Tooltip title={data.row.state} arrow>
+            <div className={classes.cell}>{data.row.state}</div>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      field: "Acciones",
+      flex: 1,
+      renderCell: (data) => {
+        return (
+          <div className={classes.containerButton}>
+            <DeleteAppointment appointment={data.row} mutate={mutate} />
+            <EditAppointment appointment={data.row} mutate={mutate} />
+          </div>
+        );
+      },
+    },
+  ];
 
   //Columns for PDF report
   const columnsReport = [
@@ -108,67 +167,7 @@ const AppointmentListPartner = () => {
     <>
       <ActionBar actionFirst={meta} actionSecond={newAffiliate} />
       <Paper className={classes.root}>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-                <TableCell key="actions" align="left">
-                  Acciones
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.data.map((row, index) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.code}
-                    key={"row" + index}
-                  >
-                    {columns.map((column, index) => {
-                      const value = row[column.id];
-
-                      return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          key={"column" + index}
-                        >
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                    <TableCell>
-                      <DeleteAppointment appointment={row} mutate={mutate} />
-                      <EditAppointment appointment={row} mutate={mutate} />
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        {/* <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={20}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-        /> */}
+        <TableData columns={columns} rows={data.data} />
       </Paper>
     </>
   );

@@ -4,13 +4,11 @@ import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "40px",
+    margin: "0 40px",
     padding: "10px",
     borderRadius: theme.border.default,
-    backgroundColor: theme.palette.background.main,
-    color: theme.palette.text.second,
-    boxShadow:
-      "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.text.main,
   },
   actionSecond: {
     display: "flex",
@@ -19,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
   actionFirst: {
     display: "flex",
     alignItems: "center",
-    paddingLeft: "16px",
   },
 }));
 
@@ -30,10 +27,10 @@ const ActionBar = ({ actionFirst, actionSecond }) => {
     <>
       <div className={classes.root}>
         <Grid container>
-          <Grid item xs={12} md={6} className={classes.actionFirst}>
+          <Grid item xs={12} sm={3} className={classes.actionFirst}>
             {actionFirst}
           </Grid>
-          <Grid item xs={12} md={6} className={classes.actionSecond}>
+          <Grid item xs={12} sm={9} className={classes.actionSecond}>
             {actionSecond}
           </Grid>
         </Grid>

@@ -5,9 +5,12 @@ import FormPartner from "@/components/FormPartner";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    position: "absolute",
+    top: "10%",
+    left: "10%",
+    overflow: "scroll",
+    height: "100%",
+    display: "block",
   },
   paper: {
     backgroundColor: theme.palette.background.default,

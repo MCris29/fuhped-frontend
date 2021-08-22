@@ -7,7 +7,9 @@ import {
   Backdrop,
   Fade,
   Typography,
+  Tooltip,
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Appointments } from "@/lib/appointments";
 
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    maxWidth: "50%",
+    maxWidth: "70%",
   },
   buttonCancel: {
     backgroundColor: theme.palette.background.default,
@@ -104,9 +106,11 @@ const DeleteAffiliate = (prop) => {
   return (
     <>
       {alert}
-      <Button className={classes.buttonCancel} onClick={handleOpen}>
-        Eliminar
-      </Button>
+      <Tooltip title="Eliminar" arrow>
+        <Button className={classes.buttonCancel} onClick={handleOpen}>
+          <DeleteIcon color="error" />
+        </Button>
+      </Tooltip>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -121,9 +125,11 @@ const DeleteAffiliate = (prop) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar la cita {prop.appointment.title}{" "}
-              con {prop.appointment.afiliate} con fecha {prop.appointment.date}?
+            <Typography id="transition-modal-title" variant="body2">
+              ¿Esta seguro que quiere eliminar la cita{" "}
+              <strong>{prop.appointment.title}</strong> con{" "}
+              <strong>{prop.appointment.afiliate}</strong> con fecha{" "}
+              <strong>{prop.appointment.date}</strong>?
             </Typography>
             <div
               id="transition-modal-description"

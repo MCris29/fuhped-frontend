@@ -1,14 +1,9 @@
 import { React, useState } from "react";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import {
-  Menu,
-  MenuItem,
-  ListItemText,
-  Typography,
-  IconButton,
-} from "@material-ui/core";
+import { Menu, MenuItem, ListItemText, Typography } from "@material-ui/core";
 
+import { useAuth } from "@/lib/auth";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import theme from "src/pages/theme";
@@ -18,12 +13,10 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
   },
   IconButton: {
-    color: theme.palette.text.main,
+    padding: "0 15px",
     "&:hover": {
-      color: theme.palette.primary.second,
-      backgroundColor: theme.palette.background.default,
       borderRadius: theme.border.default,
-      transform: "scale(1.1)",
+      transform: "scale(1.2)",
     },
   },
 }));
@@ -53,11 +46,12 @@ const StyledMenuItem = withStyles((theme) => ({}))(MenuItem);
 
 const IconNotification = () => {
   const classes = useStyles();
+  const { user } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
-  const { data, error, mutate } = useSWR(`/notifications_receiver`, fetcher);
+  const { data, error } = useSWR(`/notifications_receiver`, fetcher);
 
-  if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <div>Cargando...</div>;
+  if (error) return <div>error</div>;
+  if (!data) return <div>...</div>;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -82,38 +76,42 @@ const IconNotification = () => {
 
   return (
     <>
-      <div>
-        <div className={classes.IconButton} onClick={handleClick}>
-          <NotificationsIcon />
-        </div>
+      {user ? (
+        <div>
+          <div className={classes.IconButton} onClick={handleClick}>
+            <NotificationsIcon />
+          </div>
 
-        <StyledMenu
-          id="customized-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          {data.meta.total !== 0 ? (
-            data.data.map((notification, index) => (
-              <StyledMenuItem
-                className={classes.notificationContainer}
-                key={index}
-              >
-                <ListItemText primary={notification.title} />
-                <Typography variant="caption">
-                  {"Asignado con fecha "}
-                  {handleDate(notification.created_at)}
-                </Typography>
+          <StyledMenu
+            id="customized-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            {data.meta.total !== 0 ? (
+              data.data.map((notification, index) => (
+                <StyledMenuItem
+                  className={classes.notificationContainer}
+                  key={index}
+                >
+                  <ListItemText primary={notification.title} />
+                  <Typography variant="caption">
+                    {"Asignado con fecha "}
+                    {handleDate(notification.created_at)}
+                  </Typography>
+                </StyledMenuItem>
+              ))
+            ) : (
+              <StyledMenuItem key={"icon-notification"} disabled>
+                Sin notificaciones
               </StyledMenuItem>
-            ))
-          ) : (
-            <StyledMenuItem key={"icon-notification"} disabled>
-              Sin notificaciones
-            </StyledMenuItem>
-          )}
-        </StyledMenu>
-      </div>
+            )}
+          </StyledMenu>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </>
   );
 };

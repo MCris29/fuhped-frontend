@@ -5,14 +5,14 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuIcon from "@material-ui/icons/Menu";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import MoreIcon from "@material-ui/icons/MoreVert";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {
   Menu,
   MenuItem,
   Button,
   Divider,
-  IconButton,
   ListItemIcon,
+  Typography,
 } from "@material-ui/core";
 import IconNotification from "@/components/IconNotification";
 
@@ -22,13 +22,13 @@ import Routes from "@/constants/routes";
 const useStyles = makeStyles((theme) => ({
   sectionDesktop: {
     display: "none",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       display: "flex",
     },
   },
   sectionMobile: {
     display: "flex",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       display: "none",
     },
     marginRight: "-22px",
@@ -50,26 +50,33 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.main,
     },
   },
-  containerIcons: {
-    display: "flex",
-  },
   divider: {
     marginTop: "5px",
     marginBottom: "5px",
   },
-  menuButton: {
+  IconButton: {
+    padding: "0 15px",
     "&:hover": {
-      color: theme.palette.primary.second,
-      backgroundColor: theme.palette.background.default,
       borderRadius: theme.border.default,
-      transform: "scale(1.1)",
+      transform: "scale(1.2)",
     },
+    [theme.breakpoints.down("sm")]: {
+      padding: "0",
+    },
+  },
+  iconContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+  textName: {
+    paddingLeft: "5px",
   },
 }));
 
 const StyledMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5",
+    borderRadius: "10px",
   },
 })((props) => (
   <Menu
@@ -89,13 +96,11 @@ const StyledMenu = withStyles({
 
 const StyledMenuItem = withStyles((theme) => ({}))(MenuItem);
 
-const IconsMenu = () => {
+const IconsMenu = (prop) => {
   const { logout, user } = useAuth();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMenuAccountOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -104,10 +109,6 @@ const IconsMenu = () => {
   const handleMenuAccountClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const handleMobileMenuClose = () => {
@@ -144,7 +145,7 @@ const IconsMenu = () => {
           <ListItemIcon>
             <MenuIcon />
           </ListItemIcon>
-          Ir al menú
+          Ir al sistema
         </StyledMenuItem>
       </Link>
 
@@ -157,77 +158,51 @@ const IconsMenu = () => {
     </StyledMenu>
   );
 
-  const mobileMenuId = "mobile-account-menu";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <Link href={Routes.LOGIN}>
-        <MenuItem className={classes.text}>
-          <p>Iniciar sesión</p>
-        </MenuItem>
-      </Link>
-    </Menu>
-  );
-
   return (
     <>
-      <div className={classes.sectionDesktop}>
-        {user ? (
-          <div className={classes.containerIcons}>
-            <MenuItem
-              id="notification-button"
-              className={classes.menuButton}
-            >
-              <IconNotification />
-            </MenuItem>
-            <MenuItem
+      {user ? (
+        <div className={classes.iconContainer}>
+          <IconNotification />
+          {prop.typeIcon === 1 ? (
+            <div
+              className={classes.IconButton}
               onClick={handleMenuAccountOpen}
               id="account-menu-button"
-              className={classes.menuButton}
             >
               <ArrowDropDownIcon />
-            </MenuItem>
+            </div>
+          ) : (
+            <div
+              className={classes.iconContainer}
+              onClick={handleMenuAccountOpen}
+              id="account-user-button"
+            >
+              <AccountCircle />
+              <div className={classes.sectionDesktop}>
+                <Typography variant="body2" className={classes.textName}>
+                  {user.name}
+                </Typography>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div>
+          <div className={classes.sectionDesktop}>
+            <Button className={classes.button}>
+              <Link href={Routes.LOGIN}>
+                <MenuItem className={classes.text}>Iniciar Sesión</MenuItem>
+              </Link>
+            </Button>
           </div>
-        ) : (
-          <Button className={classes.button}>
+          <div className={classes.sectionMobile}>
             <Link href={Routes.LOGIN}>
-              <MenuItem className={classes.text}>Iniciar Sesión</MenuItem>
+              <AccountCircleIcon />
             </Link>
-          </Button>
-        )}
-      </div>
-
-      <div className={classes.sectionMobile}>
-        {user ? (
-          <div>
-            <MenuItem onClick={handleMenuAccountOpen} id="account-menu-button">
-              <ArrowDropDownIcon />
-            </MenuItem>
           </div>
-        ) : (
-          <div>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-              id="mobile-account-menu-button"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
       {renderMenuAccount}
-      {renderMobileMenu}
     </>
   );
 };

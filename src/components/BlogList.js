@@ -17,9 +17,6 @@ import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: "1em 40px",
-  },
   cardContainer: {
     margin: "10px 40px",
   },
@@ -73,10 +70,6 @@ const BlogList = () => {
 
   if (error) return <div>No se pudo cargar la información</div>;
   if (!data) return <Loading />;
-
-  // const handleMutate = () => {
-  //   mutate();
-  // };
 
   const meta = <div>{data.meta.total} Publicaciones</div>;
 

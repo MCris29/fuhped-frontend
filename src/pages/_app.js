@@ -5,7 +5,6 @@ import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import theme from "./theme";
 import { Router } from "next/router";
 import NProgress from "nprogress";
-import Navigation from "@/components/Navigation";
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);
@@ -15,6 +14,7 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function App({ Component, pageProps }) {
+  
   return (
     <>
       <AuthProvider>
@@ -28,7 +28,6 @@ function App({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Navigation />
           <Component {...pageProps} />
         </ThemeProvider>
       </AuthProvider>

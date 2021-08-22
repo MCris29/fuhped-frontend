@@ -5,9 +5,12 @@ import FormAffiliate from "@/components/FormAffiliate";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    position: "absolute",
+    top: "10%",
+    left: "10%",
+    overflow: "scroll",
+    height: "100%",
+    display: "block",
   },
   paper: {
     backgroundColor: theme.palette.background.default,
@@ -47,7 +50,6 @@ const NewAffiliate = (prop) => {
   const handlemutate = () => {
     prop.mutate();
   };
-  
 
   return (
     <>
@@ -69,7 +71,7 @@ const NewAffiliate = (prop) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Typography id="transition-modal-title" variant="h6">
-              Registrar nuevo Afiliado
+              Registrar nuevo afiliado
             </Typography>
             <div id="transition-modal-description">
               <FormAffiliate

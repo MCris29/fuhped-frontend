@@ -7,9 +7,12 @@ import {
   Backdrop,
   Fade,
   Typography,
+  Tooltip,
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Partners } from "@/lib/partners";
+import { Users } from "@/lib/users";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -26,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    maxWidth: "70%",
   },
   buttonCancel: {
     backgroundColor: theme.palette.background.default,
@@ -57,8 +61,9 @@ const DeletePartner = (prop) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await Partners.deletePartner(prop.partner.user.id);
-      prop.handleMutate();
+      await Users.deleteUser(prop.partner.user_id);
+      await Partners.deletePartner(prop.partner.id);
+      prop.mutate();
       handleSuccessOpen();
     } catch (e) {
       console.log("error", e);
@@ -102,9 +107,11 @@ const DeletePartner = (prop) => {
   return (
     <>
       {alert}
-      <Button className={classes.buttonCancel} onClick={handleOpen}>
-        Eliminar
-      </Button>
+      <Tooltip title="Eliminar" arrow>
+        <Button className={classes.buttonCancel} onClick={handleOpen}>
+          <DeleteIcon color="error" />
+        </Button>
+      </Tooltip>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -119,10 +126,10 @@ const DeletePartner = (prop) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <Typography id="transition-modal-title" variant="h6">
-              ¿Esta seguro que quiere eliminar a {prop.partner.user.name}
-              {" "}
-              {prop.partner.user.last_name}?
+            <Typography id="transition-modal-title" variant="body2">
+              ¿Esta seguro que quiere eliminar a{" "}
+              <strong>{prop.partner.name}</strong> se eliminaran todos los datos
+              asociados a este usuario?
             </Typography>
             <div
               id="transition-modal-description"

@@ -1,50 +1,29 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardActionArea from "@material-ui/core/CardActionArea";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Navigation from "@/components/Navigation";
+import CardBlog from "@/components/CardBlog";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
+import NavItems from "@/components/NavItems";
+import NavItemsMobile from "@/components/NavItemsMobile";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: "1em 40px",
+    marginTop: "40px",
   },
   cardContainer: {
     padding: "12px",
-  },
-  card: {
     display: "flex",
-    height: "12rem",
-  },
-  content: {
-    flex: "1 0 auto",
-  },
-  cover: {
-    [theme.breakpoints.up("xs")]: {
-      minWidth: "251px",
-    },
-    [theme.breakpoints.down("xs")]: {
-      minWidth: "150px",
-    },
-  },
-  description: {
-    display: "flex",
-    alignItems: "center",
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    },
+    justifyContent: "center",
   },
   title: {
-    padding: "0 0 70px 0",
+    padding: "0 80px 70px",
     display: "flex",
     justifyContent: "center",
     width: "100%",
+    textAlign: "center",
   },
   underline: {
     width: "fit-content",
@@ -56,15 +35,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Blog = () => {
-  const { data, error } = useSWR(`/publications`, fetcher);
   const classes = useStyles();
-  const theme = useTheme();
+  const { data, error } = useSWR(`/publications`, fetcher);
+
+  const navItems = <NavItems />;
+  const navItemsMobile = <NavItemsMobile />;
 
   if (error) return <div>No se pudo cargar la información del usuario</div>;
   if (!data) return <div>Cargando...</div>;
 
   return (
     <>
+      <Navigation navItems={navItems} navItemsMobile={navItemsMobile} />
       <Grid container className={classes.container}>
         <div className={classes.title}>
           <div className={classes.underline}>
@@ -72,26 +54,14 @@ const Blog = () => {
           </div>
         </div>
         {data.data.map((publication, index) => (
-          <Grid item xs={12} key={index} className={classes.cardContainer}>
-            <Card className={classes.card}>
-              <CardActionArea>
-                <div className={classes.details}>
-                  <CardContent className={classes.content}>
-                    <Typography component="h5" variant="h5">
-                      {publication.title}
-                    </Typography>
-                  </CardContent>
-                  <div className={classes.description}>
-                    <p>{publication.description}</p>
-                  </div>
-                </div>
-              </CardActionArea>
-              <CardMedia
-                className={classes.cover}
-                image={publication.image}
-                title={publication.title}
-              />
-            </Card>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            key={index}
+            className={classes.cardContainer}
+          >
+            <CardBlog publication={publication} />
           </Grid>
         ))}
       </Grid>
