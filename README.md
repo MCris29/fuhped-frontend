@@ -14,8 +14,10 @@ https://youtu.be/Cf2KJgaz1eM
 
 ## Esctructura
 #### • Arquitectura
+![image](https://github.com/MCris29/fuhped-frontend/blob/dev/images/arquitectura.png)
 
 #### • Base de datos
+![image](https://github.com/MCris29/fuhped-frontend/blob/dev/images/database.png)
 
 ## Sprints
 ### Sprint 1
