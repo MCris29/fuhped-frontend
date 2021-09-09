@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "flex",
-      alignItems: "center",
+      alignItems: "baseline",
     },
   },
 }));
@@ -74,12 +74,7 @@ const Carrousel = () => {
       <div>
         <Grid container className={classes.container}>
           <Grid item xs={12} sm={7} className={classes.imageContainerMobile}>
-            <Image
-              src="/carousel_1.svg"
-              alt="Donaciones"
-              width={750}
-              height={410}
-            />
+            <Image src="/carousel_1.svg" alt="image" width={750} height={410} />
           </Grid>
           <Grid item xs={12} sm={5} className={classes.textCarousel}>
             <div className={classes.space}>
@@ -100,12 +95,7 @@ const Carrousel = () => {
             </div>
           </Grid>
           <Grid item xs={12} sm={7} className={classes.imageContainerDesktop}>
-            <Image
-              src="/carousel_1.svg"
-              alt="Donaciones"
-              width={750}
-              height={410}
-            />
+            <Image src="/carousel_1.svg" alt="image" width={750} height={410} />
           </Grid>
         </Grid>
       </div>

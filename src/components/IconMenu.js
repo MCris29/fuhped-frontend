@@ -6,6 +6,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuIcon from "@material-ui/icons/Menu";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import HomeIcon from "@material-ui/icons/Home";
 import {
   Menu,
   MenuItem,
@@ -55,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "5px",
   },
   IconButton: {
-    padding: "0 15px",
     "&:hover": {
       borderRadius: theme.border.default,
       transform: "scale(1.2)",
@@ -140,6 +140,15 @@ const IconsMenu = (prop) => {
       )}
       <Divider variant="middle" className={classes.divider} />
 
+      <Link href={Routes.HOME}>
+        <StyledMenuItem onClick={handleMenuAccountClose}>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          Ir a la pagína principal
+        </StyledMenuItem>
+      </Link>
+
       <Link href={Routes.MENU}>
         <StyledMenuItem onClick={handleMenuAccountClose}>
           <ListItemIcon>
@@ -177,7 +186,9 @@ const IconsMenu = (prop) => {
               onClick={handleMenuAccountOpen}
               id="account-user-button"
             >
-              <AccountCircle />
+              <div className={classes.IconButton}>
+                <AccountCircle />
+              </div>
               <div className={classes.sectionDesktop}>
                 <Typography variant="body2" className={classes.textName}>
                   {user.name}

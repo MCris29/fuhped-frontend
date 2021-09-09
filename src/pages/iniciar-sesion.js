@@ -28,7 +28,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="#">
+      <Link color="inherit" href="/">
         Fuhped
       </Link>{" "}
       {new Date().getFullYear()}
@@ -219,13 +219,6 @@ const Login = () => {
           >
             Iniciar Sesión
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Olvidaste tu contraseña?
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
 
