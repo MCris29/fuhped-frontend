@@ -56,7 +56,7 @@ function Copyright() {
   return (
     <Typography variant="body2" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="#">
+      <Link color="inherit" href="/">
         fuhped
       </Link>{" "}
       {new Date().getFullYear()}
@@ -101,7 +101,7 @@ const Footer = () => {
               </Typography>
             </div>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} style={{ padding: "0 40px" }}>
             {links.map((value, index) => (
               <Link href={value.to} key={index} className={classes.item}>
                 <Typography>{value.title}</Typography>
