@@ -9,18 +9,17 @@ import {
 } from "@material-ui/core";
 
 const PaypalButton = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [value, setValue] = useState(10);
+  const [value, setValue] = useState(5);
 
   const handleChange = (event) => {
     setValue(event.target.value);
+    deleteButton();
+    paypalButtonRender(event.target.value);
   };
 
   useEffect(() => {
     paypalButtonRender(value);
-
-    return () => deleteButton();
-  }, [value]);
+  }, []);
 
   function deleteButton() {
     var div = document.getElementById("paypal-express-btn");
@@ -34,7 +33,6 @@ const PaypalButton = () => {
   }
 
   const paypalButtonRender = (value) => {
-    setIsEnabled(true);
     paypal.Button.render(
       {
         env: "sandbox",
@@ -52,7 +50,7 @@ const PaypalButton = () => {
           height: 40,
         },
 
-        payment: function (data, actions) {
+        payment: function(data, actions) {
           return actions.payment.create({
             transactions: [
               {
@@ -67,13 +65,13 @@ const PaypalButton = () => {
 
         commit: true,
 
-        onAuthorize: function (data, actions) {
-          return actions.payment.execute().then(function (response) {
+        onAuthorize: function(data, actions) {
+          return actions.payment.execute().then(function(response) {
             console.log("Donación realizada con exito");
           });
         },
 
-        oncancel: function (data) {
+        oncancel: function(data) {
           console.log("Pago cancelado");
         },
       },
@@ -97,12 +95,12 @@ const PaypalButton = () => {
           onChange={handleChange}
           row
         >
-          <FormControlLabel value="10" control={<Radio />} label="$10" />
-          <FormControlLabel value="20" control={<Radio />} label="$20" />
-          <FormControlLabel value="50" control={<Radio />} label="$50" />
+          <FormControlLabel value="5" control={<Radio />} label="$5" />
+          <FormControlLabel value="15" control={<Radio />} label="$15" />
+          <FormControlLabel value="30" control={<Radio />} label="$30" />
         </RadioGroup>
       </FormControl>
-      <div>{isEnabled ? <div id="paypal-express-btn" /> : "Cargando..."}</div>
+      <div id="paypal-express-btn" />
     </>
   );
 };
