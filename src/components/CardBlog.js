@@ -24,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
     textOverflow: "ellipsis",
     overflow: "hidden",
   },
+  description: {
+    display: "-webkit-box",
+    maxWidth: "200px",
+    "-webkit-line-clamp": "4",
+    "-webkit-box-orient": "vertical",
+    overflow: "hidden",
+  },
 }));
 
 const CardBlog = (props) => {
@@ -55,7 +62,7 @@ const CardBlog = (props) => {
                   variant="body2"
                   color="textSecondary"
                   component="p"
-                  className={classes.tittle}
+                  className={classes.description}
                 >
                   {props.publication.description}
                 </Typography>
