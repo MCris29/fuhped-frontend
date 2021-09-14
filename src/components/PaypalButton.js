@@ -12,7 +12,7 @@ const PaypalButton = () => {
   const [value, setValue] = useState(5);
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    // setValue(event.target.value);
     deleteButton();
     paypalButtonRender(event.target.value);
   };
