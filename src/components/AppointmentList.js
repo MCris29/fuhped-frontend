@@ -4,9 +4,9 @@ import ActionBar from "@/components/ActionBar";
 import ButtonReport from "@/components/ButtonReport";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import Loading from "@/components/Loading";
 import TableData from "@/components/TableData";
 import Tooltip from "@material-ui/core/Tooltip";
+import SkeletonTable from "./SkeletonTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +28,7 @@ const AppointmentList = () => {
   const { data, error } = useSWR(`/appointments`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <Loading />;
+  if (!data) return <SkeletonTable />;
 
   const columns = [
     { field: "id", headerName: "ID" },

@@ -8,6 +8,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
+import SkeletonCards from "./SkeletonCards";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,7 +72,8 @@ const BlogComponent = () => {
   const { data, error } = useSWR(`/publications`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <div>Cargando...</div>;
+
+  if (!data) return <SkeletonCards />;
 
   return (
     <>
