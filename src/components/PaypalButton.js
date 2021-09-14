@@ -81,11 +81,6 @@ const PaypalButton = () => {
 
   return (
     <>
-      <Script
-        id="paypal-checkout"
-        src="https://www.paypalobjects.com/api/checkout.js"
-        strategy="beforeInteractive"
-      />
       <Typography variant="body2">Escoje un valor: </Typography>
       <FormControl component="fieldset">
         <RadioGroup
