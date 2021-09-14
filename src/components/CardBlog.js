@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     display: "-webkit-box",
-    maxWidth: "200px",
+    maxWidth: "auto",
     "-webkit-line-clamp": "4",
     "-webkit-box-orient": "vertical",
     overflow: "hidden",
