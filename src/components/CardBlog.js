@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -17,7 +17,13 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
   },
   media: {
-    height: 140,
+    height: "auto",
+  },
+  altImage: {
+    height: "auto",
+    boxSizing: "border-box",
+    content: "url(/image_alt.jpg)",
+    overflow: "hidden",
   },
   tittle: {
     whiteSpace: "nowrap",
@@ -36,6 +42,11 @@ const useStyles = makeStyles((theme) => ({
 const CardBlog = (props) => {
   const classes = useStyles();
 
+  const handleImage = (ev) => {
+    //Cambia a una imagen alterna si no la encuentra
+    ev.target.src = "/image_alt.jpg";
+  };
+
   return (
     <>
       <Card className={classes.card}>
@@ -47,8 +58,11 @@ const CardBlog = (props) => {
                 height="40"
                 className={classes.media}
                 image={props.publication.image}
+                alt="Not Found"
+                onError={handleImage}
                 title={props.publication.title}
               />
+
               <CardContent>
                 <Typography
                   gutterBottom
