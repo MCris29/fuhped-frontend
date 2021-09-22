@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
+  texthead: {
+    fontFamily: '"Raleway", sans-serif',
+    color: theme.palette.text.primary,
+    fontWeight: "600",
+  },
   container: {
     textAlign: "center",
     padding: "9em 40px",
@@ -83,7 +88,9 @@ const BlogComponent = () => {
         <div className={classes.container}>
           <div className={classes.title}>
             <div className={classes.underline}>
-              <Typography variant="h4">Nuestro Blog</Typography>
+              <Typography variant="h4" className={classes.texthead}>
+                Nuestro Blog
+              </Typography>
             </div>
           </div>
           <Grid container justify="center">
