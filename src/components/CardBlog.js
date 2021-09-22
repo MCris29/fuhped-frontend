@@ -13,7 +13,7 @@ import Routes from "@/constants/routes";
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
-    margin: "0 30px",
+    margin: "0 40px",
     borderRadius: "10px",
   },
   media: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   description: {
     display: "-webkit-box",
     maxWidth: "auto",
-    "-webkit-line-clamp": "4",
+    "-webkit-line-clamp": "3",
     "-webkit-box-orient": "vertical",
     overflow: "hidden",
   },

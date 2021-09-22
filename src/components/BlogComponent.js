@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContainer: {
     minHeight: "345px",
+    padding: "1px",
   },
   title: {
     padding: "0 0 70px 0",
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.second,
     textTransform: "none",
     padding: "5px 30px",
+    margin: "60px 0",
     "&:hover": {
       backgroundColor: theme.palette.primary.main,
     },
