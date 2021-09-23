@@ -8,13 +8,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import Link from "next/link";
-import Routes from "@/constants/routes";
 
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
     margin: "0 40px",
     borderRadius: "10px",
+    boxShadow: theme.shadow.default,
   },
   media: {
     height: "auto",

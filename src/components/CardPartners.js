@@ -13,6 +13,7 @@ import Routes from "@/constants/routes";
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: theme.border.default,
+    boxShadow: theme.shadow.default,
     margin: "0 40px 20px",
   },
   button: {

@@ -19,6 +19,11 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px 100px 10px 40px",
     color: theme.palette.text.second,
   },
+  texthead: {
+    fontFamily: '"Raleway", sans-serif',
+    color: theme.palette.text.second,
+    fontWeight: "600",
+  },
   copyright: {
     color: "#F5F2F6",
     paddingTop: "5em",
@@ -75,27 +80,35 @@ const Footer = () => {
         <Grid container className={classes.container}>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <Typography variant="h4">FUHPED</Typography>
+              <Typography variant="h4" className={classes.texthead}>
+                FUHPED
+              </Typography>
             </div>
             <div className={classes.item}>
               <Typography variant="body2">
-                La Fundación sin fines de lucro, Halcones por el Deporte,
-                FUHPED, fue creada con registro ministerial número
-                MIES-CZ-9-DDQS-2019-0011-R, misma que tiene por objetivo,
+                La Fundación sin fines de lucro, Halcones por el Deporte fue
+                creada con registro ministerial número
+                MIES-CZ-9-DDQS-2019-0011-R, misma que tiene por objetivo
                 preservar el deporte.
               </Typography>
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <Typography variant="h5">Contáctanos</Typography>
+              <Typography variant="h6" className={classes.texthead}>
+                Contáctanos
+              </Typography>
             </div>
             <div className={classes.item}>
-              <Typography variant="h6">Teléfono</Typography>
+              <Typography variant="h6" className={classes.texthead}>
+                Teléfono
+              </Typography>
               <Typography variant="body2">+59398 180 7695</Typography>
             </div>
             <div className={classes.item}>
-              <Typography variant="h6">Correo</Typography>
+              <Typography variant="h6" className={classes.texthead}>
+                Correo
+              </Typography>
               <Typography variant="body2">
                 fuhpedecuador2019@outlook.com
               </Typography>

@@ -96,8 +96,7 @@ const IconNotification = () => {
                   key={index}
                 >
                   <ListItemText primary={notification.title} />
-                  <Typography variant="caption">
-                    {"Asignado con fecha "}
+                  <Typography variant="caption" color="textSecondary">
                     {handleDate(notification.created_at)}
                   </Typography>
                 </StyledMenuItem>

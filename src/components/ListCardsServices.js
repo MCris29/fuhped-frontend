@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -18,10 +17,14 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 275,
     borderRadius: theme.border.default,
     margin: "0 60px 20px",
+    boxShadow: theme.shadow.default,
   },
   button: {
     textTransform: "none",
     borderRadius: theme.border.default,
+  },
+  text: {
+    padding: "4px",
   },
 }));
 
@@ -38,10 +41,10 @@ const ListCardsServices = (props) => {
         <Grid item xs={12} md={4} key={index}>
           <Card className={classes.root}>
             <CardContent>
-              <Typography variant="h5" component="h2">
+              <Typography variant="h5" component="h2" className={classes.text}>
                 {service.name}
               </Typography>
-              <Typography variant="body2" component="p">
+              <Typography variant="body2" component="p" className={classes.text}>
                 {service.description}
               </Typography>
               <Typography color="textSecondary">

@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     height: "12rem",
     padding: "10px",
+    boxShadow: theme.shadow.default,
   },
   content: {
     flex: "1 0 auto",
