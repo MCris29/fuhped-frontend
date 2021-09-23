@@ -3,6 +3,8 @@ import Link from "@material-ui/core/Link";
 import Routes from "@/constants/routes";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import Logo from "@/components/Logo";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,6 +29,13 @@ const useStyles = makeStyles((theme) => ({
   copyright: {
     color: "#F5F2F6",
     paddingTop: "5em",
+  },
+  socialMedia: {
+    margin: "20px 0",
+    color: theme.palette.text.second,
+    "&:hover": {
+      transform: "scale(1.2)",
+    },
   },
 }));
 
@@ -80,9 +89,7 @@ const Footer = () => {
         <Grid container className={classes.container}>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <Typography variant="h4" className={classes.texthead}>
-                FUHPED
-              </Typography>
+              <Logo />
             </div>
             <div className={classes.item}>
               <Typography variant="body2">
@@ -91,6 +98,11 @@ const Footer = () => {
                 MIES-CZ-9-DDQS-2019-0011-R, misma que tiene por objetivo
                 preservar el deporte.
               </Typography>
+              <div>
+                <Link href={"https://www.facebook.com/FUHPED"} target="_ blank">
+                  <FacebookIcon className={classes.socialMedia} />
+                </Link>
+              </div>
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
