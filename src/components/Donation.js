@@ -59,7 +59,7 @@ const Donation = () => {
           <Grid item xs={12} md={6}>
             <div className={classes.space}>
               <Typography variant="h4" className={classes.texthead}>
-                Realiza tu Donación
+                Donaciones
               </Typography>
             </div>
             <PaypalButton />

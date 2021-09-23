@@ -81,7 +81,7 @@ const PaypalButton = () => {
 
   return (
     <>
-      <Typography variant="body2">Escoje un valor: </Typography>
+      <Typography variant="body2">Puedes escojer un valor: </Typography>
       <FormControl component="fieldset">
         <RadioGroup
           aria-label="value"
