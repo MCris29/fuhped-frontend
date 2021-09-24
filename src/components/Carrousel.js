@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: theme.palette.background.default,
     color: theme.palette.text.main,
+    boxShadow: theme.shadow.default,
     borderRadius: theme.border.default,
     textTransform: "none",
     padding: "5px 30px",
