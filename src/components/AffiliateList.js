@@ -4,7 +4,6 @@ import ActionBar from "@/components/ActionBar";
 import NewAffiliate from "@/components/NewAffiliate";
 import DeleteAffiliate from "@/components/DeleteAffiliate";
 import ButtonReport from "@/components/ButtonReport";
-import Loading from "@/components/Loading";
 import TableData from "@/components/TableData";
 import Tooltip from "@material-ui/core/Tooltip";
 import SkeletonTable from "./SkeletonTable";
@@ -14,7 +13,7 @@ import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "40px",
+    margin: "20px 24px",
     borderRadius: theme.border.default,
     backgroundColor: "#fff",
   },

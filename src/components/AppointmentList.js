@@ -10,7 +10,7 @@ import SkeletonTable from "./SkeletonTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "40px",
+    margin: "20px 24px",
     borderRadius: theme.border.default,
     backgroundColor: "#fff",
   },

@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px 0",
   },
   mainContainer: {
-    padding: "40px 0",
+    padding: "40px 24px",
     display: "flex",
     justifyContent: "center",
   },

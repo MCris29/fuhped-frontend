@@ -15,7 +15,9 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     textAlign: "center",
-    padding: "0 40px",
+    [theme.breakpoints.up("sm")]: {
+      padding: "0 40px",
+    },
   },
   imageContainerDesktop: {
     display: "none",

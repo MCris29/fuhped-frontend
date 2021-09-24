@@ -21,13 +21,11 @@ import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({
-  cardContainer: {
-    margin: "10px 40px",
-  },
   card: {
     display: "flex",
     height: "12rem",
     padding: "10px",
+    margin: "10px",
     boxShadow: theme.shadow.default,
   },
   content: {
@@ -81,9 +79,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-  },
-  container: {
-    padding: "40px 60px",
   },
   itemContainer: {
     margin: "10px 0",
@@ -155,7 +150,7 @@ const BlogList = () => {
       <ActionBar actionFirst={meta} actionSecond={newBlog} />
       <Grid container>
         {data.data.map((publication, index) => (
-          <Grid item xs={12} key={index} className={classes.cardContainer}>
+          <Grid item xs={12} key={index}>
             <Card className={classes.card}>
               <Grid container>
                 <Grid item xs={12}>
@@ -212,7 +207,7 @@ const BlogList = () => {
                 Vista Previa
               </Typography>
               <div id="transition-modal-description">
-                <Grid container className={classes.container}>
+                <Grid container>
                   <Grid item xs={12} className={classes.itemContainer}>
                     <Typography variant="h4">{title}</Typography>
                   </Grid>

@@ -9,7 +9,10 @@ import Logo from "@/components/Logo";
 const useStyles = makeStyles((theme) => ({
   container: {
     textAlign: "center",
-    padding: "9em 40px 2em",
+    padding: "9em 0",
+    [theme.breakpoints.up("sm")]: {
+      padding: "9em 40px 2em",
+    },
   },
   itemContainer: {
     background: theme.palette.primary.third,
@@ -18,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   item: {
     textAlign: "initial",
-    padding: "10px 100px 10px 40px",
+    padding: "10px 40px",
     color: theme.palette.text.second,
   },
   texthead: {

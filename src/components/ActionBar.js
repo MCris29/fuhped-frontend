@@ -4,8 +4,7 @@ import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "0 40px",
-    padding: "10px",
+    margin: "20px 24px",
     borderRadius: theme.border.default,
     backgroundColor: theme.palette.background.default,
     color: theme.palette.text.main,
@@ -13,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
   actionSecond: {
     display: "flex",
     justifyContent: "flex-end",
+    [theme.breakpoints.down("sm")]: {
+      padding: "20px 0",
+    },
   },
   actionFirst: {
     display: "flex",

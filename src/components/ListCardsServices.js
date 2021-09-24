@@ -1,16 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Grid,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@material-ui/core";
+import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import Loading from "@/components/Loading";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import CardService from "./CardService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +37,11 @@ const ListCardsServices = (props) => {
               <Typography variant="h5" component="h2" className={classes.text}>
                 {service.name}
               </Typography>
-              <Typography variant="body2" component="p" className={classes.text}>
+              <Typography
+                variant="body2"
+                component="p"
+                className={classes.text}
+              >
                 {service.description}
               </Typography>
               <Typography color="textSecondary">
