@@ -47,6 +47,15 @@ const CardBlog = (props) => {
     ev.target.src = "/image_alt.jpg";
   };
 
+  const handlePath = (path) => {
+    var value = path;
+    const newPath = `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${value.replace(
+      "public/",
+      ""
+    )}`;
+    return newPath;
+  };
+
   return (
     <>
       <Card className={classes.card}>
@@ -57,7 +66,7 @@ const CardBlog = (props) => {
                 component="img"
                 height="40"
                 className={classes.media}
-                image={props.publication.image}
+                image={handlePath(props.publication.image)}
                 alt="Not Found"
                 onError={handleImage}
                 title={props.publication.title}
