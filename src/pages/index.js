@@ -25,12 +25,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Script
-        id="paypal-checkout"
-        src="https://www.paypalobjects.com/api/checkout.js"
-        strategy="beforeInteractive"
-      />
-
       <main className={styles.main}>
         <Navigation
           backgroundColorOne={theme.palette.background.default}
