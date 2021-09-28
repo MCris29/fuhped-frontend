@@ -27,10 +27,6 @@ const useStyles = makeStyles((theme) => ({
       transform: "scale(1.04)",
     },
   },
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
-  },
   textCarousel: {
     [theme.breakpoints.up("md")]: {
       textAlign: "left",
@@ -75,7 +71,7 @@ const Carrousel = () => {
       <div>
         <Grid container className={classes.container}>
           <Grid item xs={12} sm={7} className={classes.imageContainerMobile}>
-            <Image src="/carousel_1.svg" alt="image" width={750} height={410} />
+            <Image src="/carousel_1.svg" alt="image" width={950} height={710} />
           </Grid>
           <Grid item xs={12} sm={5} className={classes.textCarousel}>
             <div className={classes.space}>
@@ -96,7 +92,7 @@ const Carrousel = () => {
             </div>
           </Grid>
           <Grid item xs={12} sm={7} className={classes.imageContainerDesktop}>
-            <Image src="/carousel_1.svg" alt="image" width={750} height={410} />
+            <Image src="/carousel_1.svg" alt="image" width={950} height={710} />
           </Grid>
         </Grid>
       </div>
