@@ -6,12 +6,12 @@ import TableData from "@/components/TableData";
 import ButtonReport from "@/components/ButtonReport";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import Loading from "@/components/Loading";
 import Tooltip from "@material-ui/core/Tooltip";
+import SkeletonTable from "./SkeletonTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "40px",
+    margin: "20px 24px",
     borderRadius: theme.border.default,
   },
   container: {
@@ -32,7 +32,8 @@ const AffiliateAppointment = () => {
   const { data, error } = useSWR(`/appointments_afiliate`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <Loading />;
+
+  if (!data) return <SkeletonTable />;
 
   //Columns for data table
   const columns = [

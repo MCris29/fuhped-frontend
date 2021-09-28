@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
+    boxShadow: theme.shadow.default,
     color: theme.palette.text.second,
     margin: "16px 0 8px 0",
     textTransform: "none",
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   buttonCancel: {
     backgroundColor: theme.palette.background.default,
     borderRadius: theme.border.default,
+    boxShadow: theme.shadow.default,
     color: theme.palette.text.main,
     margin: "16px 0 8px 0",
     textTransform: "none",
@@ -43,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
   buttonSuccess: {
     backgroundColor: theme.palette.success.main,
     color: theme.palette.text.second,
+    boxShadow: theme.shadow.default,
     textTransform: "none",
     "&:hover": {
       opacity: theme.opacity.buttonHover,
@@ -202,7 +205,9 @@ const FormBlog = (prop) => {
                       {success ? (
                         <CheckCircleOutlineIcon style={{ display: "flex" }} />
                       ) : (
-                        <span>Subir imagen</span>
+                        <span style={{ textTransform: "none" }}>
+                          Subir imagen
+                        </span>
                       )}
                     </Button>
                   </div>

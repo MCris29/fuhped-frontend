@@ -8,9 +8,16 @@ const useStyles = makeStyles((theme) => ({
     padding: "5em 40px",
     textAlign: "center",
   },
+  texthead: {
+    fontFamily: '"Raleway", sans-serif',
+    color: theme.palette.text.primary,
+    fontWeight: "600",
+  },
   card: {
     textAlign: "center",
-    padding: "0 40px",
+    [theme.breakpoints.up("sm")]: {
+      padding: "0 40px",
+    },
   },
   imageContainerDesktop: {
     display: "none",
@@ -55,7 +62,9 @@ const Subscription = () => {
       <div className={classes.container}>
         <div className={classes.title}>
           <div className={classes.underline}>
-            <Typography variant="h4">¿Quiéres ser Parte?</Typography>
+            <Typography variant="h4" className={classes.texthead}>
+              ¿Quiéres ser Parte?
+            </Typography>
           </div>
         </div>
         <div>
@@ -70,7 +79,13 @@ const Subscription = () => {
             </Grid>
             <Grid item xs={12} md={6} className={classes.card}>
               <div className={classes.space}>
-                <Typography variant="h4">Afiliado</Typography>
+                <Typography
+                  variant="h6"
+                  component="h2"
+                  className={classes.texthead}
+                >
+                  Afiliado
+                </Typography>
               </div>
               <Typography variant="body1">
                 Conviertete en afiliado, obten muchos beneficios{" "}
@@ -92,7 +107,13 @@ const Subscription = () => {
             </Grid>
             <Grid item xs={12} md={6} className={classes.card}>
               <div className={classes.space}>
-                <Typography variant="h4">Socio</Typography>
+                <Typography
+                  variant="h6"
+                  component="h2"
+                  className={classes.texthead}
+                >
+                  Socio
+                </Typography>
               </div>
               <Typography variant="body1">
                 Convierte en socio, trabajemos juntos a favor de niños y

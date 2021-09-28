@@ -7,7 +7,7 @@ import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 import NavItems from "@/components/NavItems";
 import NavItemsMobile from "@/components/NavItemsMobile";
-import Loading from "@/components/Loading";
+import SkeletonListCards from "@/components/SkeletonListCards";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -42,7 +42,7 @@ const Blog = () => {
   const navItemsMobile = <NavItemsMobile />;
 
   if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <Loading />;
+  if (!data) return <SkeletonListCards />;
 
   return (
     <>

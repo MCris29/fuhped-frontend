@@ -4,16 +4,16 @@ import ActionBar from "@/components/ActionBar";
 import NewPartner from "@/components/NewPartner";
 import DeletePartner from "@/components/DeletePartner";
 import ButtonReport from "@/components/ButtonReport";
-import Loading from "@/components/Loading";
 import TableData from "@/components/TableData";
 import Tooltip from "@material-ui/core/Tooltip";
+import SkeletonTable from "./SkeletonTable";
 
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "40px",
+    margin: "20px 24px",
     borderRadius: theme.border.default,
     backgroundColor: "#fff",
   },
@@ -31,7 +31,7 @@ const PartnerList = () => {
   const { data, error, mutate } = useSWR(`/partners`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <Loading />;
+  if (!data) return <SkeletonTable />;
 
   // columns for data table
   const columns = [

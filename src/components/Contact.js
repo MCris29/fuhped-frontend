@@ -10,8 +10,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     padding: "5em 40px",
   },
+  texthead: {
+    fontFamily: '"Raleway", sans-serif',
+    color: theme.palette.text.primary,
+    fontWeight: "600",
+  },
   title: {
-    padding: "0 0 70px 0",
+    padding: "0 0 30px 0",
     display: "flex",
     justifyContent: "center",
   },
@@ -30,9 +35,11 @@ const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
+    boxShadow: theme.shadow.default,
     color: theme.palette.text.second,
     textTransform: "none",
-    padding: "5px 30px",
+    padding: "3px 30px",
+    marginTop:"30px",
     "&:hover": {
       backgroundColor: theme.palette.primary.main,
     },
@@ -72,7 +79,7 @@ const Contact = () => {
         <div className={classes.container}>
           <div className={classes.title}>
             <div className={classes.underline}>
-              <Typography variant="h4">Contáctanos</Typography>
+              <Typography variant="h4" className={classes.texthead}>Contáctanos</Typography>
             </div>
           </div>
           <Grid container justify="center">

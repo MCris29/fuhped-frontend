@@ -50,8 +50,8 @@ const IconNotification = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { data, error } = useSWR(`/notifications_receiver`, fetcher);
 
-  if (error) return <div>error</div>;
-  if (!data) return <div>...</div>;
+  if (error) return <NotificationsIcon />;
+  if (!data) return <NotificationsIcon />;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -96,8 +96,7 @@ const IconNotification = () => {
                   key={index}
                 >
                   <ListItemText primary={notification.title} />
-                  <Typography variant="caption">
-                    {"Asignado con fecha "}
+                  <Typography variant="caption" color="textSecondary">
                     {handleDate(notification.created_at)}
                   </Typography>
                 </StyledMenuItem>

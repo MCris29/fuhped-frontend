@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
+    boxShadow: theme.shadow.default,
     color: theme.palette.text.second,
     margin: "16px 0 8px 0",
     textTransform: "none",
@@ -41,20 +42,12 @@ const useStyles = makeStyles((theme) => ({
   buttonCancel: {
     backgroundColor: theme.palette.background.default,
     borderRadius: theme.border.default,
+    boxShadow: theme.shadow.default,
     color: theme.palette.text.main,
     margin: "16px 0 8px 0",
     textTransform: "none",
     "&:hover": {
       opacity: 0.5,
-    },
-  },
-  buttonSuccess: {
-    backgroundColor: theme.palette.success.main,
-    color: theme.palette.text.second,
-    textTransform: "none",
-    "&:hover": {
-      opacity: theme.opacity.buttonHover,
-      color: theme.palette.text.main,
     },
   },
   formContainer: {

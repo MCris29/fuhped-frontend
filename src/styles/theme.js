@@ -34,6 +34,9 @@ const theme = createMuiTheme({
   opacity: {
     buttonHover: "0.8",
   },
+  shadow: {
+    default: "0 16px 40px -24px rgba(0, 0, 0, 0.15)",
+  },
 });
 
 export default theme;

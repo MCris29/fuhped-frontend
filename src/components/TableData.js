@@ -1,10 +1,18 @@
 import React from "react";
 import { DataGrid } from "@material-ui/data-grid";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    boxShadow: theme.shadow.default,
+  },
+}));
 
 const TableData = (props) => {
+  const classes = useStyles();
   return (
     <>
-      <div style={{ height: 400, width: "100%" }}>
+      <div className={classes.container}>
         <DataGrid
           rows={props.rows}
           columns={props.columns}

@@ -7,12 +7,16 @@ const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
+    boxShadow: theme.shadow.default,
     color: theme.palette.text.second,
     textTransform: "none",
     padding: "5px 30px",
     margin: "0 3px",
     "&:hover": {
       backgroundColor: theme.palette.primary.main,
+    },
+    [theme.breakpoints.down("sm")]: {
+      margin: "10px 0",
     },
   },
 }));

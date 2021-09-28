@@ -8,17 +8,23 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
+import SkeletonCards from "./SkeletonCards";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
+  texthead: {
+    fontFamily: '"Raleway", sans-serif',
+    color: theme.palette.text.primary,
+    fontWeight: "600",
+  },
   container: {
     textAlign: "center",
-    padding: "9em 40px",
   },
   cardContainer: {
     minHeight: "345px",
+    padding: "1px",
   },
   title: {
     padding: "0 0 70px 0",
@@ -35,9 +41,11 @@ const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
+    boxShadow: theme.shadow.default,
     color: theme.palette.text.second,
     textTransform: "none",
     padding: "5px 30px",
+    margin: "60px 0",
     "&:hover": {
       backgroundColor: theme.palette.primary.main,
     },
@@ -50,15 +58,15 @@ const useStyles = makeStyles((theme) => ({
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
-    items: 5,
+    items: 7,
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
+    items: 5,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: 3,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -71,7 +79,8 @@ const BlogComponent = () => {
   const { data, error } = useSWR(`/publications`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <div>Cargando...</div>;
+
+  if (!data) return <SkeletonCards />;
 
   return (
     <>
@@ -79,7 +88,9 @@ const BlogComponent = () => {
         <div className={classes.container}>
           <div className={classes.title}>
             <div className={classes.underline}>
-              <Typography variant="h4">Nuestro Blog</Typography>
+              <Typography variant="h4" className={classes.texthead}>
+                Nuestro Blog
+              </Typography>
             </div>
           </div>
           <Grid container justify="center">

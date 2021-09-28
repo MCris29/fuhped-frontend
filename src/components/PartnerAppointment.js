@@ -9,12 +9,12 @@ import EditAppointment from "@/components/EditAppointment";
 import ButtonReport from "@/components/ButtonReport";
 import { fetcher } from "@/lib/utils";
 import useSWR from "swr";
-import Loading from "@/components/Loading";
 import Tooltip from "@material-ui/core/Tooltip";
+import SkeletonTable from "./SkeletonTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "40px",
+    margin: "20px 24px",
     borderRadius: theme.border.default,
   },
   container: {
@@ -38,7 +38,7 @@ const PartnerAppointment = () => {
   const { data, error, mutate } = useSWR(`/appointments_partner`, fetcher);
 
   if (error) return <div>No se pudo cargar la información</div>;
-  if (!data) return <Loading />;
+  if (!data) return <SkeletonTable />;
 
   //Columns for data table
   const columns = [

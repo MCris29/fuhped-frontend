@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: theme.palette.primary.second,
     borderRadius: theme.border.default,
+    boxShadow: theme.shadow.default,
     color: theme.palette.text.second,
     marginTop: "16px",
     textTransform: "none",
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px 0",
   },
   mainContainer: {
-    padding: "40px 0",
+    padding: "40px 24px",
     display: "flex",
     justifyContent: "center",
   },

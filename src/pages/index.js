@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Script from "next/script";
 import styles from "../styles/Home.module.css";
 import Navigation from "@/components/Navigation";
 import Carrousel from "@/components/Carrousel";

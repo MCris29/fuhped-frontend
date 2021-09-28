@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.second,
     width: "100%",
   },
+  texthead: {
+    fontFamily: '"Raleway", sans-serif',
+    color: theme.palette.text.second,
+    fontWeight: "600",
+  },
   space: {
     padding: "3em 0",
     display: "flex",
@@ -30,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: "56.25%", // 16:9
   },
+  image: {
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 const Donation = () => {
@@ -39,7 +48,7 @@ const Donation = () => {
     <>
       <div className={classes.itemContainer} id="donation">
         <Grid container justify="center" className={classes.container}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} className={classes.image}>
             <Image
               src="/donation.svg"
               alt="Donaciones"
@@ -49,7 +58,9 @@ const Donation = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <div className={classes.space}>
-              <Typography variant="h4">Realiza tu Donación</Typography>
+              <Typography variant="h4" className={classes.texthead}>
+                Donaciones
+              </Typography>
             </div>
             <PaypalButton />
           </Grid>
