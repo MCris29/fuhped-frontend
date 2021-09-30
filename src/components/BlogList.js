@@ -184,7 +184,6 @@ const BlogList = () => {
                 image={handlePath(publication.image)}
                 title={publication.title}
                 onError={handleImage}
-                title={publication.title}
               />
             </Card>
           </Grid>
@@ -218,7 +217,6 @@ const BlogList = () => {
                       image={handlePath(image)}
                       title={title}
                       onError={handleImage}
-                      title={title}
                     />
                   </Grid>
                   <Grid item xs={12} md={6} className={classes.itemContainer}>

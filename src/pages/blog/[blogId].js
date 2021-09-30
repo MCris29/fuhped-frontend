@@ -56,7 +56,6 @@ const BlogDetails = ({ blog }) => {
               image={handlePath(blog.image)}
               title={blog.title}
               onError={handleImage}
-              title={blog.title}
             />
           </Grid>
           <Grid item xs={12} md={6} className={classes.itemContainer}>
