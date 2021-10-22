@@ -8,6 +8,11 @@ https://github.com/MCris29/fuhped-backend
 #### Video desmostrativo:
 https://youtu.be/Cf2KJgaz1eM
 
+#### Anexos
+En el siguiente link se encuentra el Informe Técnico, Manual Técnico y Manual de Instalación.
+https://github.com/MCris29/documentaci-n_tesis
+
+
 ## Herramientas de Desarrollo
 ##### • Laravel
 ##### • Next JS
@@ -24,53 +29,49 @@ https://youtu.be/Cf2KJgaz1eM
 ##### •	Controlador de usuario
 ##### •	Autenticación del usuario a la aplicación web
 ##### •	Página principal
-
-### Sprint 2
 ##### •	Controlador de noticias
 ##### •	Visualizar noticias
 ##### •	Publicar Noticias
 ##### •	Eliminar noticias
 
 
-### Sprint 3
+### Sprint 2
 ##### •	Controlador de socio
 ##### •	Registrar usuario socio
 ##### •	Visualizar lista de socios registrados
 ##### •	Eliminar socio
-
-
-### Sprint 4
 ##### •	Controlador de afiliado
 ##### •	Registrar usuario afiliado
 ##### •	Visualizar lista de afiliados
 ##### •	Eliminar afiliados
 
-### Sprint 5
-##### •	Actualizar información personal
+### Sprint 3
+##### •	Actualizar información de usuario
 ##### •	Controlador de servicios
-##### •	Registrar servicios prestados
-##### •	Visualizar servicios prestados
-##### •	Actualizar servicios prestados
+##### •	Registrar servicio
+##### •	Visualizar servicio
+##### • Eliminar servicio
+##### •	Actualizar servicio
 
-### Sprint 6
+### Sprint 4
 ##### •	Controlador de citas
 ##### •	Registrar de citas
 ##### •	Visualizar citas
-##### •	Actualizar citas
 ##### •	Eliminar citas
+##### •	Actualizar citas
 
-### Sprint 7
+### Sprint 5
 ##### •	Implementar funcionalidad de donaciones
 ##### •	Controlador de notificaciones
-##### •	Enviar notificación
+##### • Visualizar notificaciones
 ##### •	Generar reporte de socios
 ##### •	Generar reporte de afiliados
 ##### •	Generar un reporte de citas
 
-### Sprint 8
+### Sprint 6
 ##### •	Pruebas unitarias
 ##### •	Pruebas de compatibilidad
-##### •	Pruebas de rendimienti
+##### •	Pruebas de rendimiento
 ##### •	Despliegue de la aplicación web
 
 ## Funcionalidades de la aplicación
