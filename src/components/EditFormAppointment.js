@@ -53,8 +53,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({
-  title: yup.string().required("Ingrese el nombre del servicio"),
-  description: yup.string().required("Ingrese una descripción"),
+  title: yup
+    .string()
+    .required("Ingrese un título de la cita")
+    .max(255, "El título debe tener maximo 255 caracteres."),
+  description: yup
+    .string()
+    .required("Ingrese una descripción")
+    .max(255, "La descripción debe tener maximo 255 caracteres."),
 });
 
 const EditFormAppointment = (prop) => {
@@ -161,7 +167,7 @@ const EditFormAppointment = (prop) => {
                 select
                 value={state}
                 onChange={handleChange}
-                helperText="Por favor selecciona un afiliado"
+                helperText="Por favor selecciona una opción"
                 label="Estado"
                 variant="outlined"
                 margin="normal"

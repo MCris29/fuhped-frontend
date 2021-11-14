@@ -45,10 +45,10 @@ const ListCardsServices = (props) => {
                 {service.description}
               </Typography>
               <Typography color="textSecondary">
-                Precio Normal: {service.price}
+                Precio Normal: ${service.price}
               </Typography>
               <Typography color="textSecondary">
-                Precio Fuhped: {service.price_fuhped}
+                Precio Fuhped: ${service.price_fuhped}
               </Typography>
             </CardContent>
           </Card>

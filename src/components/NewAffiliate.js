@@ -54,7 +54,7 @@ const NewAffiliate = (prop) => {
   return (
     <>
       <Button className={classes.button} onClick={handleOpen}>
-        Nuevo Afiliado
+        Registrar Afiliado
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"

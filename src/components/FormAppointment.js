@@ -57,8 +57,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({
-  title: yup.string().required("Ingrese un título de la cita"),
-  description: yup.string().required("Ingrese una descripción"),
+  title: yup
+    .string()
+    .required("Ingrese un título de la cita")
+    .max(255, "La título debe tener maximo 255 caracteres."),
+  description: yup
+    .string()
+    .required("Ingrese una descripción")
+    .max(255, "La descripción debe tener maximo 255 caracteres."),
   date: yup.string().required("Escoge la fecha y hora"),
 });
 

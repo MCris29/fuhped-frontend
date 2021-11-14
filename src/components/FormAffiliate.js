@@ -70,13 +70,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({
-  name: yup.string().required("Ingrese el nombre."),
-  last_name: yup.string().required("Ingrese el apellido."),
-  phone: yup.string().required("Ingrese un teléfono."),
-  address: yup.string().required("Ingrese una dirección."),
+  name: yup
+    .string()
+    .required("Ingrese el nombre.")
+    .max(255, "El nombre debe tener máximo 255 caracteres.")
+    .matches(
+      /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/,
+      "El nombre solo debe contener letras"
+    ),
+  last_name: yup
+    .string()
+    .required("Ingrese el apellido.")
+    .max(255, "El apellido debe tener máximo 255 caracteres.")
+    .matches(
+      /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/,
+      "El apellido solo debe contener letras"
+    ),
+  phone: yup
+    .string()
+    .required("Ingrese un teléfono.")
+    .min(10, "El teléfono debe tener al menos 10 caracteres.")
+    .max(20, "El teléfono debe tener máximo 13 caracteres.")
+    .matches(
+      /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
+      "El formato de teléfono es incorrecto"
+    ),
+  address: yup
+    .string()
+    .required("Ingrese una dirección.")
+    .max(255, "La dirección debe tener máximo 255 caracteres."),
   email: yup
     .string()
     .required("Ingrese el correo.")
+    .max(255, "El correo debe tener máximo 255 caracteres.")
     .email("Ingrese un correo válido."),
   password: yup
     .string()
@@ -85,7 +111,7 @@ const schema = yup.object().shape({
   password_confirmation: yup
     .string()
     .required("Confirme la contraseña.")
-    .min(8, "La clave debe tener al menos 8 caracteres."),
+    .min(8, "La contraseña debe tener al menos 8 caracteres."),
 });
 
 const FormAffiliate = (prop) => {
