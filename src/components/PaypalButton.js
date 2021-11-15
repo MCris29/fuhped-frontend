@@ -10,11 +10,17 @@ import {
 
 const PaypalButton = () => {
   const [value, setValue] = useState(5);
+  const [radioValue, setRadioValue] = useState(5);
 
   const handleChange = (event) => {
     setValue(event.target.value);
     deleteButton();
     paypalButtonRender(event.target.value);
+  };
+
+  const handleChangeText = (event) => {
+    setRadioValue(event.target.value);
+    handleChange(event);
   };
 
   useEffect(() => {
@@ -40,6 +46,9 @@ const PaypalButton = () => {
           sandbox:
             "AT98cbWczJGAusdaGRDq6CwOjDgP7TyBqMq70ya4xjcZhHZ2M5FphaNNtj0ZLkCsT6kzShL_7TITyqDl",
           production: "xxxxxx",
+
+          // sandbox: process.env.PAYPAL_ID,
+          // production: process.env.PAYPAL_PRODUCTION,
         },
 
         style: {
@@ -98,6 +107,17 @@ const PaypalButton = () => {
           <FormControlLabel value="5" control={<Radio />} label="$5" />
           <FormControlLabel value="15" control={<Radio />} label="$15" />
           <FormControlLabel value="30" control={<Radio />} label="$30" />
+          <FormControlLabel
+            value={radioValue}
+            control={<Radio />}
+            label={
+              <input
+                type="number"
+                placeholder="Añade un valor"
+                onChange={handleChangeText}
+              />
+            }
+          />
         </RadioGroup>
       </FormControl>
       <div id="paypal-express-btn" />
