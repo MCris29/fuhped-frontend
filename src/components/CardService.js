@@ -45,10 +45,10 @@ const CardService = (props) => {
           {props.service.description}
         </Typography>
         <Typography color="textSecondary">
-          Precio Normal: {props.service.price}
+          Precio Normal: ${props.service.price}
         </Typography>
         <Typography color="textSecondary">
-          Precio Fuhped: {props.service.price_fuhped}
+          Precio Fuhped: ${props.service.price_fuhped}
         </Typography>
       </CardContent>
       <CardActions>

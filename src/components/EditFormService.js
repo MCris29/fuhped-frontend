@@ -53,10 +53,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({
-  name: yup.string().required("Ingrese el nombre del servicio"),
-  description: yup.string().required("Ingrese una descripción"),
-  price: yup.string().required("Ingrese el precio del servicio"),
-  price_fuhped: yup.string().required("Ingrese el precio Fuhped del servicio"),
+  name: yup
+    .string()
+    .required("Ingrese el nombre del servicio")
+    .max(255, "El mombre debe tener maximo 255 caracteres."),
+  description: yup
+    .string()
+    .required("Ingrese una descripción")
+    .max(255, "La descripción debe tener maximo 255 caracteres."),
+  price: yup
+    .string()
+    .required("Ingrese el precio del servicio")
+    .max(6, "El precio debe tener máximo 6 caracteres."),
+  price_fuhped: yup
+    .string()
+    .required("Ingrese el precio Fuhped del servicio")
+    .max(6, "El precio debe tener máximo 6 caracteres."),
 });
 
 const FormService = (prop) => {

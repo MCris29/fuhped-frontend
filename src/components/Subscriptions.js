@@ -88,7 +88,7 @@ const Subscription = () => {
                 </Typography>
               </div>
               <Typography variant="body1">
-                Conviertete en afiliado, obten muchos beneficios{" "}
+                Conviertete en afiliado, obten descuentos en servicios de nuestros socios{" "}
               </Typography>
               <div className={classes.space}></div>
             </Grid>

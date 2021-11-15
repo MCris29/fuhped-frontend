@@ -51,8 +51,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({
-  name: yup.string().required("Ingrese su nombre"),
-  last_name: yup.string().required("Ingrese su apellido"),
+  name: yup
+    .string()
+    .required("Ingrese su nombre")
+    .max(255, "El nombre debe tener maximo 255 caracteres.")
+    .matches(
+      /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/,
+      "El nombre solo debe contener letras"
+    ),
+  last_name: yup
+    .string()
+    .required("Ingrese su apellido")
+    .max(255, "El apellido debe tener maximo 255 caracteres.")
+    .matches(
+      /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/,
+      "El apellido solo debe contener letras"
+    ),
+  phone: yup
+    .string()
+    .required("Ingrese un teléfono.")
+    .min(10, "El teléfono debe tener al menos 10 caracteres.")
+    .max(20, "El teléfono debe tener máximo 13 caracteres.")
+    .matches(
+      /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
+      "El formato de teléfono es incorrecto"
+    ),
 });
 
 const FormProfile = () => {

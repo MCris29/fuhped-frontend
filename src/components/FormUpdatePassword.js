@@ -169,7 +169,7 @@ const FormUpdatePassword = (prop) => {
                   Boolean(errorCurrentPassword)
                 }
               >
-                <InputLabel htmlFor="current_password">Contraseña *</InputLabel>
+                <InputLabel htmlFor="current_password">Contraseña Actual*</InputLabel>
                 <OutlinedInput
                   id="current_password"
                   name="current_password"
@@ -192,7 +192,7 @@ const FormUpdatePassword = (prop) => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  labelWidth={93}
+                  labelWidth={145}
                 />
               </FormControl>
             )}
@@ -220,7 +220,7 @@ const FormUpdatePassword = (prop) => {
                 {...field}
                 error={Boolean(errors.password)}
               >
-                <InputLabel htmlFor="password">Contraseña *</InputLabel>
+                <InputLabel htmlFor="password"> Nueva Contraseña *</InputLabel>
                 <OutlinedInput
                   id="password"
                   name="password"
@@ -243,7 +243,7 @@ const FormUpdatePassword = (prop) => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  labelWidth={93}
+                  labelWidth={145}
                 />
               </FormControl>
             )}

@@ -69,8 +69,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({
-  title: yup.string().required("Ingrese un título"),
-  description: yup.string().required("Ingrese una descripción"),
+  title: yup
+    .string()
+    .required("Ingrese un título")
+    .max(255, "El título debe tener maximo 255 caracteres."),
+  description: yup
+    .string()
+    .required("Ingrese una descripción")
+    .max(255, "La descripción debe tener maximo 255 caracteres."),
 });
 
 const FormBlog = (prop) => {
@@ -78,6 +84,7 @@ const FormBlog = (prop) => {
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
+  const [errorImage, setErrorImage] = useState("");
 
   const classes = useStyles();
   const {
@@ -95,6 +102,10 @@ const FormBlog = (prop) => {
       description: dataBlog.description,
       image: image,
     };
+
+    if (newBlog.image === null) {
+      setErrorImage("Debe subir una imagen");
+    }
 
     const formData = new FormData();
     formData.append("title", newBlog.title);
@@ -119,9 +130,22 @@ const FormBlog = (prop) => {
   });
 
   const handleImage = (imageFile) => {
-    setImage(imageFile);
-    setSuccess(true);
     console.log("image", imageFile);
+
+    if (
+      imageFile.type === "image/jpeg" ||
+      imageFile.type === "image/jpg" ||
+      imageFile.type === "image/png"
+    ) {
+      setImage(imageFile);
+      setSuccess(true);
+      setErrorImage("");
+    } else {
+      setErrorImage("El archivo debe ser una imagen");
+      setImage(null);
+      setSuccess(false);
+    }
+
     setLoadingImage(false);
   };
 
@@ -181,12 +205,10 @@ const FormBlog = (prop) => {
           <Controller
             name="image"
             control={control}
-            defaultValue=""
             render={({ field }) => (
               <div>
                 <input
                   type="file"
-                  name="image"
                   {...field}
                   className={classes.input}
                   id="contained-button-file"
@@ -215,7 +237,7 @@ const FormBlog = (prop) => {
               </div>
             )}
           />
-          <span className={classes.error}>{errors.image?.message}</span>
+          <span className={classes.error}>{errorImage ? errorImage : ""}</span>
           <Grid container className={classes.actionContainer}>
             <Grid item xs={6}>
               <Button
