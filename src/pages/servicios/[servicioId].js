@@ -16,6 +16,12 @@ const useStyles = makeStyles({
   itemContainer: {
     margin: "10px 0",
   },
+  link: {
+    color: "blue",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
 });
 
 const ServiceDetails = () => {
@@ -56,7 +62,10 @@ const ServiceDetails = () => {
           </div>
           <div className={classes.itemContainer}>
             <Typography variant="body1">
-              <strong>Correo:</strong> {data.email}
+              <strong>Correo:</strong>
+              <a className={classes.link} href={"mailto:" + data.email}>
+                {data.email}
+              </a>
             </Typography>
           </div>
         </Grid>
